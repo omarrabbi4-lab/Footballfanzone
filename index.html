@@ -17,7 +17,6 @@
 
 <title>Football Fan Zone</title>
 
-
 <style>
 
 /* =========================================
@@ -35,7 +34,6 @@
     "Segoe UI",
     sans-serif;
 }
-
 
 body{
 
@@ -61,11 +59,6 @@ body{
     color .3s;
 
 }
-
-
-/* =========================================
-   LIGHT MODE
-========================================= */
 
 body.light{
 
@@ -99,7 +92,7 @@ body.light{
     12px;
 
   background:
-    rgba(7,11,22,.82);
+    rgba(7,11,22,.84);
 
   backdrop-filter:
     blur(18px);
@@ -110,18 +103,16 @@ body.light{
 
 }
 
-
 body.light .header{
 
   background:
-    rgba(255,255,255,.82);
+    rgba(255,255,255,.85);
 
   border-bottom:
     1px solid
     rgba(0,0,0,.08);
 
 }
-
 
 .header-top{
 
@@ -133,7 +124,6 @@ body.light .header{
 
 }
 
-
 .logo{
 
   display:flex;
@@ -143,7 +133,6 @@ body.light .header{
   gap:10px;
 
 }
-
 
 .logo-icon{
 
@@ -174,7 +163,6 @@ body.light .header{
 
 }
 
-
 .logo-text{
 
   font-size:18px;
@@ -182,7 +170,6 @@ body.light .header{
   font-weight:800;
 
 }
-
 
 .logo-sub{
 
@@ -194,7 +181,6 @@ body.light .header{
 
 }
 
-
 .header-actions{
 
   display:flex;
@@ -202,7 +188,6 @@ body.light .header{
   gap:8px;
 
 }
-
 
 .icon-btn{
 
@@ -225,7 +210,6 @@ body.light .header{
 
 }
 
-
 body.light .icon-btn{
 
   background:
@@ -246,14 +230,14 @@ body.light .icon-btn{
 
 }
 
-
 .search-box input{
 
   width:100%;
 
   height:48px;
 
-  border:1px solid
+  border:
+    1px solid
     rgba(255,255,255,.08);
 
   border-radius:15px;
@@ -273,7 +257,6 @@ body.light .icon-btn{
 
 }
 
-
 body.light .search-box input{
 
   background:
@@ -283,7 +266,6 @@ body.light .search-box input{
     rgba(0,0,0,.08);
 
 }
-
 
 .search-icon{
 
@@ -312,7 +294,6 @@ body.light .search-box input{
 
 }
 
-
 .sport-tab{
 
   flex:1;
@@ -334,7 +315,6 @@ body.light .search-box input{
 
 }
 
-
 .sport-tab.active{
 
   background:
@@ -347,6 +327,94 @@ body.light .search-box input{
   box-shadow:
     0 8px 25px
     rgba(79,70,229,.3);
+
+}
+
+
+/* =========================================
+   DATE BAR
+========================================= */
+
+.date-bar{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:8px;
+
+  padding:
+    12px 15px 4px;
+
+}
+
+.date-btn{
+
+  width:42px;
+
+  height:42px;
+
+  border:0;
+
+  border-radius:13px;
+
+  background:
+    rgba(255,255,255,.07);
+
+  color:inherit;
+
+  font-size:25px;
+
+  cursor:pointer;
+
+}
+
+.date-main{
+
+  flex:1;
+
+  height:42px;
+
+  border:0;
+
+  border-radius:13px;
+
+  background:
+    rgba(255,255,255,.07);
+
+  color:inherit;
+
+  cursor:pointer;
+
+}
+
+.date-main span{
+
+  display:block;
+
+  font-size:13px;
+
+  font-weight:800;
+
+}
+
+.date-main small{
+
+  display:block;
+
+  font-size:10px;
+
+  opacity:.55;
+
+  margin-top:2px;
+
+}
+
+body.light .date-btn,
+body.light .date-main{
+
+  background:
+    rgba(0,0,0,.06);
 
 }
 
@@ -370,13 +438,11 @@ body.light .search-box input{
 
 }
 
-
 .filters::-webkit-scrollbar{
 
   display:none;
 
 }
-
 
 .filter{
 
@@ -400,7 +466,6 @@ body.light .search-box input{
 
 }
 
-
 .filter.active{
 
   background:
@@ -414,7 +479,7 @@ body.light .search-box input{
 
 
 /* =========================================
-   INFO BAR
+   INFO
 ========================================= */
 
 .info-bar{
@@ -434,7 +499,6 @@ body.light .search-box input{
   opacity:.7;
 
 }
-
 
 .live-dot{
 
@@ -469,7 +533,6 @@ body.light .search-box input{
 
 }
 
-
 .date-title{
 
   margin:
@@ -480,8 +543,6 @@ body.light .search-box input{
   font-weight:800;
 
   opacity:.65;
-
-  text-transform:uppercase;
 
 }
 
@@ -521,18 +582,15 @@ body.light .search-box input{
   cursor:pointer;
 
   transition:
-    transform .18s,
-    border .18s;
+    transform .18s;
 
 }
-
 
 .match-card:active{
 
   transform:scale(.985);
 
 }
-
 
 body.light .match-card{
 
@@ -547,7 +605,6 @@ body.light .match-card{
     rgba(0,0,0,.06);
 
 }
-
 
 .competition{
 
@@ -565,7 +622,6 @@ body.light .match-card{
 
 }
 
-
 .competition img{
 
   width:22px;
@@ -577,7 +633,6 @@ body.light .match-card{
   border-radius:6px;
 
 }
-
 
 .favorite{
 
@@ -604,13 +659,11 @@ body.light .match-card{
 
 }
 
-
 .favorite.active{
 
   color:#facc15;
 
 }
-
 
 .teams{
 
@@ -627,7 +680,6 @@ body.light .match-card{
 
 }
 
-
 .team{
 
   display:flex;
@@ -642,7 +694,6 @@ body.light .match-card{
 
 }
 
-
 .team img{
 
   width:46px;
@@ -652,7 +703,6 @@ body.light .match-card{
   object-fit:contain;
 
 }
-
 
 .team-name{
 
@@ -664,13 +714,11 @@ body.light .match-card{
 
 }
 
-
 .score{
 
   text-align:center;
 
 }
-
 
 .score-number{
 
@@ -679,7 +727,6 @@ body.light .match-card{
   font-weight:900;
 
 }
-
 
 .score-status{
 
@@ -691,7 +738,6 @@ body.light .match-card{
 
 }
 
-
 .score-status.live{
 
   color:#22c55e;
@@ -701,7 +747,6 @@ body.light .match-card{
   font-weight:800;
 
 }
-
 
 .match-time{
 
@@ -730,7 +775,6 @@ body.light .match-card{
   opacity:.65;
 
 }
-
 
 .empty-icon{
 
@@ -761,7 +805,6 @@ body.light .match-card{
 
 }
 
-
 .spinner{
 
   width:35px;
@@ -782,7 +825,6 @@ body.light .match-card{
   margin-bottom:12px;
 
 }
-
 
 @keyframes spin{
 
@@ -819,13 +861,11 @@ body.light .match-card{
 
 }
 
-
 .modal.show{
 
   display:flex;
 
 }
-
 
 .modal-box{
 
@@ -842,8 +882,7 @@ body.light .match-card{
   border-radius:
     25px 25px 0 0;
 
-  background:
-    #101525;
+  background:#101525;
 
   border-top:
     1px solid
@@ -851,13 +890,11 @@ body.light .match-card{
 
 }
 
-
 body.light .modal-box{
 
   background:#fff;
 
 }
-
 
 .modal-head{
 
@@ -871,7 +908,6 @@ body.light .modal-box{
 
 }
 
-
 .modal-title{
 
   font-size:18px;
@@ -879,7 +915,6 @@ body.light .modal-box{
   font-weight:800;
 
 }
-
 
 .close{
 
@@ -904,7 +939,7 @@ body.light .modal-box{
 
 
 /* =========================================
-   DETAIL HERO
+   DETAIL
 ========================================= */
 
 .detail-competition{
@@ -918,7 +953,6 @@ body.light .modal-box{
   margin-bottom:15px;
 
 }
-
 
 .detail-teams{
 
@@ -935,13 +969,11 @@ body.light .modal-box{
 
 }
 
-
 .detail-team{
 
   text-align:center;
 
 }
-
 
 .detail-team img{
 
@@ -955,7 +987,6 @@ body.light .modal-box{
 
 }
 
-
 .detail-team-name{
 
   font-weight:800;
@@ -964,13 +995,11 @@ body.light .modal-box{
 
 }
 
-
 .detail-score{
 
   text-align:center;
 
 }
-
 
 .detail-score-number{
 
@@ -979,7 +1008,6 @@ body.light .modal-box{
   font-weight:900;
 
 }
-
 
 .detail-status{
 
@@ -991,7 +1019,6 @@ body.light .modal-box{
 
 }
 
-
 .detail-status.live{
 
   color:#22c55e;
@@ -999,7 +1026,6 @@ body.light .modal-box{
   font-weight:800;
 
 }
-
 
 .detail-info{
 
@@ -1010,7 +1036,6 @@ body.light .modal-box{
   gap:9px;
 
 }
-
 
 .detail-row{
 
@@ -1030,7 +1055,6 @@ body.light .modal-box{
 
 }
 
-
 .detail-label{
 
   opacity:.6;
@@ -1038,7 +1062,6 @@ body.light .modal-box{
   font-size:12px;
 
 }
-
 
 .detail-value{
 
@@ -1050,7 +1073,6 @@ body.light .modal-box{
 
 }
 
-
 .detail-actions{
 
   display:flex;
@@ -1060,7 +1082,6 @@ body.light .modal-box{
   margin-top:15px;
 
 }
-
 
 .detail-btn{
 
@@ -1086,7 +1107,6 @@ body.light .modal-box{
     );
 
 }
-
 
 .detail-btn.secondary{
 
@@ -1134,7 +1154,6 @@ body.light .modal-box{
 
 }
 
-
 body.light .bottom-nav{
 
   background:
@@ -1145,7 +1164,6 @@ body.light .bottom-nav{
     rgba(0,0,0,.08);
 
 }
-
 
 .nav-btn{
 
@@ -1171,13 +1189,11 @@ body.light .bottom-nav{
 
 }
 
-
 .nav-btn span:first-child{
 
   font-size:19px;
 
 }
-
 
 .nav-btn.active{
 
@@ -1206,8 +1222,7 @@ body.light .bottom-nav{
 
   border-radius:13px;
 
-  background:
-    #111827;
+  background:#111827;
 
   color:#fff;
 
@@ -1223,7 +1238,6 @@ body.light .bottom-nav{
 
 }
 
-
 .toast.show{
 
   opacity:1;
@@ -1235,23 +1249,46 @@ body.light .bottom-nav{
 
 
 /* =========================================
-   RESPONSIVE
+   DATE PICKER
 ========================================= */
 
-@media(
-  min-width:700px
-){
+#datePicker{
+
+  position:fixed;
+
+  left:50%;
+
+  top:50%;
+
+  transform:
+    translate(-50%,-50%);
+
+  z-index:300;
+
+}
+
+
+/* =========================================
+   DESKTOP
+========================================= */
+
+@media(min-width:700px){
 
   .header{
 
     padding-left:
-      max(15px, calc((100% - 700px)/2 + 15px));
+      max(
+        15px,
+        calc((100% - 700px)/2 + 15px)
+      );
 
     padding-right:
-      max(15px, calc((100% - 700px)/2 + 15px));
+      max(
+        15px,
+        calc((100% - 700px)/2 + 15px)
+      );
 
   }
-
 
   .matches{
 
@@ -1261,16 +1298,8 @@ body.light .bottom-nav{
 
   }
 
-
-  .filters{
-
-    max-width:700px;
-
-    margin:auto;
-
-  }
-
-
+  .filters,
+  .date-bar,
   .info-bar{
 
     max-width:700px;
@@ -1328,7 +1357,6 @@ body.light .bottom-nav{
         🌙
       </button>
 
-
       <button
         class="icon-btn"
         onclick="loadMatches()"
@@ -1367,7 +1395,6 @@ body.light .bottom-nav{
       ⚽ Football
     </button>
 
-
     <button
       class="sport-tab"
       id="cricketTab"
@@ -1379,6 +1406,52 @@ body.light .bottom-nav{
   </div>
 
 </header>
+
+
+<!-- =========================================
+     DATE
+========================================= -->
+
+<div class="date-bar">
+
+  <button
+    class="date-btn"
+    onclick="changeDate(-1)"
+  >
+    ‹
+  </button>
+
+
+  <button
+    class="date-main"
+    onclick="openDatePicker()"
+  >
+
+    <span id="dateTitle">
+      আজ
+    </span>
+
+    <small id="dateValue">
+      -
+    </small>
+
+  </button>
+
+
+  <button
+    class="date-btn"
+    onclick="changeDate(1)"
+  >
+    ›
+  </button>
+
+</div>
+
+
+<input
+  type="date"
+  id="datePicker"
+>
 
 
 <!-- =========================================
@@ -1530,7 +1603,6 @@ body.light .bottom-nav{
   >
 
     <span>🏠</span>
-
     <span>Home</span>
 
   </button>
@@ -1542,7 +1614,6 @@ body.light .bottom-nav{
   >
 
     <span>🔴</span>
-
     <span>Live</span>
 
   </button>
@@ -1554,7 +1625,6 @@ body.light .bottom-nav{
   >
 
     <span>⭐</span>
-
     <span>Favorites</span>
 
   </button>
@@ -1566,7 +1636,6 @@ body.light .bottom-nav{
   >
 
     <span>🔄</span>
-
     <span>Refresh</span>
 
   </button>
@@ -1593,17 +1662,224 @@ const API_URL = "";
    STATE
 ========================================= */
 
-let sport = "football";
+let sport =
+  "football";
 
-let currentFilter = "all";
+let currentFilter =
+  "all";
 
-let allMatches = [];
+let allMatches =
+  [];
 
 let favorites =
   JSON.parse(
     localStorage.getItem(
       "footballFanFavorites"
     ) || "[]"
+  );
+
+
+/* =========================================
+   DATE STATE
+========================================= */
+
+let selectedDate =
+  new Date();
+
+
+/* =========================================
+   DATE STRING
+========================================= */
+
+function getDateString(
+  date
+){
+
+  const year =
+    date.getFullYear();
+
+  const month =
+    String(
+      date.getMonth() + 1
+    ).padStart(2,"0");
+
+  const day =
+    String(
+      date.getDate()
+    ).padStart(2,"0");
+
+  return (
+    year +
+    "-" +
+    month +
+    "-" +
+    day
+  );
+
+}
+
+
+/* =========================================
+   DATE UI
+========================================= */
+
+function updateDateUI(){
+
+  const today =
+    new Date();
+
+
+  const todayString =
+    getDateString(
+      today
+    );
+
+
+  const selectedString =
+    getDateString(
+      selectedDate
+    );
+
+
+  const title =
+    document.getElementById(
+      "dateTitle"
+    );
+
+
+  const value =
+    document.getElementById(
+      "dateValue"
+    );
+
+
+  if(
+    selectedString ===
+    todayString
+  ){
+
+    title.textContent =
+      "আজ";
+
+  }else{
+
+    title.textContent =
+      selectedDate.toLocaleDateString(
+        "bn-BD",
+        {
+          weekday:
+            "long"
+        }
+      );
+
+  }
+
+
+  value.textContent =
+    selectedDate.toLocaleDateString(
+      "bn-BD",
+      {
+        day:
+          "numeric",
+
+        month:
+          "long",
+
+        year:
+          "numeric"
+      }
+    );
+
+}
+
+
+/* =========================================
+   CHANGE DATE
+========================================= */
+
+function changeDate(
+  amount
+){
+
+  selectedDate =
+    new Date(
+      selectedDate
+    );
+
+
+  selectedDate.setDate(
+    selectedDate.getDate() +
+    amount
+  );
+
+
+  updateDateUI();
+
+  loadMatches();
+
+}
+
+
+/* =========================================
+   DATE PICKER
+========================================= */
+
+function openDatePicker(){
+
+  const picker =
+    document.getElementById(
+      "datePicker"
+    );
+
+
+  picker.value =
+    getDateString(
+      selectedDate
+    );
+
+
+  if(
+    picker.showPicker
+  ){
+
+    picker.showPicker();
+
+  }else{
+
+    picker.click();
+
+  }
+
+}
+
+
+document
+  .getElementById(
+    "datePicker"
+  )
+  .addEventListener(
+    "change",
+    function(){
+
+      if(!this.value){
+
+        return;
+
+      }
+
+
+      selectedDate =
+        new Date(
+          this.value +
+          "T00:00:00"
+        );
+
+
+      updateDateUI();
+
+      loadMatches();
+
+    }
   );
 
 
@@ -1615,34 +1891,48 @@ function changeSport(
   newSport
 ){
 
-  sport = newSport;
+  sport =
+    newSport;
 
-  currentFilter = "all";
+
+  currentFilter =
+    "all";
 
 
   document
-    .getElementById("footballTab")
+    .getElementById(
+      "footballTab"
+    )
     .classList
     .toggle(
       "active",
-      sport === "football"
+      sport ===
+      "football"
     );
 
 
   document
-    .getElementById("cricketTab")
+    .getElementById(
+      "cricketTab"
+    )
     .classList
     .toggle(
       "active",
-      sport === "cricket"
+      sport ===
+      "cricket"
     );
 
 
   document
-    .querySelectorAll(".filter")
+    .querySelectorAll(
+      ".filter"
+    )
     .forEach(
       btn =>
-        btn.classList.remove("active")
+        btn.classList
+          .remove(
+            "active"
+          )
     );
 
 
@@ -1651,7 +1941,9 @@ function changeSport(
       '[data-filter="all"]'
     )
     .classList
-    .add("active");
+    .add(
+      "active"
+    );
 
 
   loadMatches();
@@ -1686,12 +1978,22 @@ async function loadMatches(){
 
   try{
 
+    const date =
+      getDateString(
+        selectedDate
+      );
+
+
     const response =
       await fetch(
         API_URL +
         "/api/" +
         sport +
-        "?t=" +
+        "?date=" +
+        encodeURIComponent(
+          date
+        ) +
+        "&t=" +
         Date.now()
       );
 
@@ -1711,26 +2013,38 @@ async function loadMatches(){
 
 
     allMatches =
-      Array.isArray(data)
-        ? data
-        : (
-            Array.isArray(data.matches)
-              ? data.matches
-              : []
-          );
+      Array.isArray(
+        data
+      )
+      ?
+      data
+      :
+      (
+        Array.isArray(
+          data.matches
+        )
+        ?
+        data.matches
+        :
+        []
+      );
 
 
     document.getElementById(
       "updated"
     ).textContent =
       "শেষ আপডেট: " +
-      new Date().toLocaleTimeString(
-        "bn-BD",
-        {
-          hour:"2-digit",
-          minute:"2-digit"
-        }
-      );
+      new Date()
+        .toLocaleTimeString(
+          "bn-BD",
+          {
+            hour:
+              "2-digit",
+
+            minute:
+              "2-digit"
+          }
+        );
 
 
     renderMatches();
@@ -1738,7 +2052,9 @@ async function loadMatches(){
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      error
+    );
 
 
     container.innerHTML = `
@@ -1787,12 +2103,15 @@ function changeFilter(
 
 
   document
-    .querySelectorAll(".filter")
+    .querySelectorAll(
+      ".filter"
+    )
     .forEach(
       btn =>
-        btn.classList.remove(
-          "active"
-        )
+        btn.classList
+          .remove(
+            "active"
+          )
     );
 
 
@@ -1811,11 +2130,111 @@ function changeFilter(
 ========================================= */
 
 document
-  .getElementById("search")
+  .getElementById(
+    "search"
+  )
   .addEventListener(
     "input",
     renderMatches
   );
+
+
+/* =========================================
+   GET FILTERED
+========================================= */
+
+function getFilteredMatches(){
+
+  const search =
+    document
+      .getElementById(
+        "search"
+      )
+      .value
+      .trim()
+      .toLowerCase();
+
+
+  let matches =
+    [
+      ...allMatches
+    ];
+
+
+  if(
+    currentFilter !==
+      "all" &&
+    currentFilter !==
+      "favorites"
+  ){
+
+    matches =
+      matches.filter(
+        match =>
+          String(
+            match.status ||
+            ""
+          ).toLowerCase()
+          ===
+          currentFilter
+      );
+
+  }
+
+
+  if(
+    currentFilter ===
+    "favorites"
+  ){
+
+    matches =
+      matches.filter(
+        match =>
+          favorites.includes(
+            getMatchId(
+              match
+            )
+          )
+      );
+
+  }
+
+
+  if(search){
+
+    matches =
+      matches.filter(
+        match => {
+
+          const text = (
+
+            (match.home ||
+              "") +
+            " " +
+
+            (match.away ||
+              "") +
+            " " +
+
+            (match.competition ||
+              "")
+
+          ).toLowerCase();
+
+
+          return text.includes(
+            search
+          );
+
+        }
+      );
+
+  }
+
+
+  return matches;
+
+}
 
 
 /* =========================================
@@ -1830,83 +2249,8 @@ function renderMatches(){
     );
 
 
-  const search =
-    document
-      .getElementById("search")
-      .value
-      .trim()
-      .toLowerCase();
-
-
-  let matches =
-    [...allMatches];
-
-
-  /* FILTER */
-
-  if(
-    currentFilter !== "all" &&
-    currentFilter !== "favorites"
-  ){
-
-    matches =
-      matches.filter(
-        match =>
-          String(
-            match.status || ""
-          ).toLowerCase()
-          ===
-          currentFilter
-      );
-
-  }
-
-
-  /* FAVORITES */
-
-  if(
-    currentFilter ===
-    "favorites"
-  ){
-
-    matches =
-      matches.filter(
-        match =>
-          favorites.includes(
-            getMatchId(match)
-          )
-      );
-
-  }
-
-
-  /* SEARCH */
-
-  if(search){
-
-    matches =
-      matches.filter(
-        match => {
-
-          const text = (
-
-            (match.home || "") +
-            " " +
-            (match.away || "") +
-            " " +
-            (match.competition || "")
-
-          ).toLowerCase();
-
-
-          return text.includes(
-            search
-          );
-
-        }
-      );
-
-  }
+  const matches =
+    getFilteredMatches();
 
 
   if(
@@ -1922,7 +2266,7 @@ function renderMatches(){
         </div>
 
         <div>
-          কোনো ম্যাচ পাওয়া যায়নি
+          এই তারিখে কোনো ম্যাচ পাওয়া যায়নি
         </div>
 
       </div>
@@ -1937,10 +2281,9 @@ function renderMatches(){
   container.innerHTML =
     matches
       .map(
-        (match,index) =>
+        match =>
           createMatchCard(
-            match,
-            index
+            match
           )
       )
       .join("");
@@ -1959,11 +2302,14 @@ function getMatchId(
   return (
     match.url ||
     (
-      (match.home || "") +
+      (match.home ||
+        "") +
       "_" +
-      (match.away || "") +
+      (match.away ||
+        "") +
       "_" +
-      (match.time || "")
+      (match.time ||
+        "")
     )
   );
 
@@ -1975,91 +2321,68 @@ function getMatchId(
 ========================================= */
 
 function createMatchCard(
-  match,
-  index
+  match
 ){
 
   const id =
-    getMatchId(match);
+    getMatchId(
+      match
+    );
 
 
   const isFavorite =
-    favorites.includes(id);
+    favorites.includes(
+      id
+    );
 
 
   const status =
     String(
-      match.status || ""
+      match.status ||
+      ""
     ).toLowerCase();
 
 
   const isLive =
-    status === "live";
+    status ===
+    "live";
 
 
-  const homeLogo =
-    match.home_logo ||
-    "";
+  const scoreHome =
+    match.home_score ??
+    "-";
 
 
-  const awayLogo =
-    match.away_logo ||
-    "";
-
-
-  let scoreHome =
-    match.home_score;
-
-
-  let scoreAway =
-    match.away_score;
-
-
-  if(
-    scoreHome === null ||
-    scoreHome === undefined ||
-    scoreHome === ""
-  ){
-
-    scoreHome = "-";
-
-  }
-
-
-  if(
-    scoreAway === null ||
-    scoreAway === undefined ||
-    scoreAway === ""
-  ){
-
-    scoreAway = "-";
-
-  }
-
-
-  const time =
-    formatDate(
-      match.time
-    );
+  const scoreAway =
+    match.away_score ??
+    "-";
 
 
   return `
 
     <article
       class="match-card"
-      onclick="openMatch(${index})"
+      onclick='openMatch(${JSON.stringify(match)})'
     >
 
       <button
         class="favorite ${
-          isFavorite ? "active" : ""
+          isFavorite
+          ? "active"
+          : ""
         }"
         onclick="
           event.stopPropagation();
-          toggleFavorite('${escapeJs(id)}')
+          toggleFavorite(
+            '${escapeJs(id)}'
+          )
         "
       >
-        ${isFavorite ? "★" : "☆"}
+        ${
+          isFavorite
+          ? "★"
+          : "☆"
+        }
       </button>
 
 
@@ -2068,21 +2391,26 @@ function createMatchCard(
         ${
           match.competition_logo
           ?
-          `<img
+          `
+          <img
             src="${safeUrl(
               match.competition_logo
             )}"
             alt=""
-          >`
+          >
+          `
           :
           "🏆"
         }
 
+
         <span>
-          ${escapeHtml(
-            match.competition ||
-            "Football"
-          )}
+          ${
+            escapeHtml(
+              match.competition ||
+              "Competition"
+            )
+          }
         </span>
 
       </div>
@@ -2094,27 +2422,38 @@ function createMatchCard(
         <div class="team">
 
           ${
-            homeLogo
+            match.home_logo
             ?
-            `<img
-              src="${safeUrl(homeLogo)}"
+            `
+            <img
+              src="${safeUrl(
+                match.home_logo
+              )}"
               alt=""
               onerror="
                 this.style.display='none'
               "
-            >`
+            >
+            `
             :
-            `<div style="
+            `
+            <div style="
               font-size:35px
-            ">⚽</div>`
+            ">
+              ⚽
+            </div>
+            `
           }
+
 
           <div class="team-name">
 
-            ${escapeHtml(
-              match.home ||
-              "Home"
-            )}
+            ${
+              escapeHtml(
+                match.home ||
+                "Home"
+              )
+            }
 
           </div>
 
@@ -2125,9 +2464,23 @@ function createMatchCard(
 
           <div class="score-number">
 
-            ${scoreHome}
+            ${
+              escapeHtml(
+                String(
+                  scoreHome
+                )
+              )
+            }
+
             -
-            ${scoreAway}
+
+            ${
+              escapeHtml(
+                String(
+                  scoreAway
+                )
+              )
+            }
 
           </div>
 
@@ -2144,9 +2497,11 @@ function createMatchCard(
           >
 
             ${
-              match.status_text ||
-              status ||
-              "Unknown"
+              escapeHtml(
+                match.status_text ||
+                match.status ||
+                "Unknown"
+              )
             }
 
           </div>
@@ -2157,42 +2512,57 @@ function createMatchCard(
         <div class="team">
 
           ${
-            awayLogo
+            match.away_logo
             ?
-            `<img
-              src="${safeUrl(awayLogo)}"
+            `
+            <img
+              src="${safeUrl(
+                match.away_logo
+              )}"
               alt=""
               onerror="
                 this.style.display='none'
               "
-            >`
+            >
+            `
             :
-            `<div style="
+            `
+            <div style="
               font-size:35px
-            ">⚽</div>`
+            ">
+              ⚽
+            </div>
+            `
           }
+
 
           <div class="team-name">
 
-            ${escapeHtml(
-              match.away ||
-              "Away"
-            )}
+            ${
+              escapeHtml(
+                match.away ||
+                "Away"
+              )
+            }
 
           </div>
 
         </div>
-
 
       </div>
 
 
       <div class="match-time">
 
-        🕐 ${time}
+        🕐
+
+        ${
+          formatDate(
+            match.time
+          )
+        }
 
       </div>
-
 
     </article>
 
@@ -2206,19 +2576,8 @@ function createMatchCard(
 ========================================= */
 
 async function openMatch(
-  index
+  match
 ){
-
-  const match =
-    getFilteredMatches()[index];
-
-
-  if(!match){
-
-    return;
-
-  }
-
 
   const modal =
     document.getElementById(
@@ -2237,27 +2596,6 @@ async function openMatch(
   );
 
 
-  content.innerHTML = `
-
-    <div class="loading">
-
-      <div class="spinner"></div>
-
-      ম্যাচের বিস্তারিত লোড হচ্ছে...
-
-    </div>
-
-  `;
-
-
-  const homeLogo =
-    match.home_logo || "";
-
-
-  const awayLogo =
-    match.away_logo || "";
-
-
   const scoreHome =
     match.home_score ??
     "-";
@@ -2270,7 +2608,8 @@ async function openMatch(
 
   const status =
     String(
-      match.status || ""
+      match.status ||
+      ""
     ).toLowerCase();
 
 
@@ -2281,7 +2620,8 @@ async function openMatch(
       ${
         match.competition_logo
         ?
-        `<img
+        `
+        <img
           src="${safeUrl(
             match.competition_logo
           )}"
@@ -2292,15 +2632,19 @@ async function openMatch(
             vertical-align:middle;
             margin-right:5px;
           "
-        >`
+        >
+        `
         :
         "🏆"
       }
 
-      ${escapeHtml(
-        match.competition ||
-        "Match"
-      )}
+
+      ${
+        escapeHtml(
+          match.competition ||
+          "Match"
+        )
+      }
 
     </div>
 
@@ -2311,24 +2655,35 @@ async function openMatch(
       <div class="detail-team">
 
         ${
-          homeLogo
+          match.home_logo
           ?
-          `<img
-            src="${safeUrl(homeLogo)}"
+          `
+          <img
+            src="${safeUrl(
+              match.home_logo
+            )}"
             alt=""
-          >`
+          >
+          `
           :
-          `<div style="
+          `
+          <div style="
             font-size:50px
-          ">⚽</div>`
+          ">
+            ⚽
+          </div>
+          `
         }
+
 
         <div class="detail-team-name">
 
-          ${escapeHtml(
-            match.home ||
-            "Home"
-          )}
+          ${
+            escapeHtml(
+              match.home ||
+              "Home"
+            )
+          }
 
         </div>
 
@@ -2339,9 +2694,23 @@ async function openMatch(
 
         <div class="detail-score-number">
 
-          ${scoreHome}
+          ${
+            escapeHtml(
+              String(
+                scoreHome
+              )
+            )
+          }
+
           -
-          ${scoreAway}
+
+          ${
+            escapeHtml(
+              String(
+                scoreAway
+              )
+            )
+          }
 
         </div>
 
@@ -2358,9 +2727,11 @@ async function openMatch(
         >
 
           ${
-            match.status_text ||
-            match.status ||
-            "Unknown"
+            escapeHtml(
+              match.status_text ||
+              match.status ||
+              "Unknown"
+            )
           }
 
         </div>
@@ -2371,29 +2742,39 @@ async function openMatch(
       <div class="detail-team">
 
         ${
-          awayLogo
+          match.away_logo
           ?
-          `<img
-            src="${safeUrl(awayLogo)}"
+          `
+          <img
+            src="${safeUrl(
+              match.away_logo
+            )}"
             alt=""
-          >`
+          >
+          `
           :
-          `<div style="
+          `
+          <div style="
             font-size:50px
-          ">⚽</div>`
+          ">
+            ⚽
+          </div>
+          `
         }
+
 
         <div class="detail-team-name">
 
-          ${escapeHtml(
-            match.away ||
-            "Away"
-          )}
+          ${
+            escapeHtml(
+              match.away ||
+              "Away"
+            )
+          }
 
         </div>
 
       </div>
-
 
     </div>
 
@@ -2407,10 +2788,14 @@ async function openMatch(
         </span>
 
         <span class="detail-value">
-          ${escapeHtml(
-            match.competition ||
-            "-"
-          )}
+
+          ${
+            escapeHtml(
+              match.competition ||
+              "-"
+            )
+          }
+
         </span>
 
       </div>
@@ -2419,13 +2804,17 @@ async function openMatch(
       <div class="detail-row">
 
         <span class="detail-label">
-          📅 Date
+          📅 Date & Time
         </span>
 
         <span class="detail-value">
-          ${formatDate(
-            match.time
-          )}
+
+          ${
+            formatDate(
+              match.time
+            )
+          }
+
         </span>
 
       </div>
@@ -2438,11 +2827,15 @@ async function openMatch(
         </span>
 
         <span class="detail-value">
-          ${escapeHtml(
-            match.status_text ||
-            match.status ||
-            "-"
-          )}
+
+          ${
+            escapeHtml(
+              match.status_text ||
+              match.status ||
+              "-"
+            )
+          }
+
         </span>
 
       </div>
@@ -2457,7 +2850,9 @@ async function openMatch(
         onclick="
           toggleFavorite(
             '${escapeJs(
-              getMatchId(match)
+              getMatchId(
+                match
+              )
             )}'
           )
         "
@@ -2465,7 +2860,9 @@ async function openMatch(
 
         ${
           favorites.includes(
-            getMatchId(match)
+            getMatchId(
+              match
+            )
           )
           ?
           "★ Favorite"
@@ -2477,7 +2874,10 @@ async function openMatch(
 
 
       <button
-        class="detail-btn secondary"
+        class="
+          detail-btn
+          secondary
+        "
         onclick="closeModal()"
       >
 
@@ -2491,18 +2891,25 @@ async function openMatch(
 
 
   /* =====================================
-     OPTIONAL API DETAILS
+     EXTRA MATCH API
   ===================================== */
 
   if(match.url){
 
     try{
 
-      const slug =
+      const parts =
         match.url
           .split("/")
-          .filter(Boolean)
-          .pop();
+          .filter(
+            Boolean
+          );
+
+
+      const slug =
+        parts[
+          parts.length - 1
+        ];
 
 
       if(slug){
@@ -2523,13 +2930,13 @@ async function openMatch(
 
         if(response.ok){
 
-          const detailData =
+          const details =
             await response.json();
 
 
           console.log(
             "Match details:",
-            detailData
+            details
           );
 
         }
@@ -2551,89 +2958,6 @@ async function openMatch(
 
 
 /* =========================================
-   FILTERED MATCHES
-========================================= */
-
-function getFilteredMatches(){
-
-  const search =
-    document
-      .getElementById("search")
-      .value
-      .trim()
-      .toLowerCase();
-
-
-  let matches =
-    [...allMatches];
-
-
-  if(
-    currentFilter !== "all" &&
-    currentFilter !== "favorites"
-  ){
-
-    matches =
-      matches.filter(
-        match =>
-          String(
-            match.status || ""
-          ).toLowerCase()
-          ===
-          currentFilter
-      );
-
-  }
-
-
-  if(
-    currentFilter === "favorites"
-  ){
-
-    matches =
-      matches.filter(
-        match =>
-          favorites.includes(
-            getMatchId(match)
-          )
-      );
-
-  }
-
-
-  if(search){
-
-    matches =
-      matches.filter(
-        match => {
-
-          const text = (
-
-            (match.home || "") +
-            " " +
-            (match.away || "") +
-            " " +
-            (match.competition || "")
-
-          ).toLowerCase();
-
-
-          return text.includes(
-            search
-          );
-
-        }
-      );
-
-  }
-
-
-  return matches;
-
-}
-
-
-/* =========================================
    FAVORITE
 ========================================= */
 
@@ -2642,7 +2966,9 @@ function toggleFavorite(
 ){
 
   const index =
-    favorites.indexOf(id);
+    favorites.indexOf(
+      id
+    );
 
 
   if(index >= 0){
@@ -2658,7 +2984,9 @@ function toggleFavorite(
 
   }else{
 
-    favorites.push(id);
+    favorites.push(
+      id
+    );
 
     showToast(
       "⭐ Favorite-এ যোগ হয়েছে"
@@ -2701,23 +3029,19 @@ function toggleTheme(){
     "themeBtn"
   ).textContent =
     light
-      ? "☀️"
-      : "🌙";
+    ? "☀️"
+    : "🌙";
 
 
   localStorage.setItem(
     "fanZoneTheme",
     light
-      ? "light"
-      : "dark"
+    ? "light"
+    : "dark"
   );
 
 }
 
-
-/* =========================================
-   LOAD THEME
-========================================= */
 
 if(
   localStorage.getItem(
@@ -2729,6 +3053,7 @@ if(
     "light"
   );
 
+
   document.getElementById(
     "themeBtn"
   ).textContent =
@@ -2738,7 +3063,7 @@ if(
 
 
 /* =========================================
-   NAVIGATION
+   NAV
 ========================================= */
 
 function goHome(){
@@ -2748,12 +3073,15 @@ function goHome(){
 
 
   document
-    .querySelectorAll(".filter")
+    .querySelectorAll(
+      ".filter"
+    )
     .forEach(
       btn =>
-        btn.classList.remove(
-          "active"
-        )
+        btn.classList
+          .remove(
+            "active"
+          )
     );
 
 
@@ -2762,7 +3090,9 @@ function goHome(){
       '[data-filter="all"]'
     )
     .classList
-    .add("active");
+    .add(
+      "active"
+    );
 
 
   renderMatches();
@@ -2777,12 +3107,15 @@ function showLive(){
 
 
   document
-    .querySelectorAll(".filter")
+    .querySelectorAll(
+      ".filter"
+    )
     .forEach(
       btn =>
-        btn.classList.remove(
-          "active"
-        )
+        btn.classList
+          .remove(
+            "active"
+          )
     );
 
 
@@ -2791,7 +3124,9 @@ function showLive(){
       '[data-filter="live"]'
     )
     .classList
-    .add("active");
+    .add(
+      "active"
+    );
 
 
   renderMatches();
@@ -2806,12 +3141,15 @@ function showFavorites(){
 
 
   document
-    .querySelectorAll(".filter")
+    .querySelectorAll(
+      ".filter"
+    )
     .forEach(
       btn =>
-        btn.classList.remove(
-          "active"
-        )
+        btn.classList
+          .remove(
+            "active"
+          )
     );
 
 
@@ -2820,7 +3158,9 @@ function showFavorites(){
       '[data-filter="favorites"]'
     )
     .classList
-    .add("active");
+    .add(
+      "active"
+    );
 
 
   renderMatches();
@@ -2829,15 +3169,19 @@ function showFavorites(){
 
 
 /* =========================================
-   MODAL CLOSE
+   MODAL
 ========================================= */
 
 function closeModal(){
 
   document
-    .getElementById("modal")
+    .getElementById(
+      "modal"
+    )
     .classList
-    .remove("show");
+    .remove(
+      "show"
+    );
 
 }
 
@@ -2847,7 +3191,8 @@ function closeModalOutside(
 ){
 
   if(
-    event.target.id === "modal"
+    event.target.id ===
+    "modal"
   ){
 
     closeModal();
@@ -2865,27 +3210,29 @@ function escapeHtml(
   value
 ){
 
-  return String(value)
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-    .replace(
-      /</g,
-      "&lt;"
-    )
-    .replace(
-      />/g,
-      "&gt;"
-    )
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-    .replace(
-      /'/g,
-      "&#039;"
-    );
+  return String(
+    value
+  )
+  .replace(
+    /&/g,
+    "&amp;"
+  )
+  .replace(
+    /</g,
+    "&lt;"
+  )
+  .replace(
+    />/g,
+    "&gt;"
+  )
+  .replace(
+    /"/g,
+    "&quot;"
+  )
+  .replace(
+    /'/g,
+    "&#039;"
+  );
 
 }
 
@@ -2898,15 +3245,17 @@ function escapeJs(
   value
 ){
 
-  return String(value)
-    .replace(
-      /\\/g,
-      "\\\\"
-    )
-    .replace(
-      /'/g,
-      "\\'"
-    );
+  return String(
+    value
+  )
+  .replace(
+    /\\/g,
+    "\\\\"
+  )
+  .replace(
+    /'/g,
+    "\\'"
+  );
 
 }
 
@@ -2920,7 +3269,8 @@ function safeUrl(
 ){
 
   if(
-    typeof url !== "string"
+    typeof url !==
+    "string"
   ){
 
     return "";
@@ -2929,8 +3279,12 @@ function safeUrl(
 
 
   if(
-    url.startsWith("https://") ||
-    url.startsWith("http://")
+    url.startsWith(
+      "https://"
+    ) ||
+    url.startsWith(
+      "http://"
+    )
   ){
 
     return url;
@@ -2944,7 +3298,7 @@ function safeUrl(
 
 
 /* =========================================
-   DATE
+   FORMAT DATE
 ========================================= */
 
 function formatDate(
@@ -2961,7 +3315,9 @@ function formatDate(
   try{
 
     const date =
-      new Date(value);
+      new Date(
+        value
+      );
 
 
     if(
@@ -2978,17 +3334,20 @@ function formatDate(
     return date.toLocaleString(
       "bn-BD",
       {
+        day:
+          "numeric",
 
-        day:"numeric",
+        month:
+          "short",
 
-        month:"short",
+        year:
+          "numeric",
 
-        year:"numeric",
+        hour:
+          "2-digit",
 
-        hour:"2-digit",
-
-        minute:"2-digit"
-
+        minute:
+          "2-digit"
       }
     );
 
@@ -3048,8 +3407,10 @@ function showToast(
 
 
 /* =========================================
-   INITIAL LOAD
+   INITIAL
 ========================================= */
+
+updateDateUI();
 
 loadMatches();
 
@@ -3068,7 +3429,6 @@ setInterval(
 );
 
 </script>
-
 
 </body>
 
