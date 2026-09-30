@@ -12,12 +12,16 @@
 
 <meta
   name="theme-color"
-  content="#080b14"
+  content="#07111f"
 >
 
-<title>Live Score ⚽🏏</title>
+<title>Football Fan Zone</title>
 
 <style>
+
+/* =========================================
+   RESET
+========================================= */
 
 *{
   box-sizing:border-box;
@@ -25,235 +29,445 @@
   padding:0;
 }
 
-body{
-  font-family:Arial,sans-serif;
-  background:
-    radial-gradient(
-      circle at top,
-      #1b2850 0%,
-      #0a0e19 45%,
-      #05070c 100%
-    );
-  color:#fff;
-  min-height:100vh;
+
+/* =========================================
+   THEME VARIABLES
+========================================= */
+
+:root{
+
+  --bg:#07111f;
+
+  --bg2:#0b1729;
+
+  --card:rgba(16,30,50,.88);
+
+  --card2:#12223a;
+
+  --border:rgba(115,170,255,.16);
+
+  --text:#f7fbff;
+
+  --muted:#8fa4bd;
+
+  --primary:#00b7ff;
+
+  --secondary:#705cff;
+
+  --green:#39e58c;
+
+  --red:#ff536f;
+
+  --yellow:#ffd35a;
+
+  --shadow:0 15px 40px rgba(0,0,0,.28);
+
 }
+
+
+body.light{
+
+  --bg:#eef5fc;
+
+  --bg2:#dce9f7;
+
+  --card:rgba(255,255,255,.88);
+
+  --card2:#ffffff;
+
+  --border:rgba(40,90,140,.13);
+
+  --text:#102033;
+
+  --muted:#63758a;
+
+  --shadow:0 15px 35px rgba(40,80,120,.13);
+
+}
+
+
+/* =========================================
+   BODY
+========================================= */
+
+body{
+
+  font-family:
+    Arial,
+    "Noto Sans Bengali",
+    sans-serif;
+
+  background:
+
+    radial-gradient(
+      circle at 10% 0%,
+      rgba(0,183,255,.16),
+      transparent 30%
+    ),
+
+    radial-gradient(
+      circle at 90% 10%,
+      rgba(112,92,255,.18),
+      transparent 32%
+    ),
+
+    linear-gradient(
+      180deg,
+      var(--bg2),
+      var(--bg)
+    );
+
+  color:var(--text);
+
+  min-height:100vh;
+
+  transition:
+    background .3s,
+    color .3s;
+
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
 
 .header{
+
+  position:relative;
+
+  padding:
+    25px
+    18px
+    18px;
+
   text-align:center;
-  padding:28px 15px 20px;
+
 }
+
 
 .logo{
-  font-size:32px;
-  font-weight:800;
+
+  font-size:31px;
+
+  font-weight:900;
+
+  letter-spacing:-1px;
+
 }
+
+
+.logo span{
+
+  background:
+
+    linear-gradient(
+      90deg,
+      var(--primary),
+      #7a65ff
+    );
+
+  -webkit-background-clip:text;
+
+  color:transparent;
+
+}
+
 
 .subtitle{
-  color:#9da8bd;
-  margin-top:8px;
-  font-size:14px;
+
+  color:var(--muted);
+
+  font-size:13px;
+
+  margin-top:7px;
+
 }
+
+
+.header-actions{
+
+  position:absolute;
+
+  right:15px;
+
+  top:20px;
+
+  display:flex;
+
+  gap:8px;
+
+}
+
+
+.icon-btn{
+
+  width:40px;
+
+  height:40px;
+
+  border:1px solid var(--border);
+
+  border-radius:13px;
+
+  background:var(--card);
+
+  color:var(--text);
+
+  font-size:18px;
+
+  cursor:pointer;
+
+}
+
+
+/* =========================================
+   TABS
+========================================= */
 
 .tabs{
+
   display:flex;
+
   gap:10px;
-  padding:10px 15px;
-  max-width:720px;
+
+  padding:
+    5px
+    15px
+    12px;
+
+  max-width:760px;
+
   margin:auto;
+
 }
+
 
 .tab{
+
   flex:1;
-  border:0;
-  padding:15px;
+
+  border:1px solid var(--border);
+
+  padding:14px;
+
   border-radius:17px;
-  background:#131a2a;
-  color:#aeb8ca;
-  font-size:17px;
-  font-weight:bold;
+
+  background:var(--card);
+
+  color:var(--muted);
+
+  font-size:16px;
+
+  font-weight:800;
+
+  cursor:pointer;
+
+  transition:.2s;
+
 }
+
 
 .tab.active{
+
   background:
+
     linear-gradient(
       135deg,
-      #6654ff,
-      #a13cff
+      var(--primary),
+      var(--secondary)
     );
+
   color:#fff;
+
+  border-color:transparent;
+
   box-shadow:
-    0 8px 25px
-    rgba(108,70,255,.25);
+    0 10px 25px
+    rgba(0,160,255,.2);
+
 }
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+.search-box{
+
+  max-width:760px;
+
+  margin:auto;
+
+  padding:
+    4px
+    15px
+    12px;
+
+}
+
+
+.search{
+
+  width:100%;
+
+  border:1px solid var(--border);
+
+  background:var(--card);
+
+  color:var(--text);
+
+  border-radius:15px;
+
+  padding:13px 15px;
+
+  outline:none;
+
+  font-size:14px;
+
+}
+
+
+.search::placeholder{
+
+  color:var(--muted);
+
+}
+
+
+/* =========================================
+   FILTERS
+========================================= */
 
 .filters{
+
   display:flex;
-  gap:9px;
-  padding:10px 15px 18px;
+
+  gap:8px;
+
   overflow-x:auto;
-  max-width:720px;
+
+  padding:
+    4px
+    15px
+    15px;
+
+  max-width:760px;
+
   margin:auto;
+
 }
+
 
 .filter{
+
   white-space:nowrap;
-  border:1px solid #252e43;
-  background:#101624;
-  color:#9da8bc;
-  padding:10px 17px;
-  border-radius:22px;
-  font-size:14px;
+
+  border:1px solid var(--border);
+
+  background:var(--card);
+
+  color:var(--muted);
+
+  padding:
+    9px
+    15px;
+
+  border-radius:20px;
+
+  font-size:13px;
+
+  cursor:pointer;
+
 }
+
 
 .filter.active{
-  border-color:#6574ff;
-  background:#202943;
-  color:#fff;
-}
 
-.container{
-  max-width:720px;
-  margin:auto;
-  padding:0 15px 90px;
-}
-
-.status{
-  text-align:center;
-  color:#9ca8bd;
-  padding:25px 10px;
-}
-
-.card{
-  background:rgba(17,23,37,.96);
-  border:1px solid #273047;
-  border-radius:19px;
-  padding:16px;
-  margin-bottom:13px;
-  box-shadow:
-    0 10px 30px
-    rgba(0,0,0,.22);
-}
-
-.competition{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  color:#a6b0c3;
-  font-size:13px;
-  margin-bottom:15px;
-}
-
-.competition img{
-  width:22px;
-  height:22px;
-  object-fit:contain;
-}
-
-.match{
-  display:grid;
-  grid-template-columns:1fr 90px 1fr;
-  align-items:center;
-  gap:8px;
-}
-
-.team{
-  text-align:center;
-}
-
-.team img{
-  width:50px;
-  height:50px;
-  object-fit:contain;
-  margin-bottom:8px;
-}
-
-.team-name{
-  font-size:14px;
-  font-weight:bold;
-  line-height:1.35;
-}
-
-.center{
-  text-align:center;
-}
-
-.score{
-  font-size:23px;
-  font-weight:800;
-  white-space:nowrap;
-}
-
-.match-status{
-  display:inline-block;
-  margin-top:7px;
-  padding:4px 8px;
-  border-radius:10px;
-  background:#20283b;
-  color:#aeb8cc;
-  font-size:10px;
-}
-
-.match-status.live{
-  background:#163d2a;
-  color:#43ee91;
-}
-
-.match-status.finished{
-  color:#b7c0d0;
-}
-
-.match-status.upcoming{
-  color:#ffd76b;
-}
-
-.match-time{
-  margin-top:6px;
-  color:#78859c;
-  font-size:11px;
-  line-height:1.4;
-}
-
-.empty{
-  text-align:center;
-  color:#8d99ad;
-  padding:50px 15px;
-}
-
-.empty-icon{
-  font-size:45px;
-  margin-bottom:12px;
-}
-
-.error{
-  text-align:center;
-  color:#ff7185;
-  padding:35px 10px;
-}
-
-.refresh{
-  position:fixed;
-  right:20px;
-  bottom:20px;
-  width:58px;
-  height:58px;
-  border:0;
-  border-radius:50%;
   background:
+
     linear-gradient(
       135deg,
-      #6958ff,
-      #a23cff
+      rgba(0,183,255,.22),
+      rgba(112,92,255,.25)
     );
-  color:white;
-  font-size:25px;
-  box-shadow:
-    0 8px 25px
-    rgba(100,70,255,.4);
+
+  color:var(--text);
+
+  border-color:
+    rgba(0,183,255,.5);
+
 }
 
-.loading{
-  animation:pulse 1.2s infinite;
+
+/* =========================================
+   INFO BAR
+========================================= */
+
+.info-bar{
+
+  max-width:760px;
+
+  margin:auto;
+
+  padding:
+    0
+    15px
+    12px;
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  color:var(--muted);
+
+  font-size:11px;
+
 }
+
+
+/* =========================================
+   CONTAINER
+========================================= */
+
+.container{
+
+  max-width:760px;
+
+  margin:auto;
+
+  padding:
+    0
+    15px
+    100px;
+
+}
+
+
+/* =========================================
+   STATUS
+========================================= */
+
+.status{
+
+  text-align:center;
+
+  color:var(--muted);
+
+  padding:30px;
+
+}
+
+
+.loading{
+
+  animation:
+    pulse 1.2s infinite;
+
+}
+
 
 @keyframes pulse{
 
@@ -271,6 +485,645 @@ body{
 
 }
 
+
+/* =========================================
+   MATCH CARD
+========================================= */
+
+.card{
+
+  background:var(--card);
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:20px;
+
+  padding:16px;
+
+  margin-bottom:13px;
+
+  box-shadow:var(--shadow);
+
+  backdrop-filter:
+    blur(16px);
+
+  cursor:pointer;
+
+  transition:
+    transform .18s,
+    border .18s;
+
+}
+
+
+.card:active{
+
+  transform:scale(.985);
+
+}
+
+
+.competition{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:8px;
+
+  color:var(--muted);
+
+  font-size:12px;
+
+  margin-bottom:15px;
+
+}
+
+
+.competition img{
+
+  width:23px;
+
+  height:23px;
+
+  object-fit:contain;
+
+}
+
+
+.favorite{
+
+  margin-left:auto;
+
+  border:0;
+
+  background:transparent;
+
+  color:#68788d;
+
+  font-size:20px;
+
+  cursor:pointer;
+
+}
+
+
+.favorite.active{
+
+  color:#ffd34e;
+
+}
+
+
+/* =========================================
+   MATCH
+========================================= */
+
+.match{
+
+  display:grid;
+
+  grid-template-columns:
+    1fr
+    90px
+    1fr;
+
+  align-items:center;
+
+  gap:7px;
+
+}
+
+
+.team{
+
+  text-align:center;
+
+}
+
+
+.team img{
+
+  width:52px;
+
+  height:52px;
+
+  object-fit:contain;
+
+  margin-bottom:8px;
+
+}
+
+
+.team-name{
+
+  font-size:14px;
+
+  font-weight:800;
+
+  line-height:1.35;
+
+}
+
+
+.center{
+
+  text-align:center;
+
+}
+
+
+.score{
+
+  font-size:24px;
+
+  font-weight:900;
+
+}
+
+
+.match-status{
+
+  display:inline-block;
+
+  margin-top:7px;
+
+  padding:
+    4px
+    8px;
+
+  border-radius:10px;
+
+  background:rgba(120,140,170,.12);
+
+  color:var(--muted);
+
+  font-size:10px;
+
+}
+
+
+.match-status.live{
+
+  background:
+    rgba(57,229,140,.13);
+
+  color:var(--green);
+
+}
+
+
+.match-status.finished{
+
+  color:var(--muted);
+
+}
+
+
+.match-status.upcoming{
+
+  color:var(--yellow);
+
+}
+
+
+.match-time{
+
+  margin-top:6px;
+
+  color:var(--muted);
+
+  font-size:10px;
+
+}
+
+
+/* =========================================
+   EMPTY
+========================================= */
+
+.empty{
+
+  text-align:center;
+
+  color:var(--muted);
+
+  padding:55px 15px;
+
+}
+
+
+.empty-icon{
+
+  font-size:45px;
+
+  margin-bottom:12px;
+
+}
+
+
+/* =========================================
+   ERROR
+========================================= */
+
+.error{
+
+  text-align:center;
+
+  color:#ff7185;
+
+  padding:35px 10px;
+
+}
+
+
+/* =========================================
+   FLOAT BUTTON
+========================================= */
+
+.refresh{
+
+  position:fixed;
+
+  right:20px;
+
+  bottom:22px;
+
+  width:58px;
+
+  height:58px;
+
+  border:0;
+
+  border-radius:50%;
+
+  background:
+
+    linear-gradient(
+      135deg,
+      var(--primary),
+      var(--secondary)
+    );
+
+  color:white;
+
+  font-size:25px;
+
+  box-shadow:
+    0 10px 30px
+    rgba(0,160,255,.28);
+
+  cursor:pointer;
+
+}
+
+
+/* =========================================
+   MODAL
+========================================= */
+
+.modal{
+
+  position:fixed;
+
+  inset:0;
+
+  background:
+    rgba(0,0,0,.68);
+
+  display:none;
+
+  align-items:flex-end;
+
+  justify-content:center;
+
+  z-index:1000;
+
+  padding:0;
+
+}
+
+
+.modal.show{
+
+  display:flex;
+
+}
+
+
+.modal-box{
+
+  width:100%;
+
+  max-width:760px;
+
+  max-height:88vh;
+
+  overflow:auto;
+
+  background:
+
+    linear-gradient(
+      180deg,
+      var(--card2),
+      var(--bg2)
+    );
+
+  border-radius:
+    25px
+    25px
+    0
+    0;
+
+  padding:22px 18px 30px;
+
+  border:
+    1px solid
+    var(--border);
+
+}
+
+
+.modal-head{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  margin-bottom:20px;
+
+}
+
+
+.modal-title{
+
+  font-size:18px;
+
+  font-weight:800;
+
+}
+
+
+.close{
+
+  width:38px;
+
+  height:38px;
+
+  border:0;
+
+  border-radius:12px;
+
+  background:rgba(120,140,170,.12);
+
+  color:var(--text);
+
+  font-size:20px;
+
+}
+
+
+.detail-competition{
+
+  text-align:center;
+
+  color:var(--muted);
+
+  font-size:13px;
+
+  margin-bottom:20px;
+
+}
+
+
+.detail-teams{
+
+  display:grid;
+
+  grid-template-columns:
+    1fr
+    80px
+    1fr;
+
+  align-items:center;
+
+  gap:10px;
+
+}
+
+
+.detail-team{
+
+  text-align:center;
+
+}
+
+
+.detail-team img{
+
+  width:72px;
+
+  height:72px;
+
+  object-fit:contain;
+
+  margin-bottom:10px;
+
+}
+
+
+.detail-team-name{
+
+  font-weight:800;
+
+  line-height:1.4;
+
+}
+
+
+.detail-score{
+
+  text-align:center;
+
+  font-size:29px;
+
+  font-weight:900;
+
+}
+
+
+.detail-status{
+
+  text-align:center;
+
+  margin-top:8px;
+
+  color:var(--green);
+
+  font-size:12px;
+
+}
+
+
+.details-list{
+
+  margin-top:25px;
+
+  display:grid;
+
+  gap:9px;
+
+}
+
+
+.detail-row{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  gap:10px;
+
+  padding:13px;
+
+  border-radius:13px;
+
+  background:rgba(120,140,170,.08);
+
+}
+
+
+.detail-label{
+
+  color:var(--muted);
+
+}
+
+
+.detail-value{
+
+  font-weight:700;
+
+  text-align:right;
+
+}
+
+
+/* =========================================
+   MODAL BUTTON
+========================================= */
+
+.visit-btn{
+
+  display:block;
+
+  text-align:center;
+
+  margin-top:17px;
+
+  padding:13px;
+
+  border-radius:14px;
+
+  text-decoration:none;
+
+  color:#fff;
+
+  background:
+
+    linear-gradient(
+      135deg,
+      var(--primary),
+      var(--secondary)
+    );
+
+  font-weight:800;
+
+}
+
+
+/* =========================================
+   BOTTOM NAV
+========================================= */
+
+.bottom-nav{
+
+  position:fixed;
+
+  bottom:0;
+
+  left:0;
+
+  right:0;
+
+  z-index:500;
+
+  display:flex;
+
+  justify-content:center;
+
+  padding:8px 12px;
+
+  background:
+    rgba(7,17,31,.88);
+
+  backdrop-filter:
+    blur(18px);
+
+  border-top:
+    1px solid
+    var(--border);
+
+}
+
+
+body.light .bottom-nav{
+
+  background:
+    rgba(255,255,255,.9);
+
+}
+
+
+.nav-inner{
+
+  width:100%;
+
+  max-width:760px;
+
+  display:flex;
+
+  justify-content:space-around;
+
+}
+
+
+.nav-btn{
+
+  border:0;
+
+  background:transparent;
+
+  color:var(--muted);
+
+  font-size:11px;
+
+  padding:5px 12px;
+
+}
+
+
+.nav-btn.active{
+
+  color:var(--primary);
+
+}
+
+
 </style>
 
 </head>
@@ -279,18 +1132,45 @@ body{
 <body>
 
 
+<!-- =====================================
+     HEADER
+===================================== -->
+
 <header class="header">
 
-  <div class="logo">
-    ⚡ Live Score
+  <div class="header-actions">
+
+    <button
+      class="icon-btn"
+      onclick="toggleTheme()"
+      id="themeBtn"
+    >
+      🌙
+    </button>
+
   </div>
 
+
+  <div class="logo">
+
+    ⚡ <span>Football Fan Zone</span>
+
+  </div>
+
+
   <div class="subtitle">
+
     Football & Cricket Live Scores
+
   </div>
 
 </header>
 
+
+
+<!-- =====================================
+     SPORT TABS
+===================================== -->
 
 <div class="tabs">
 
@@ -299,19 +1179,47 @@ body{
     class="tab active"
     onclick="changeSport('football')"
   >
+
     ⚽ Football
+
   </button>
+
 
   <button
     id="cricketTab"
     class="tab"
     onclick="changeSport('cricket')"
   >
+
     🏏 Cricket
+
   </button>
 
 </div>
 
+
+
+<!-- =====================================
+     SEARCH
+===================================== -->
+
+<div class="search-box">
+
+  <input
+    id="searchInput"
+    class="search"
+    type="search"
+    placeholder="🔎 Team বা competition খুঁজুন..."
+    oninput="applySearch()"
+  >
+
+</div>
+
+
+
+<!-- =====================================
+     FILTERS
+===================================== -->
 
 <div class="filters">
 
@@ -323,6 +1231,7 @@ body{
     🔴 Live
   </button>
 
+
   <button
     id="upcomingFilter"
     class="filter"
@@ -330,6 +1239,7 @@ body{
   >
     🕐 Upcoming
   </button>
+
 
   <button
     id="finishedFilter"
@@ -339,8 +1249,41 @@ body{
     ✅ Finished
   </button>
 
+
+  <button
+    id="favoriteFilter"
+    class="filter"
+    onclick="changeFilter('favorite')"
+  >
+    ⭐ Favorites
+  </button>
+
 </div>
 
+
+
+<!-- =====================================
+     INFO
+===================================== -->
+
+<div class="info-bar">
+
+  <span id="matchCount">
+    0 ম্যাচ
+  </span>
+
+
+  <span id="updated">
+    আপডেট হয়নি
+  </span>
+
+</div>
+
+
+
+<!-- =====================================
+     MATCHES
+===================================== -->
 
 <main class="container">
 
@@ -351,98 +1294,256 @@ body{
     স্কোর লোড হচ্ছে...
   </div>
 
+
   <div id="matches"></div>
 
 </main>
 
 
+
+<!-- =====================================
+     REFRESH
+===================================== -->
+
 <button
   class="refresh"
   onclick="loadScores()"
-  title="Refresh"
 >
   ↻
 </button>
 
 
+
+<!-- =====================================
+     DETAILS MODAL
+===================================== -->
+
+<div
+  id="modal"
+  class="modal"
+  onclick="closeModalOutside(event)"
+>
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <div class="modal-title">
+        Match Details
+      </div>
+
+
+      <button
+        class="close"
+        onclick="closeModal()"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div id="modalContent"></div>
+
+  </div>
+
+</div>
+
+
+
+<!-- =====================================
+     BOTTOM NAV
+===================================== -->
+
+<div class="bottom-nav">
+
+  <div class="nav-inner">
+
+    <button
+      class="nav-btn active"
+      onclick="scrollTopPage()"
+    >
+      🏠<br>
+      Home
+    </button>
+
+
+    <button
+      class="nav-btn"
+      onclick="changeFilter('live')"
+    >
+      🔴<br>
+      Live
+    </button>
+
+
+    <button
+      class="nav-btn"
+      onclick="changeFilter('favorite')"
+    >
+      ⭐<br>
+      Favorites
+    </button>
+
+
+    <button
+      class="nav-btn"
+      onclick="loadScores()"
+    >
+      🔄<br>
+      Refresh
+    </button>
+
+  </div>
+
+</div>
+
+
+
 <script>
 
 
-let currentSport = "football";
+/* =========================================
+   VARIABLES
+========================================= */
 
-let currentFilter = "live";
+let currentSport =
+  "football";
 
 
-/* =====================================
-   SPORT CHANGE
-===================================== */
+let currentFilter =
+  "live";
 
-function changeSport(sport){
 
-  currentSport = sport;
+let allMatches =
+  [];
+
+
+let favorites =
+  JSON.parse(
+    localStorage.getItem(
+      "footballFanFavorites"
+    ) || "[]"
+  );
+
+
+/* =========================================
+   THEME
+========================================= */
+
+function toggleTheme(){
+
+  document.body.classList.toggle(
+    "light"
+  );
+
+
+  const light =
+    document.body.classList.contains(
+      "light"
+    );
+
+
+  localStorage.setItem(
+    "fanZoneTheme",
+    light
+      ? "light"
+      : "dark"
+  );
+
+
+  document.getElementById(
+    "themeBtn"
+  ).textContent =
+    light
+      ? "☀️"
+      : "🌙";
+
+}
+
+
+(function loadTheme(){
+
+  const theme =
+    localStorage.getItem(
+      "fanZoneTheme"
+    );
+
+
+  if(theme === "light"){
+
+    document.body.classList.add(
+      "light"
+    );
+
+
+    document.getElementById(
+      "themeBtn"
+    ).textContent =
+      "☀️";
+
+  }
+
+})();
+
+
+/* =========================================
+   SPORT
+========================================= */
+
+function changeSport(
+  sport
+){
+
+  currentSport =
+    sport;
+
+
+  currentFilter =
+    "live";
+
 
   document
-    .getElementById("footballTab")
+    .getElementById(
+      "footballTab"
+    )
     .classList
     .toggle(
       "active",
       sport === "football"
     );
 
+
   document
-    .getElementById("cricketTab")
+    .getElementById(
+      "cricketTab"
+    )
     .classList
     .toggle(
       "active",
       sport === "cricket"
     );
 
-  loadScores();
-
-}
-
-
-/* =====================================
-   FILTER CHANGE
-===================================== */
-
-function changeFilter(filter){
-
-  currentFilter = filter;
 
   document
-    .querySelectorAll(".filter")
+    .querySelectorAll(
+      ".filter"
+    )
     .forEach(
-      button =>
-        button.classList.remove("active")
+      b =>
+        b.classList.remove(
+          "active"
+        )
     );
 
 
-  if(filter === "live"){
-
-    document
-      .getElementById("liveFilter")
-      .classList.add("active");
-
-  }
-
-
-  if(filter === "upcoming"){
-
-    document
-      .getElementById("upcomingFilter")
-      .classList.add("active");
-
-  }
-
-
-  if(filter === "finished"){
-
-    document
-      .getElementById("finishedFilter")
-      .classList.add("active");
-
-  }
+  document
+    .getElementById(
+      "liveFilter"
+    )
+    .classList.add(
+      "active"
+    );
 
 
   loadScores();
@@ -450,27 +1551,85 @@ function changeFilter(filter){
 }
 
 
-/* =====================================
-   DATE
-===================================== */
+/* =========================================
+   FILTER
+========================================= */
 
-function formatDate(date){
+function changeFilter(
+  filter
+){
+
+  currentFilter =
+    filter;
+
+
+  document
+    .querySelectorAll(
+      ".filter"
+    )
+    .forEach(
+      b =>
+        b.classList.remove(
+          "active"
+        )
+    );
+
+
+  const id =
+    filter === "live"
+      ? "liveFilter"
+      : filter === "upcoming"
+      ? "upcomingFilter"
+      : filter === "finished"
+      ? "finishedFilter"
+      : "favoriteFilter";
+
+
+  document
+    .getElementById(id)
+    .classList
+    .add("active");
+
+
+  renderMatches();
+
+}
+
+
+/* =========================================
+   DATE
+========================================= */
+
+function formatDate(
+  date
+){
 
   if(!date){
     return "";
   }
 
-  const d = new Date(date);
 
-  if(isNaN(d.getTime())){
+  const d =
+    new Date(date);
+
+
+  if(
+    isNaN(
+      d.getTime()
+    )
+  ){
+
     return date;
+
   }
+
 
   return d.toLocaleString(
     "bn-BD",
     {
       day:"numeric",
       month:"short",
+      year:"numeric",
       hour:"numeric",
       minute:"2-digit"
     }
@@ -479,65 +1638,282 @@ function formatDate(date){
 }
 
 
-/* =====================================
+/* =========================================
    ESCAPE
-===================================== */
+========================================= */
 
-function escapeHTML(value){
+function escapeHTML(
+  value
+){
 
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+  return String(
+    value ?? ""
+  )
+
+  .replace(
+    /&/g,
+    "&amp;"
+  )
+
+  .replace(
+    /</g,
+    "&lt;"
+  )
+
+  .replace(
+    />/g,
+    "&gt;"
+  )
+
+  .replace(
+    /"/g,
+    "&quot;"
+  )
+
+  .replace(
+    /'/g,
+    "&#039;"
+  );
 
 }
 
 
-/* =====================================
-   FILTER MATCHES
-===================================== */
+/* =========================================
+   FAVORITE ID
+========================================= */
 
-function filterMatches(matches){
+function getMatchId(
+  match
+){
 
-  if(!Array.isArray(matches)){
-    return [];
+  return (
+
+    match.url ||
+
+    (
+      String(
+        match.home
+      )
+      +
+      "_"
+      +
+      String(
+        match.away
+      )
+      +
+      "_"
+      +
+      String(
+        match.time
+      )
+    )
+
+  );
+
+}
+
+
+/* =========================================
+   FAVORITE
+========================================= */
+
+function isFavorite(
+  match
+){
+
+  return favorites.includes(
+    getMatchId(match)
+  );
+
+}
+
+
+function toggleFavorite(
+  event,
+  matchIndex
+){
+
+  event.stopPropagation();
+
+
+  const match =
+    allMatches[
+      matchIndex
+    ];
+
+
+  const id =
+    getMatchId(match);
+
+
+  if(
+    favorites.includes(id)
+  ){
+
+    favorites =
+      favorites.filter(
+        x => x !== id
+      );
+
+  }
+
+  else{
+
+    favorites.push(id);
+
   }
 
 
-  if(currentFilter === "live"){
+  localStorage.setItem(
+    "footballFanFavorites",
+    JSON.stringify(
+      favorites
+    )
+  );
 
-    return matches.filter(
-      match =>
-        String(match.status || "")
+
+  renderMatches();
+
+}
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+function applySearch(){
+
+  renderMatches();
+
+}
+
+
+function getSearchText(){
+
+  return (
+    document
+      .getElementById(
+        "searchInput"
+      )
+      .value
+      .trim()
+      .toLowerCase()
+  );
+
+}
+
+
+/* =========================================
+   FILTER MATCHES
+========================================= */
+
+function getVisibleMatches(){
+
+  let matches =
+    [...allMatches];
+
+
+  if(
+    currentFilter === "live"
+  ){
+
+    matches =
+      matches.filter(
+        match =>
+          String(
+            match.status || ""
+          )
           .toLowerCase()
           === "live"
-    );
+      );
 
   }
 
 
-  if(currentFilter === "upcoming"){
+  else if(
+    currentFilter === "upcoming"
+  ){
 
-    return matches.filter(
-      match =>
-        String(match.status || "")
+    matches =
+      matches.filter(
+        match =>
+          String(
+            match.status || ""
+          )
           .toLowerCase()
           === "upcoming"
-    );
+      );
 
   }
 
 
-  if(currentFilter === "finished"){
+  else if(
+    currentFilter === "finished"
+  ){
 
-    return matches.filter(
-      match =>
-        String(match.status || "")
+    matches =
+      matches.filter(
+        match =>
+          String(
+            match.status || ""
+          )
           .toLowerCase()
           === "finished"
-    );
+      );
+
+  }
+
+
+  else if(
+    currentFilter === "favorite"
+  ){
+
+    matches =
+      matches.filter(
+        match =>
+          isFavorite(match)
+      );
+
+  }
+
+
+  const search =
+    getSearchText();
+
+
+  if(search){
+
+    matches =
+      matches.filter(
+        match => {
+
+          const text = (
+
+            String(
+              match.home || ""
+            )
+            +
+            " "
+            +
+            String(
+              match.away || ""
+            )
+            +
+            " "
+            +
+            String(
+              match.competition || ""
+            )
+
+          ).toLowerCase();
+
+
+          return text.includes(
+            search
+          );
+
+        }
+      );
 
   }
 
@@ -547,24 +1923,32 @@ function filterMatches(matches){
 }
 
 
-/* =====================================
-   CREATE MATCH CARD
-===================================== */
+/* =========================================
+   CREATE CARD
+========================================= */
 
-function createMatchCard(match){
+function createCard(
+  match
+){
 
   const home =
-    match.home || "Home";
+    match.home ||
+    "Home";
+
 
   const away =
-    match.away || "Away";
+    match.away ||
+    "Away";
 
 
   const homeLogo =
-    match.home_logo || "";
+    match.home_logo ||
+    "";
+
 
   const awayLogo =
-    match.away_logo || "";
+    match.away_logo ||
+    "";
 
 
   const homeScore =
@@ -580,7 +1964,8 @@ function createMatchCard(match){
   const status =
     String(
       match.status || ""
-    ).toLowerCase();
+    )
+    .toLowerCase();
 
 
   const statusText =
@@ -591,7 +1976,8 @@ function createMatchCard(match){
   const competition =
     match.competition ||
     (
-      currentSport === "football"
+      currentSport ===
+      "football"
       ? "Football"
       : "Cricket"
     );
@@ -602,32 +1988,61 @@ function createMatchCard(match){
     "";
 
 
-  let statusClass = "";
+  const favorite =
+    isFavorite(match);
 
 
-  if(status === "live"){
+  let statusClass =
+    "";
 
-    statusClass = "live";
+
+  if(
+    status === "live"
+  ){
+
+    statusClass =
+      "live";
+
+  }
+
+  else if(
+    status === "finished"
+  ){
+
+    statusClass =
+      "finished";
 
   }
 
-  else if(status === "finished"){
+  else if(
+    status === "upcoming"
+  ){
 
-    statusClass = "finished";
-
-  }
-
-  else if(status === "upcoming"){
-
-    statusClass = "upcoming";
+    statusClass =
+      "upcoming";
 
   }
+
+
+  const index =
+    allMatches.indexOf(
+      match
+    );
 
 
   const card =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
-  card.className = "card";
+
+  card.className =
+    "card";
+
+
+  card.onclick =
+    () =>
+      openDetails(match);
 
 
   card.innerHTML = `
@@ -639,17 +2054,40 @@ function createMatchCard(match){
         ?
         `
         <img
-          src="${escapeHTML(competitionLogo)}"
-          onerror="this.style.display='none'"
+          src="${escapeHTML(
+            competitionLogo
+          )}"
+          onerror="
+            this.style.display='none'
+          "
         >
         `
         :
         ""
       }
 
+
       <span>
-        ${escapeHTML(competition)}
+        ${escapeHTML(
+          competition
+        )}
       </span>
+
+
+      <button
+        class="
+          favorite
+          ${favorite ? "active" : ""}
+        "
+        onclick="
+          toggleFavorite(
+            event,
+            ${index}
+          )
+        "
+      >
+        ${favorite ? "★" : "☆"}
+      </button>
 
     </div>
 
@@ -664,40 +2102,59 @@ function createMatchCard(match){
           ?
           `
           <img
-            src="${escapeHTML(homeLogo)}"
-            onerror="this.style.display='none'"
+            src="${escapeHTML(
+              homeLogo
+            )}"
+            onerror="
+              this.style.display='none'
+            "
           >
           `
           :
           ""
         }
 
+
         <div class="team-name">
+
           ${escapeHTML(home)}
+
         </div>
 
       </div>
+
 
 
       <div class="center">
 
         <div class="score">
 
-          ${escapeHTML(homeScore)}
+          ${escapeHTML(
+            homeScore
+          )}
+
           -
-          ${escapeHTML(awayScore)}
+
+          ${escapeHTML(
+            awayScore
+          )}
 
         </div>
 
 
         <div
-          class="match-status ${statusClass}"
+          class="
+            match-status
+            ${statusClass}
+          "
         >
 
           ${
             status === "live"
             ? "🔴 LIVE"
-            : escapeHTML(statusText)
+            : escapeHTML(
+                statusText
+              )
           }
 
         </div>
@@ -706,12 +2163,15 @@ function createMatchCard(match){
         <div class="match-time">
 
           ${escapeHTML(
-            formatDate(match.time)
+            formatDate(
+              match.time
+            )
           )}
 
         </div>
 
       </div>
+
 
 
       <div class="team">
@@ -721,16 +2181,23 @@ function createMatchCard(match){
           ?
           `
           <img
-            src="${escapeHTML(awayLogo)}"
-            onerror="this.style.display='none'"
+            src="${escapeHTML(
+              awayLogo
+            )}"
+            onerror="
+              this.style.display='none'
+            "
           >
           `
           :
           ""
         }
 
+
         <div class="team-name">
+
           ${escapeHTML(away)}
+
         </div>
 
       </div>
@@ -746,11 +2213,11 @@ function createMatchCard(match){
 }
 
 
-/* =====================================
+/* =========================================
    RENDER
-===================================== */
+========================================= */
 
-function renderMatches(data){
+function renderMatches(){
 
   const box =
     document.getElementById(
@@ -758,43 +2225,64 @@ function renderMatches(data){
     );
 
 
-  box.innerHTML = "";
-
-
-  const allMatches =
-    Array.isArray(data.matches)
-    ? data.matches
-    : [];
+  box.innerHTML =
+    "";
 
 
   const matches =
-    filterMatches(allMatches);
+    getVisibleMatches();
+
+
+  document.getElementById(
+    "matchCount"
+  )
+  .textContent =
+    matches.length +
+    " ম্যাচ";
 
 
   if(!matches.length){
 
     let message =
-      "এই মুহূর্তে কোনো ম্যাচ নেই।";
+      "কোনো ম্যাচ পাওয়া যায়নি।";
 
 
-    if(currentFilter === "live"){
+    if(
+      currentFilter === "live"
+    ){
 
       message =
         "এই মুহূর্তে কোনো LIVE ম্যাচ নেই।";
 
     }
 
-    if(currentFilter === "upcoming"){
+
+    if(
+      currentFilter === "upcoming"
+    ){
 
       message =
-        "কোনো Upcoming ম্যাচ পাওয়া যায়নি।";
+        "কোনো Upcoming ম্যাচ নেই।";
 
     }
 
-    if(currentFilter === "finished"){
+
+    if(
+      currentFilter === "finished"
+    ){
 
       message =
-        "কোনো Finished ম্যাচ পাওয়া যায়নি।";
+        "কোনো Finished ম্যাচ নেই।";
+
+    }
+
+
+    if(
+      currentFilter === "favorite"
+    ){
+
+      message =
+        "আপনার কোনো Favorite ম্যাচ নেই।";
 
     }
 
@@ -813,6 +2301,7 @@ function renderMatches(data){
 
     `;
 
+
     return;
 
   }
@@ -821,16 +2310,329 @@ function renderMatches(data){
   matches.forEach(
     match =>
       box.appendChild(
-        createMatchCard(match)
+        createCard(match)
       )
   );
 
 }
 
 
-/* =====================================
-   LOAD API
-===================================== */
+/* =========================================
+   DETAILS
+========================================= */
+
+function openDetails(
+  match
+){
+
+  const modal =
+    document.getElementById(
+      "modal"
+    );
+
+
+  const content =
+    document.getElementById(
+      "modalContent"
+    );
+
+
+  const status =
+    String(
+      match.status || ""
+    )
+    .toLowerCase();
+
+
+  const statusText =
+    match.status_text ||
+    "Unknown";
+
+
+  const homeScore =
+    match.home_score ??
+    "-";
+
+
+  const awayScore =
+    match.away_score ??
+    "-";
+
+
+  const favorite =
+    isFavorite(match);
+
+
+  content.innerHTML = `
+
+    <div class="detail-competition">
+
+      ${escapeHTML(
+        match.competition ||
+        currentSport
+      )}
+
+    </div>
+
+
+    <div class="detail-teams">
+
+
+      <div class="detail-team">
+
+        ${
+          match.home_logo
+          ?
+          `
+          <img
+            src="${escapeHTML(
+              match.home_logo
+            )}"
+            onerror="
+              this.style.display='none'
+            "
+          >
+          `
+          :
+          ""
+        }
+
+
+        <div
+          class="detail-team-name"
+        >
+
+          ${escapeHTML(
+            match.home ||
+            "Home"
+          )}
+
+        </div>
+
+      </div>
+
+
+
+      <div>
+
+        <div class="detail-score">
+
+          ${escapeHTML(
+            homeScore
+          )}
+
+          -
+
+          ${escapeHTML(
+            awayScore
+          )}
+
+        </div>
+
+
+        <div
+          class="detail-status"
+        >
+
+          ${
+            status === "live"
+            ? "🔴 LIVE"
+            : escapeHTML(
+                statusText
+              )
+          }
+
+        </div>
+
+      </div>
+
+
+
+      <div class="detail-team">
+
+        ${
+          match.away_logo
+          ?
+          `
+          <img
+            src="${escapeHTML(
+              match.away_logo
+            )}"
+            onerror="
+              this.style.display='none'
+            "
+          >
+          `
+          :
+          ""
+        }
+
+
+        <div
+          class="detail-team-name"
+        >
+
+          ${escapeHTML(
+            match.away ||
+            "Away"
+          )}
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+
+    <div class="details-list">
+
+
+      <div class="detail-row">
+
+        <span class="detail-label">
+          🏆 Competition
+        </span>
+
+        <span class="detail-value">
+
+          ${escapeHTML(
+            match.competition ||
+            "-"
+          )}
+
+        </span>
+
+      </div>
+
+
+
+      <div class="detail-row">
+
+        <span class="detail-label">
+          📌 Status
+        </span>
+
+        <span class="detail-value">
+
+          ${escapeHTML(
+            statusText
+          )}
+
+        </span>
+
+      </div>
+
+
+
+      <div class="detail-row">
+
+        <span class="detail-label">
+          🕐 Match Time
+        </span>
+
+        <span class="detail-value">
+
+          ${escapeHTML(
+            formatDate(
+              match.time
+            )
+          )}
+
+        </span>
+
+      </div>
+
+
+
+      <div class="detail-row">
+
+        <span class="detail-label">
+          ⭐ Favorite
+        </span>
+
+        <span class="detail-value">
+
+          ${favorite
+            ? "Yes ⭐"
+            : "No"
+          }
+
+        </span>
+
+      </div>
+
+
+    </div>
+
+
+    ${
+      match.url
+      ?
+      `
+      <a
+        class="visit-btn"
+        href="${escapeHTML(
+          match.url
+        )}"
+        target="_blank"
+        rel="noopener"
+      >
+        📊 Match Page
+      </a>
+      `
+      :
+      ""
+    }
+
+  `;
+
+
+  modal.classList.add(
+    "show"
+  );
+
+}
+
+
+/* =========================================
+   CLOSE MODAL
+========================================= */
+
+function closeModal(){
+
+  document
+    .getElementById(
+      "modal"
+    )
+    .classList
+    .remove(
+      "show"
+    );
+
+}
+
+
+function closeModalOutside(
+  event
+){
+
+  if(
+    event.target.id ===
+    "modal"
+  ){
+
+    closeModal();
+
+  }
+
+}
+
+
+/* =========================================
+   LOAD SCORES
+========================================= */
 
 async function loadScores(){
 
@@ -839,23 +2641,23 @@ async function loadScores(){
       "status"
     );
 
-  const box =
-    document.getElementById(
-      "matches"
-    );
-
 
   statusBox.style.display =
     "block";
 
 
+  statusBox.classList.add(
+    "loading"
+  );
+
+
   statusBox.textContent =
-    currentSport === "football"
-    ? "⚽ Football স্কোর লোড হচ্ছে..."
-    : "🏏 Cricket স্কোর লোড হচ্ছে...";
-
-
-  box.innerHTML = "";
+    currentSport ===
+    "football"
+    ?
+    "⚽ Football স্কোর লোড হচ্ছে..."
+    :
+    "🏏 Cricket স্কোর লোড হচ্ছে...";
 
 
   try{
@@ -883,25 +2685,65 @@ async function loadScores(){
       await response.json();
 
 
+    allMatches =
+      Array.isArray(
+        data.matches
+      )
+      ?
+      data.matches
+      :
+      [];
+
+
     statusBox.style.display =
       "none";
 
 
-    renderMatches(data);
+    statusBox.classList.remove(
+      "loading"
+    );
 
+
+    document.getElementById(
+      "updated"
+    )
+    .textContent =
+      "আপডেট: " +
+      new Date()
+        .toLocaleTimeString(
+          "bn-BD",
+          {
+            hour:"numeric",
+            minute:"2-digit"
+          }
+        );
+
+
+    renderMatches();
 
   }
 
+
   catch(error){
 
-    console.error(error);
+    console.error(
+      error
+    );
 
 
     statusBox.style.display =
       "none";
 
 
-    box.innerHTML = `
+    statusBox.classList.remove(
+      "loading"
+    );
+
+
+    document.getElementById(
+      "matches"
+    )
+    .innerHTML = `
 
       <div class="error">
 
@@ -909,7 +2751,8 @@ async function loadScores(){
 
         <br><br>
 
-        কিছুক্ষণ পর আবার চেষ্টা করুন।
+        ইন্টারনেট সংযোগ অথবা
+        সার্ভার পরীক্ষা করুন।
 
       </div>
 
@@ -920,16 +2763,30 @@ async function loadScores(){
 }
 
 
-/* =====================================
+/* =========================================
+   SCROLL TOP
+========================================= */
+
+function scrollTopPage(){
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* =========================================
    START
-===================================== */
+========================================= */
 
 loadScores();
 
 
-/* =====================================
+/* =========================================
    AUTO REFRESH
-===================================== */
+========================================= */
 
 setInterval(
   loadScores,
@@ -937,7 +2794,28 @@ setInterval(
 );
 
 
+/* =========================================
+   ESC KEY
+========================================= */
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if(
+      event.key ===
+      "Escape"
+    ){
+
+      closeModal();
+
+    }
+
+  }
+);
+
 </script>
+
 
 </body>
 
