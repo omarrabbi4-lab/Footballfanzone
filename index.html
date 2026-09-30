@@ -3,373 +3,612 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ফুটবল ফ্যান জোন - Football Fan Zone</title>
-  <style>
-    :root {
-      --bg-dark: #0a0f1d;
-      --card-bg: #131b2e;
-      --accent-green: #00ff88;
-      --accent-yellow: #ffcc00;
-      --accent-blue: #00d2ff;
-      --text-light: #f0f4f8;
-      --text-dim: #8a99ad;
-      --border-color: #23314a;
-    }
 
+  <title>Live Score ⚽🏏</title>
+
+  <meta name="theme-color" content="#090912">
+
+  <style>
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
     }
 
     body {
-      background-color: var(--bg-dark);
-      color: var(--text-light);
-      display: flex;
-      flex-direction: column;
+      background:
+        radial-gradient(circle at top, #24134d 0%, #090912 45%, #050509 100%);
+      color: white;
       min-height: 100vh;
     }
 
+    .app {
+      max-width: 600px;
+      margin: auto;
+      padding: 18px;
+    }
+
+    /* HEADER */
+
     header {
-      background: linear-gradient(135deg, #0d1527, #18253f);
-      border-bottom: 2px solid var(--accent-green);
-      padding: 15px 20px;
+      text-align: center;
+      padding: 20px 10px 25px;
+    }
+
+    header h1 {
+      font-size: 30px;
+      margin-bottom: 7px;
+    }
+
+    header p {
+      color: #aaa;
+      font-size: 14px;
+    }
+
+    /* LIVE STATUS */
+
+    .live-status {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      gap: 7px;
+      margin-top: 12px;
+      color: #62ff91;
+      font-size: 13px;
     }
 
-    .logo {
-      font-size: 1.4rem;
-      font-weight: bold;
-      color: var(--accent-green);
+    .dot {
+      width: 9px;
+      height: 9px;
+      background: #39ff72;
+      border-radius: 50%;
+      box-shadow: 0 0 12px #39ff72;
+    }
+
+    /* SPORTS TABS */
+
+    .sports {
       display: flex;
-      align-items: center;
       gap: 10px;
+      margin-bottom: 20px;
     }
 
-    .controls {
-      display: flex;
-      gap: 10px;
-    }
-
-    .btn-sound {
-      background: #1e2c48;
-      border: 1px solid var(--border-color);
-      color: var(--text-light);
-      padding: 8px 12px;
-      border-radius: 20px;
+    .sport-btn {
+      flex: 1;
+      border: none;
+      padding: 14px 10px;
+      border-radius: 15px;
+      background: rgba(255,255,255,0.08);
+      color: white;
+      font-size: 15px;
       cursor: pointer;
-      font-size: 0.85rem;
-      transition: all 0.2s;
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
-    .btn-sound:hover {
-      background: var(--accent-green);
-      color: #000;
+    .sport-btn.active {
+      background: linear-gradient(135deg, #ff4f91, #814cff);
+      box-shadow: 0 8px 25px rgba(129,76,255,0.25);
     }
 
-    nav {
-      background: #0d1527;
+    /* FILTER */
+
+    .filters {
       display: flex;
-      justify-content: space-around;
-      border-bottom: 1px solid var(--border-color);
+      gap: 8px;
+      margin-bottom: 18px;
       overflow-x: auto;
     }
 
-    nav button {
-      background: none;
-      border: none;
-      color: var(--text-dim);
-      padding: 12px 16px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      cursor: pointer;
+    .filter {
       white-space: nowrap;
-      border-bottom: 3px solid transparent;
-      transition: all 0.2s;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.06);
+      color: #ddd;
+      padding: 9px 15px;
+      border-radius: 20px;
+      cursor: pointer;
     }
 
-    nav button.active {
-      color: var(--accent-green);
-      border-bottom-color: var(--accent-green);
+    .filter.active {
+      background: rgba(255,79,145,0.18);
+      color: #ff72aa;
+      border-color: #ff4f91;
     }
 
-    main {
-      flex: 1;
-      padding: 15px;
-      max-width: 1000px;
-      width: 100%;
-      margin: 0 auto;
-    }
+    /* MATCH CARD */
 
-    .tab-content {
-      display: none;
-    }
-
-    .tab-content.active {
-      display: block;
-    }
-
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 15px;
+    .match-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 22px;
+      padding: 18px;
       margin-bottom: 15px;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
     }
 
-    .card-title {
-      color: var(--accent-yellow);
-      font-size: 1.1rem;
-      margin-bottom: 12px;
+    .league {
+      display: flex;
+      justify-content: space-between;
+      color: #aaa;
+      font-size: 12px;
+      margin-bottom: 18px;
+    }
+
+    .live {
+      color: #ff4f6d;
+      font-weight: bold;
+    }
+
+    .teams {
       display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: space-between;
+      text-align: center;
     }
 
-    .live-tracker-container {
-      width: 100%;
-      height: 650px;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid var(--border-color);
-      background: #1e293b;
+    .team {
+      width: 35%;
     }
 
-    .chat-box {
-      height: 300px;
-      overflow-y: auto;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 10px;
-      background: #0b1120;
-      margin-bottom: 10px;
+    .team-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #30204c, #151525);
       display: flex;
-      flex-direction: column;
-      gap: 10px;
+      justify-content: center;
+      align-items: center;
+      margin: auto auto 8px;
+      font-size: 22px;
     }
 
-    .chat-message {
-      background: #182339;
-      padding: 8px 12px;
-      border-radius: 8px;
-      max-width: 85%;
+    .team-name {
+      font-size: 14px;
+      line-height: 1.3;
     }
 
-    .chat-user {
-      font-size: 0.8rem;
-      color: var(--accent-blue);
+    .score {
+      width: 30%;
+    }
+
+    .score-number {
+      font-size: 27px;
       font-weight: bold;
-      margin-bottom: 3px;
     }
 
-    .chat-text {
-      font-size: 0.9rem;
+    .score-info {
+      font-size: 11px;
+      color: #aaa;
+      margin-top: 4px;
     }
 
-    .chat-input-group {
+    .vs {
+      font-size: 13px;
+      color: #777;
+    }
+
+    /* FOOTBALL EVENT */
+
+    .event {
+      margin-top: 16px;
+      padding-top: 13px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: #bbb;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    /* EMPTY */
+
+    .empty {
+      text-align: center;
+      padding: 50px 20px;
+      color: #888;
+    }
+
+    .empty-icon {
+      font-size: 45px;
+      margin-bottom: 12px;
+    }
+
+    /* BOTTOM NAV */
+
+    .bottom-nav {
+      position: sticky;
+      bottom: 10px;
+      margin-top: 25px;
       display: flex;
-      gap: 8px;
+      justify-content: space-around;
+      background: rgba(15,15,25,0.92);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 12px 5px;
+      backdrop-filter: blur(15px);
     }
 
-    .chat-input-group input {
-      flex: 1;
-      background: #0b1120;
-      border: 1px solid var(--border-color);
-      color: #fff;
-      padding: 10px;
-      border-radius: 6px;
-      outline: none;
+    .nav-item {
+      text-align: center;
+      color: #888;
+      font-size: 11px;
     }
 
-    .chat-input-group button {
-      background: var(--accent-green);
-      color: #000;
-      border: none;
-      padding: 10px 18px;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
+    .nav-item span {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 4px;
     }
 
-    .reactions {
-      display: flex;
-      gap: 8px;
-      margin-top: 10px;
-      flex-wrap: wrap;
+    .nav-item.active {
+      color: #ff5b9d;
     }
 
-    .react-btn {
-      background: #1a263d;
-      border: 1px solid var(--border-color);
-      color: #fff;
-      padding: 6px 12px;
-      border-radius: 15px;
-      cursor: pointer;
-      font-size: 0.85rem;
+    /* LOADING */
+
+    .loading {
+      text-align: center;
+      color: #aaa;
+      padding: 30px;
     }
 
-    .react-btn:hover {
-      background: var(--accent-blue);
-      color: #000;
-    }
-
-    .floating-emoji {
-      position: fixed;
-      bottom: 20px;
-      font-size: 2rem;
-      animation: floatUp 2s linear forwards;
-      pointer-events: none;
-      z-index: 1000;
-    }
-
-    @keyframes floatUp {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(-300px); opacity: 0; }
-    }
   </style>
 </head>
+
 <body>
 
+<div class="app">
+
   <header>
-    <div class="logo">⚽ ফুটবল ফ্যান জোন</div>
-    <div class="controls">
-      <button class="btn-sound" onclick="playSound('horn')">📢 হর্ন</button>
-      <button class="btn-sound" onclick="playSound('whistle')">🏁 বাঁশি</button>
+    <h1>⚡ Live Score</h1>
+
+    <p>Football & Cricket-এর লাইভ স্কোর</p>
+
+    <div class="live-status">
+      <span class="dot"></span>
+      Live Score
     </div>
   </header>
 
-  <nav>
-    <button class="nav-btn active" onclick="switchTab('tracker')">📺 লাইভ ট্র্যাকার</button>
-    <button class="nav-btn" onclick="switchTab('chat')">💬 ফ্যান চ্যাট</button>
-    <button class="nav-btn" onclick="switchTab('polls')">📊 প্রেডিকশন</button>
-  </nav>
 
-  <main>
+  <!-- SPORTS -->
 
-    <!-- LIVE TRACKER TAB -->
-    <div id="tracker" class="tab-content active">
-      <div class="card">
-        <div class="card-title">📡 রিয়েল-টাইম ফুটবল লাইভ স্কোর ট্র্যাকার</div>
-        <div class="live-tracker-container">
-          <iframe 
-            src="https://www.scorespro.com/widgets/live-soccer/" 
-            style="width: 100%; height: 100%; border: none;" 
-            scrolling="yes">
-          </iframe>
-        </div>
+  <div class="sports">
+
+    <button
+      class="sport-btn active"
+      onclick="changeSport('football', this)"
+    >
+      ⚽ Football
+    </button>
+
+    <button
+      class="sport-btn"
+      onclick="changeSport('cricket', this)"
+    >
+      🏏 Cricket
+    </button>
+
+  </div>
+
+
+  <!-- FILTER -->
+
+  <div class="filters">
+
+    <button class="filter active">
+      🔴 Live
+    </button>
+
+    <button class="filter">
+      📅 Upcoming
+    </button>
+
+    <button class="filter">
+      ✅ Finished
+    </button>
+
+  </div>
+
+
+  <!-- MATCH AREA -->
+
+  <div id="matches">
+
+    <!-- DEMO FOOTBALL MATCH -->
+
+    <div class="match-card">
+
+      <div class="league">
+        <span>Premier League</span>
+        <span class="live">● LIVE</span>
       </div>
-    </div>
 
-    <!-- CHAT TAB -->
-    <div id="chat" class="tab-content">
-      <div class="card">
-        <div class="card-title">💬 লাইভ ম্যাচ চ্যাট রুম</div>
-        <div class="chat-box" id="chatBox">
-          <div class="chat-message">
-            <div class="chat-user">SuperFan_88</div>
-            <div class="chat-text">আজকের ম্যাচে জয় নিশ্চিত! গোল কে করবে প্রথম?</div>
+      <div class="teams">
+
+        <div class="team">
+
+          <div class="team-icon">
+            ⚽
           </div>
-          <div class="chat-message">
-            <div class="chat-user">SambaMagic</div>
-            <div class="chat-text">ব্রাজিল আজ ৩-০ গোলে জিতবে! 🇧🇷🔥</div>
+
+          <div class="team-name">
+            Team A
           </div>
+
         </div>
-        <div class="chat-input-group">
-          <input type="text" id="chatInput" placeholder="আপনার বার্তা লিখুন...">
-          <button onclick="sendMessage()">পাঠান</button>
+
+
+        <div class="score">
+
+          <div class="score-number">
+            2 - 1
+          </div>
+
+          <div class="score-info">
+            67'
+          </div>
+
         </div>
-        <div class="reactions">
-          <button class="react-btn" onclick="triggerFx('⚽')">⚽ গোল!</button>
-          <button class="react-btn" onclick="triggerFx('🔥')">🔥 আগুন</button>
-          <button class="react-btn" onclick="triggerFx('🟨')">🟨 কার্ড</button>
-          <button class="react-btn" onclick="triggerFx('👏')">👏 তালি</button>
+
+
+        <div class="team">
+
+          <div class="team-icon">
+            ⚽
+          </div>
+
+          <div class="team-name">
+            Team B
+          </div>
+
         </div>
+
       </div>
+
+
+      <div class="event">
+        ⚽ 45' Team A &nbsp; • &nbsp; ⚽ 63' Team A
+      </div>
+
     </div>
 
-    <!-- POLLS TAB -->
-    <div id="polls" class="tab-content">
-      <div class="card">
-        <div class="card-title">📊 আজকের ম্যাচ প্রেডিকশন</div>
-        <p style="margin-bottom: 12px; font-size: 0.95rem;">আজকের ম্যাচে জয়ী হবে কোন দল?</p>
-        <button class="react-btn" style="width: 100%; margin-bottom: 8px; padding: 10px;" onclick="vote('brazil')">🇧🇷 ব্রাজিল</button>
-        <button class="react-btn" style="width: 100%; margin-bottom: 8px; padding: 10px;" onclick="vote('argentina')">🇦🇷 আর্জেন্টিনা</button>
-        <button class="react-btn" style="width: 100%; padding: 10px;" onclick="vote('draw')">🤝 ড্র</button>
+
+    <!-- DEMO CRICKET -->
+
+    <div class="match-card">
+
+      <div class="league">
+        <span>International Cricket</span>
+        <span class="live">● LIVE</span>
       </div>
+
+      <div class="teams">
+
+        <div class="team">
+
+          <div class="team-icon">
+            🏏
+          </div>
+
+          <div class="team-name">
+            Bangladesh
+          </div>
+
+        </div>
+
+
+        <div class="score">
+
+          <div class="score-number">
+            156/4
+          </div>
+
+          <div class="score-info">
+            18.2 Overs
+          </div>
+
+        </div>
+
+
+        <div class="team">
+
+          <div class="team-icon">
+            🏏
+          </div>
+
+          <div class="team-name">
+            India
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="event">
+        Bangladesh batting
+      </div>
+
     </div>
 
-  </main>
+  </div>
 
-  <script>
-    function switchTab(tabId) {
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
-      
-      document.getElementById(tabId).classList.add('active');
-      event.target.classList.add('active');
-    }
 
-    function sendMessage() {
-      const input = document.getElementById('chatInput');
-      const text = input.value.trim();
-      if (!text) return;
+  <!-- BOTTOM NAV -->
 
-      const chatBox = document.getElementById('chatBox');
-      const msgDiv = document.createElement('div');
-      msgDiv.className = 'chat-message';
-      msgDiv.innerHTML = `<div class="chat-user">আপনি</div><div class="chat-text">${text}</div>`;
-      
-      chatBox.appendChild(msgDiv);
-      chatBox.scrollTop = chatBox.scrollHeight;
-      input.value = '';
-    }
+  <div class="bottom-nav">
 
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    
-    function playSound(type) {
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
-      }
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
+    <div class="nav-item active">
+      <span>🏠</span>
+      Home
+    </div>
 
-      if (type === 'whistle') {
-        osc.frequency.setValueAtTime(2500, audioCtx.currentTime);
-        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.3);
-      } else if (type === 'horn') {
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(200, audioCtx.currentTime);
-        gain.gain.setValueAtTime(0.4, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.8);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.8);
-      }
-    }
+    <div class="nav-item">
+      <span>⚽</span>
+      Football
+    </div>
 
-    function triggerFx(emoji) {
-      const el = document.createElement('div');
-      el.className = 'floating-emoji';
-      el.innerText = emoji;
-      el.style.left = (Math.random() * 80 + 10) + 'vw';
-      document.body.appendChild(el);
-      setTimeout(() => el.remove(), 2000);
-    }
+    <div class="nav-item">
+      <span>🏏</span>
+      Cricket
+    </div>
 
-    function vote(team) {
-      alert('আপনার ভোটিং সফল হয়েছে!');
-    }
-  </script>
+    <div class="nav-item">
+      <span>❤️</span>
+      Favorites
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+let currentSport = "football";
+
+
+function changeSport(sport, button) {
+
+  currentSport = sport;
+
+  document
+    .querySelectorAll(".sport-btn")
+    .forEach(btn => {
+      btn.classList.remove("active");
+    });
+
+  button.classList.add("active");
+
+  const matches = document.getElementById("matches");
+
+  if (sport === "football") {
+
+    matches.innerHTML = `
+
+      <div class="match-card">
+
+        <div class="league">
+          <span>Premier League</span>
+          <span class="live">● LIVE</span>
+        </div>
+
+        <div class="teams">
+
+          <div class="team">
+
+            <div class="team-icon">
+              ⚽
+            </div>
+
+            <div class="team-name">
+              Team A
+            </div>
+
+          </div>
+
+          <div class="score">
+
+            <div class="score-number">
+              2 - 1
+            </div>
+
+            <div class="score-info">
+              67'
+            </div>
+
+          </div>
+
+          <div class="team">
+
+            <div class="team-icon">
+              ⚽
+            </div>
+
+            <div class="team-name">
+              Team B
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="event">
+          ⚽ Live match চলছে
+        </div>
+
+      </div>
+
+    `;
+
+  }
+
+
+  if (sport === "cricket") {
+
+    matches.innerHTML = `
+
+      <div class="match-card">
+
+        <div class="league">
+          <span>International Cricket</span>
+          <span class="live">● LIVE</span>
+        </div>
+
+        <div class="teams">
+
+          <div class="team">
+
+            <div class="team-icon">
+              🏏
+            </div>
+
+            <div class="team-name">
+              Bangladesh
+            </div>
+
+          </div>
+
+          <div class="score">
+
+            <div class="score-number">
+              156/4
+            </div>
+
+            <div class="score-info">
+              18.2 Overs
+            </div>
+
+          </div>
+
+          <div class="team">
+
+            <div class="team-icon">
+              🏏
+            </div>
+
+            <div class="team-name">
+              India
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="event">
+          🏏 Bangladesh batting
+        </div>
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+</script>
 
 </body>
 </html>
