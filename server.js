@@ -5,26 +5,35 @@ const path = require("path");
 const PORT = process.env.PORT || 10000;
 
 const API_BASE =
-  "https://sportscore.com/api/widget/matches/";
+  "https://sportscore.com/api/v1/fixtures/";
 
 
-// ========================================
-// GET LIVE SPORTS DATA
-// ========================================
+/* =========================================
+   SPORTS API
+========================================= */
 
-async function getMatches(sport) {
+async function getMatches(sport, status) {
 
-  const url =
+  let url =
     API_BASE +
     "?sport=" +
     encodeURIComponent(sport) +
-    "&limit=50";
+    "&limit=100";
+
+  if (status) {
+    url +=
+      "&status=" +
+      encodeURIComponent(status);
+  }
+
+  console.log("Fetching:", url);
 
   const response = await fetch(url);
 
   if (!response.ok) {
     throw new Error(
-      "Sports API error: " + response.status
+      "SportScore API error: " +
+      response.status
     );
   }
 
@@ -32,215 +41,376 @@ async function getMatches(sport) {
 }
 
 
-// ========================================
-// SERVER
-// ========================================
+/* =========================================
+   JSON RESPONSE
+========================================= */
 
-const server = http.createServer(async (req, res) => {
+function sendJSON(res, statusCode, data) {
 
-  // -------------------------------
-  // FOOTBALL API
-  // -------------------------------
+  res.writeHead(statusCode, {
+    "Content-Type":
+      "application/json; charset=utf-8",
 
-  if (req.url.startsWith("/api/football")) {
+    "Access-Control-Allow-Origin":
+      "*",
 
-    try {
+    "Cache-Control":
+      "no-store"
+  });
 
-      const data =
-        await getMatches("football");
-
-      res.writeHead(200, {
-        "Content-Type":
-          "application/json; charset=utf-8",
-        "Access-Control-Allow-Origin": "*",
-        "Cache-Control": "no-cache"
-      });
-
-      res.end(JSON.stringify(data));
-
-    } catch (error) {
-
-      console.error(error);
-
-      res.writeHead(500, {
-        "Content-Type":
-          "application/json; charset=utf-8"
-      });
-
-      res.end(
-        JSON.stringify({
-          success: false,
-          error: "Football data পাওয়া যাচ্ছে না"
-        })
-      );
-    }
-
-    return;
-  }
+  res.end(
+    JSON.stringify(data)
+  );
+}
 
 
-  // -------------------------------
-  // CRICKET API
-  // -------------------------------
+/* =========================================
+   STATIC FILE
+========================================= */
 
-  if (req.url.startsWith("/api/cricket")) {
+function serveFile(req, res) {
 
-    try {
-
-      const data =
-        await getMatches("cricket");
-
-      res.writeHead(200, {
-        "Content-Type":
-          "application/json; charset=utf-8",
-        "Access-Control-Allow-Origin": "*",
-        "Cache-Control": "no-cache"
-      });
-
-      res.end(JSON.stringify(data));
-
-    } catch (error) {
-
-      console.error(error);
-
-      res.writeHead(500, {
-        "Content-Type":
-          "application/json; charset=utf-8"
-      });
-
-      res.end(
-        JSON.stringify({
-          success: false,
-          error: "Cricket data পাওয়া যাচ্ছে না"
-        })
-      );
-    }
-
-    return;
-  }
-
-
-  // -------------------------------
-  // HEALTH CHECK
-  // -------------------------------
-
-  if (req.url === "/health") {
-
-    res.writeHead(200, {
-      "Content-Type":
-        "application/json; charset=utf-8"
-    });
-
-    res.end(
-      JSON.stringify({
-        status: "ok",
-        app: "Live Score",
-        football: true,
-        cricket: true
-      })
-    );
-
-    return;
-  }
-
-
-  // -------------------------------
-  // WEBSITE FILES
-  // -------------------------------
-
-  let filePath;
+  let requestedPath =
+    req.url.split("?")[0];
 
   if (
-    req.url === "/" ||
-    req.url === "/index.html"
+    requestedPath === "/" ||
+    requestedPath === ""
   ) {
-
-    filePath =
-      path.join(__dirname, "index.html");
-
-  } else {
-
-    filePath =
-      path.join(__dirname, req.url);
+    requestedPath = "/index.html";
   }
 
+  const filePath =
+    path.join(
+      __dirname,
+      requestedPath
+    );
 
-  // Security
-
-  if (!filePath.startsWith(__dirname)) {
+  if (
+    !filePath.startsWith(__dirname)
+  ) {
 
     res.writeHead(403);
+
     res.end("Forbidden");
 
     return;
   }
 
 
-  fs.readFile(filePath, (err, data) => {
+  fs.readFile(
+    filePath,
+    (error, data) => {
 
-    if (err) {
+      if (error) {
 
-      res.writeHead(404, {
+        res.writeHead(404, {
+          "Content-Type":
+            "text/plain; charset=utf-8"
+        });
+
+        res.end(
+          "404 - File Not Found"
+        );
+
+        return;
+      }
+
+
+      let contentType =
+        "text/html; charset=utf-8";
+
+
+      if (
+        filePath.endsWith(".css")
+      ) {
+
+        contentType =
+          "text/css; charset=utf-8";
+
+      }
+
+
+      if (
+        filePath.endsWith(".js")
+      ) {
+
+        contentType =
+          "application/javascript; charset=utf-8";
+
+      }
+
+
+      if (
+        filePath.endsWith(".json")
+      ) {
+
+        contentType =
+          "application/json; charset=utf-8";
+
+      }
+
+
+      res.writeHead(200, {
+
         "Content-Type":
-          "text/plain; charset=utf-8"
+          contentType,
+
+        "Cache-Control":
+          "no-cache"
       });
 
-      res.end("404 - File Not Found");
 
-      return;
-    }
-
-
-    let contentType =
-      "text/html; charset=utf-8";
-
-
-    if (filePath.endsWith(".json")) {
-
-      contentType =
-        "application/json; charset=utf-8";
+      res.end(data);
 
     }
-
-
-    if (filePath.endsWith(".css")) {
-
-      contentType =
-        "text/css; charset=utf-8";
-
-    }
-
-
-    if (filePath.endsWith(".js")) {
-
-      contentType =
-        "application/javascript; charset=utf-8";
-
-    }
-
-
-    res.writeHead(200, {
-      "Content-Type": contentType,
-      "Cache-Control": "no-cache"
-    });
-
-
-    res.end(data);
-
-  });
-
-});
-
-
-// ========================================
-// START SERVER
-// ========================================
-
-server.listen(PORT, () => {
-
-  console.log(
-    "Live Score server started on port " +
-    PORT
   );
 
-});
+}
+
+
+/* =========================================
+   SERVER
+========================================= */
+
+const server =
+  http.createServer(
+    async (req, res) => {
+
+
+      /* -------------------------------
+         HEALTH
+      -------------------------------- */
+
+      if (
+        req.url === "/health"
+      ) {
+
+        sendJSON(res, 200, {
+
+          status: "ok",
+
+          app: "Live Score",
+
+          football: true,
+
+          cricket: true
+
+        });
+
+        return;
+      }
+
+
+      /* -------------------------------
+         FOOTBALL
+      -------------------------------- */
+
+      if (
+        req.url.startsWith(
+          "/api/football"
+        )
+      ) {
+
+        try {
+
+          const url =
+            new URL(
+              req.url,
+              "http://localhost"
+            );
+
+
+          let status =
+            url.searchParams.get(
+              "status"
+            );
+
+
+          /*
+             পুরোনো index.html
+             filter পাঠালে সেটাও
+             support করবে।
+          */
+
+          if (!status) {
+
+            const filter =
+              url.searchParams.get(
+                "filter"
+              );
+
+            if (
+              filter === "live" ||
+              filter === "finished" ||
+              filter === "upcoming"
+            ) {
+
+              status = filter;
+
+            }
+
+          }
+
+
+          const data =
+            await getMatches(
+              "football",
+              status
+            );
+
+
+          sendJSON(
+            res,
+            200,
+            data
+          );
+
+
+        } catch (error) {
+
+          console.error(
+            "Football error:",
+            error
+          );
+
+
+          sendJSON(
+            res,
+            500,
+            {
+
+              success: false,
+
+              error:
+                "Football data পাওয়া যাচ্ছে না",
+
+              message:
+                error.message
+
+            }
+          );
+
+        }
+
+        return;
+      }
+
+
+      /* -------------------------------
+         CRICKET
+      -------------------------------- */
+
+      if (
+        req.url.startsWith(
+          "/api/cricket"
+        )
+      ) {
+
+        try {
+
+          const url =
+            new URL(
+              req.url,
+              "http://localhost"
+            );
+
+
+          let status =
+            url.searchParams.get(
+              "status"
+            );
+
+
+          if (!status) {
+
+            const filter =
+              url.searchParams.get(
+                "filter"
+              );
+
+            if (
+              filter === "live" ||
+              filter === "finished" ||
+              filter === "upcoming"
+            ) {
+
+              status = filter;
+
+            }
+
+          }
+
+
+          const data =
+            await getMatches(
+              "cricket",
+              status
+            );
+
+
+          sendJSON(
+            res,
+            200,
+            data
+          );
+
+
+        } catch (error) {
+
+          console.error(
+            "Cricket error:",
+            error
+          );
+
+
+          sendJSON(
+            res,
+            500,
+            {
+
+              success: false,
+
+              error:
+                "Cricket data পাওয়া যাচ্ছে না",
+
+              message:
+                error.message
+
+            }
+          );
+
+        }
+
+        return;
+      }
+
+
+      /* -------------------------------
+         STATIC WEBSITE
+      -------------------------------- */
+
+      serveFile(
+        req,
+        res
+      );
+
+    }
+  );
+
+
+/* =========================================
+   START SERVER
+========================================= */
+
+server.listen(
+  PORT,
+  () => {
+
+    console.log(
+      "Live Score server started on port " +
+      PORT
+    );
+
+  }
+);
