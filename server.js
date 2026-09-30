@@ -4,62 +4,76 @@ const path = require("path");
 
 const PORT = process.env.PORT || 10000;
 
+/* =========================================
+   SPORT SCORE API
+========================================= */
+
 const API_BASE =
   "https://sportscore.com/api/v1/fixtures/";
 
 const MATCH_API =
   "https://sportscore.com/api/v1/match/";
 
+/*
+  SportScore data is edge-cached.
+  We keep our own short cache so the server
+  can refresh regularly without hammering API.
+*/
+
+const CACHE_TTL = 15000; // 15 seconds
+
+const cache = new Map();
+
+const lastSuccessful = new Map();
+
 
 /* =========================================
-   SPORTS API
+   TIME
 ========================================= */
 
-async function getMatches(
+function nowISO() {
+  return new Date().toISOString();
+}
+
+
+/* =========================================
+   CACHE KEY
+========================================= */
+
+function makeCacheKey(
   sport,
   status,
   date
 ) {
 
-  let url =
-    API_BASE +
-    "?sport=" +
-    encodeURIComponent(sport);
+  return [
+    sport || "",
+    status || "",
+    date || ""
+  ].join("|");
 
-  /* DATE */
-
-  if (date) {
-
-    url +=
-      "&date=" +
-      encodeURIComponent(date);
-
-  }
-
-  /* LIMIT */
-
-  url += "&limit=200";
+}
 
 
-  /* STATUS */
+/* =========================================
+   FETCH JSON
+========================================= */
 
-  if (status) {
-
-    url +=
-      "&status=" +
-      encodeURIComponent(status);
-
-  }
-
-
-  console.log(
-    "Fetching:",
-    url
-  );
-
+async function fetchJSON(url) {
 
   const response =
-    await fetch(url);
+    await fetch(
+      url,
+      {
+        headers: {
+          "Accept":
+            "application/json",
+
+          "User-Agent":
+            "Football-Fan-Zone/1.0"
+        }
+      }
+    );
 
 
   if (!response.ok) {
@@ -78,6 +92,188 @@ async function getMatches(
 
 
 /* =========================================
+   GET MATCHES
+========================================= */
+
+async function getMatches(
+  sport,
+  status,
+  date
+) {
+
+  const key =
+    makeCacheKey(
+      sport,
+      status,
+      date
+    );
+
+
+  const cached =
+    cache.get(key);
+
+
+  /*
+    Return fresh cache
+  */
+
+  if (
+    cached &&
+    Date.now() - cached.time <
+      CACHE_TTL
+  ) {
+
+    return {
+      ...cached.data,
+
+      _server: {
+        cached: true,
+        updated:
+          cached.updated
+      }
+    };
+
+  }
+
+
+  let url =
+    API_BASE +
+    "?sport=" +
+    encodeURIComponent(
+      sport
+    );
+
+
+  /*
+    DATE
+  */
+
+  if (date) {
+
+    url +=
+      "&date=" +
+      encodeURIComponent(
+        date
+      );
+
+  }
+
+
+  /*
+    LIMIT
+  */
+
+  url +=
+    "&limit=200";
+
+
+  /*
+    STATUS
+  */
+
+  if (status) {
+
+    url +=
+      "&status=" +
+      encodeURIComponent(
+        status
+      );
+
+  }
+
+
+  console.log(
+    "[" +
+      nowISO() +
+      "] Fetching:",
+    url
+  );
+
+
+  try {
+
+    const data =
+      await fetchJSON(
+        url
+      );
+
+
+    /*
+      Save cache
+    */
+
+    cache.set(
+      key,
+      {
+        data: data,
+        time: Date.now(),
+        updated: nowISO()
+      }
+    );
+
+
+    /*
+      Save last successful
+      response
+    */
+
+    lastSuccessful.set(
+      key,
+      data
+    );
+
+
+    return {
+      ...data,
+
+      _server: {
+        cached: false,
+        updated: nowISO()
+      }
+    };
+
+
+  } catch (error) {
+
+    console.error(
+      "API fetch failed:",
+      error.message
+    );
+
+
+    /*
+      If API temporarily fails,
+      return last successful data.
+    */
+
+    if (
+      lastSuccessful.has(key)
+    ) {
+
+      return {
+        ...lastSuccessful.get(
+          key
+        ),
+
+        _server: {
+          cached: true,
+          stale: true,
+          updated:
+            nowISO()
+        }
+      };
+
+    }
+
+
+    throw error;
+
+  }
+
+}
+
+
+/* =========================================
    SINGLE MATCH DETAILS
 ========================================= */
 
@@ -86,41 +282,131 @@ async function getMatchDetails(
   slug
 ) {
 
-  const url =
-    MATCH_API +
-    "?sport=" +
-    encodeURIComponent(sport) +
-    "&slug=" +
-    encodeURIComponent(slug);
+  const key =
+    "match|" +
+    sport +
+    "|" +
+    slug;
 
 
-  console.log(
-    "Fetching match:",
-    url
-  );
+  const cached =
+    cache.get(key);
 
 
-  const response =
-    await fetch(url);
+  /*
+    Short cache for match details
+  */
 
+  if (
+    cached &&
+    Date.now() - cached.time <
+      10000
+  ) {
 
-  if (!response.ok) {
+    return {
+      ...cached.data,
 
-    throw new Error(
-      "Match API error: " +
-      response.status
-    );
+      _server: {
+        cached: true,
+        updated:
+          cached.updated
+      }
+    };
 
   }
 
 
-  return await response.json();
+  const url =
+    MATCH_API +
+    "?sport=" +
+    encodeURIComponent(
+      sport
+    ) +
+    "&slug=" +
+    encodeURIComponent(
+      slug
+    );
+
+
+  console.log(
+    "[" +
+      nowISO() +
+      "] Fetching match:",
+    url
+  );
+
+
+  try {
+
+    const data =
+      await fetchJSON(
+        url
+      );
+
+
+    cache.set(
+      key,
+      {
+        data: data,
+        time: Date.now(),
+        updated: nowISO()
+      }
+    );
+
+
+    lastSuccessful.set(
+      key,
+      data
+    );
+
+
+    return {
+      ...data,
+
+      _server: {
+        cached: false,
+        updated: nowISO()
+      }
+    };
+
+
+  } catch (error) {
+
+    console.error(
+      "Match detail error:",
+      error.message
+    );
+
+
+    if (
+      lastSuccessful.has(key)
+    ) {
+
+      return {
+        ...lastSuccessful.get(
+          key
+        ),
+
+        _server: {
+          cached: true,
+          stale: true,
+          updated:
+            nowISO()
+        }
+      };
+
+    }
+
+
+    throw error;
+
+  }
 
 }
 
 
 /* =========================================
-   JSON RESPONSE
+   SEND JSON
 ========================================= */
 
 function sendJSON(
@@ -139,6 +425,12 @@ function sendJSON(
       "Access-Control-Allow-Origin":
         "*",
 
+      "Access-Control-Allow-Methods":
+        "GET, OPTIONS",
+
+      "Access-Control-Allow-Headers":
+        "Content-Type",
+
       "Cache-Control":
         "no-store"
 
@@ -147,7 +439,9 @@ function sendJSON(
 
 
   res.end(
-    JSON.stringify(data)
+    JSON.stringify(
+      data
+    )
   );
 
 }
@@ -177,10 +471,20 @@ function serveFile(
   }
 
 
+  /*
+    Prevent path traversal
+  */
+
+  const safePath =
+    path.normalize(
+      requestedPath
+    );
+
+
   const filePath =
     path.join(
       __dirname,
-      requestedPath
+      safePath
     );
 
 
@@ -190,7 +494,9 @@ function serveFile(
     )
   ) {
 
-    res.writeHead(403);
+    res.writeHead(
+      403
+    );
 
     res.end(
       "Forbidden"
@@ -231,7 +537,9 @@ function serveFile(
 
 
       if (
-        filePath.endsWith(".css")
+        filePath.endsWith(
+          ".css"
+        )
       ) {
 
         contentType =
@@ -240,8 +548,10 @@ function serveFile(
       }
 
 
-      if (
-        filePath.endsWith(".js")
+      else if (
+        filePath.endsWith(
+          ".js"
+        )
       ) {
 
         contentType =
@@ -250,12 +560,65 @@ function serveFile(
       }
 
 
-      if (
-        filePath.endsWith(".json")
+      else if (
+        filePath.endsWith(
+          ".json"
+        )
       ) {
 
         contentType =
           "application/json; charset=utf-8";
+
+      }
+
+
+      else if (
+        filePath.endsWith(
+          ".png"
+        )
+      ) {
+
+        contentType =
+          "image/png";
+
+      }
+
+
+      else if (
+        filePath.endsWith(
+          ".jpg"
+        ) ||
+        filePath.endsWith(
+          ".jpeg"
+        )
+      ) {
+
+        contentType =
+          "image/jpeg";
+
+      }
+
+
+      else if (
+        filePath.endsWith(
+          ".svg"
+        )
+      ) {
+
+        contentType =
+          "image/svg+xml";
+
+      }
+
+
+      else if (
+        filePath.endsWith(
+          ".webp"
+        )
+      ) {
+
+        contentType =
+          "image/webp";
 
       }
 
@@ -274,7 +637,9 @@ function serveFile(
       );
 
 
-      res.end(data);
+      res.end(
+        data
+      );
 
     }
   );
@@ -283,12 +648,159 @@ function serveFile(
 
 
 /* =========================================
-   SERVER
+   BACKGROUND REFRESH
+========================================= */
+
+/*
+  Refresh live football/cricket data
+  automatically every 15 seconds.
+
+  This does NOT replace the API's own
+  refresh interval; it simply keeps our
+  server cache warm.
+*/
+
+async function refreshLiveData() {
+
+  const sports = [
+    "football",
+    "cricket"
+  ];
+
+
+  for (
+    const sport of sports
+  ) {
+
+    const key =
+      makeCacheKey(
+        sport,
+        "live",
+        ""
+      );
+
+
+    try {
+
+      const url =
+        API_BASE +
+        "?sport=" +
+        encodeURIComponent(
+          sport
+        ) +
+        "&status=live" +
+        "&limit=200";
+
+
+      console.log(
+        "[" +
+          nowISO() +
+          "] Background refresh:",
+        sport
+      );
+
+
+      const data =
+        await fetchJSON(
+          url
+        );
+
+
+      cache.set(
+        key,
+        {
+          data: data,
+          time: Date.now(),
+          updated: nowISO()
+        }
+      );
+
+
+      lastSuccessful.set(
+        key,
+        data
+      );
+
+
+    } catch (error) {
+
+      console.error(
+        "Background refresh failed:",
+        sport,
+        error.message
+      );
+
+    }
+
+  }
+
+}
+
+
+/* =========================================
+   AUTO REFRESH
+========================================= */
+
+const refreshTimer =
+  setInterval(
+    refreshLiveData,
+    15000
+  );
+
+
+/*
+  Don't keep Node process alive
+  only because of timer during shutdown.
+*/
+
+if (
+  refreshTimer.unref
+) {
+
+  refreshTimer.unref();
+
+}
+
+
+/* =========================================
+   HTTP SERVER
 ========================================= */
 
 const server =
   http.createServer(
-    async (req, res) => {
+    async (
+      req,
+      res
+    ) => {
+
+      /*
+        CORS preflight
+      */
+
+      if (
+        req.method ===
+        "OPTIONS"
+      ) {
+
+        res.writeHead(
+          204,
+          {
+            "Access-Control-Allow-Origin":
+              "*",
+
+            "Access-Control-Allow-Methods":
+              "GET, OPTIONS",
+
+            "Access-Control-Allow-Headers":
+              "Content-Type"
+          }
+        );
+
+        res.end();
+
+        return;
+
+      }
 
 
       /* =====================================
@@ -296,7 +808,8 @@ const server =
       ===================================== */
 
       if (
-        req.url === "/health"
+        req.url ===
+        "/health"
       ) {
 
         sendJSON(
@@ -304,7 +817,8 @@ const server =
           200,
           {
 
-            status: "ok",
+            status:
+              "ok",
 
             app:
               "Football Fan Zone",
@@ -319,7 +833,19 @@ const server =
               true,
 
             date_filter:
-              true
+              true,
+
+            realtime:
+              true,
+
+            refresh_interval:
+              "15 seconds",
+
+            cache_ttl:
+              "15 seconds",
+
+            server_time:
+              nowISO()
 
           }
         );
@@ -400,7 +926,9 @@ const server =
           );
 
 
-        } catch (error) {
+        } catch (
+          error
+        ) {
 
           console.error(
             "Match details error:",
@@ -464,9 +992,13 @@ const server =
             );
 
 
-          /* পুরোনো filter support */
+          /*
+            Old filter support
+          */
 
-          if (!status) {
+          if (
+            !status
+          ) {
 
             const filter =
               url.searchParams.get(
@@ -475,9 +1007,12 @@ const server =
 
 
             if (
-              filter === "live" ||
-              filter === "finished" ||
-              filter === "upcoming"
+              filter ===
+                "live" ||
+              filter ===
+                "finished" ||
+              filter ===
+                "upcoming"
             ) {
 
               status =
@@ -487,6 +1022,10 @@ const server =
 
           }
 
+
+          /*
+            Get data
+          */
 
           const data =
             await getMatches(
@@ -503,7 +1042,9 @@ const server =
           );
 
 
-        } catch (error) {
+        } catch (
+          error
+        ) {
 
           console.error(
             "Football error:",
@@ -567,9 +1108,13 @@ const server =
             );
 
 
-          /* পুরোনো filter support */
+          /*
+            Old filter support
+          */
 
-          if (!status) {
+          if (
+            !status
+          ) {
 
             const filter =
               url.searchParams.get(
@@ -578,9 +1123,12 @@ const server =
 
 
             if (
-              filter === "live" ||
-              filter === "finished" ||
-              filter === "upcoming"
+              filter ===
+                "live" ||
+              filter ===
+                "finished" ||
+              filter ===
+                "upcoming"
             ) {
 
               status =
@@ -590,6 +1138,10 @@ const server =
 
           }
 
+
+          /*
+            Get cricket data
+          */
 
           const data =
             await getMatches(
@@ -606,7 +1158,9 @@ const server =
           );
 
 
-        } catch (error) {
+        } catch (
+          error
+        ) {
 
           console.error(
             "Cricket error:",
@@ -653,7 +1207,24 @@ const server =
 
 
 /* =========================================
-   START
+   SERVER ERROR HANDLING
+========================================= */
+
+server.on(
+  "error",
+  (error) => {
+
+    console.error(
+      "SERVER ERROR:",
+      error
+    );
+
+  }
+);
+
+
+/* =========================================
+   START SERVER
 ========================================= */
 
 server.listen(
@@ -661,9 +1232,87 @@ server.listen(
   () => {
 
     console.log(
-      "Football Fan Zone server started on port " +
+      "================================="
+    );
+
+    console.log(
+      "Football Fan Zone server started"
+    );
+
+    console.log(
+      "Port:",
       PORT
     );
 
+    console.log(
+      "Realtime refresh: 15 seconds"
+    );
+
+    console.log(
+      "Football API: /api/football"
+    );
+
+    console.log(
+      "Cricket API: /api/cricket"
+    );
+
+    console.log(
+      "Match API: /api/match"
+    );
+
+    console.log(
+      "Health: /health"
+    );
+
+    console.log(
+      "================================="
+    );
+
+    /*
+      Initial background refresh
+    */
+
+    refreshLiveData();
+
   }
+);
+
+
+/* =========================================
+   GRACEFUL SHUTDOWN
+========================================= */
+
+function shutdown() {
+
+  console.log(
+    "Shutting down server..."
+  );
+
+
+  clearInterval(
+    refreshTimer
+  );
+
+
+  server.close(
+    () => {
+
+      process.exit(
+        0
+      );
+
+    }
+  );
+
+}
+
+
+process.on(
+  "SIGTERM",
+  shutdown
+);
+
+process.on(
+  "SIGINT",
+  shutdown
 );
