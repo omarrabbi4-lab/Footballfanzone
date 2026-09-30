@@ -2,378 +2,260 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#090912">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#080b14">
 
 <title>Live Score ⚽🏏</title>
 
 <style>
 *{
+  box-sizing:border-box;
   margin:0;
   padding:0;
-  box-sizing:border-box;
-  font-family:Arial,sans-serif;
 }
 
 body{
-  min-height:100vh;
-  color:#fff;
+  font-family:Arial,sans-serif;
   background:
-    radial-gradient(circle at top,#291052 0%,#0c0915 45%,#050507 100%);
+    radial-gradient(circle at top,#17213d 0%,#080b14 45%,#05070c 100%);
+  color:#fff;
+  min-height:100vh;
 }
 
-.app{
-  width:100%;
-  max-width:650px;
-  margin:auto;
-  padding:18px;
-}
-
-header{
+.header{
+  padding:25px 18px 18px;
   text-align:center;
-  padding:20px 5px 25px;
 }
 
-header h1{
+.logo{
   font-size:30px;
-  margin-bottom:7px;
+  font-weight:800;
 }
 
-header p{
-  color:#aaa;
+.subtitle{
+  color:#9ca8bd;
+  margin-top:7px;
   font-size:14px;
 }
 
-.live-status{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:7px;
-  margin-top:12px;
-  color:#5cff8d;
-  font-size:13px;
-}
-
-.dot{
-  width:9px;
-  height:9px;
-  border-radius:50%;
-  background:#39ff72;
-  box-shadow:0 0 12px #39ff72;
-}
-
-.sports{
+.tabs{
   display:flex;
   gap:10px;
-  margin-bottom:18px;
+  padding:10px 15px;
 }
 
-.sport-btn{
+.tab{
   flex:1;
   border:0;
-  padding:14px;
-  border-radius:15px;
-  background:rgba(255,255,255,.08);
-  color:#fff;
-  font-size:15px;
+  padding:13px;
+  border-radius:14px;
+  background:#151b2b;
+  color:#aeb8ca;
+  font-size:16px;
+  font-weight:bold;
   cursor:pointer;
 }
 
-.sport-btn.active{
-  background:linear-gradient(135deg,#ff4f91,#814cff);
+.tab.active{
+  background:linear-gradient(135deg,#6757ff,#9b45ff);
+  color:white;
 }
 
 .filters{
   display:flex;
   gap:8px;
   overflow-x:auto;
-  margin-bottom:18px;
+  padding:8px 15px 15px;
 }
 
 .filter{
   white-space:nowrap;
-  border:1px solid rgba(255,255,255,.08);
-  background:rgba(255,255,255,.06);
-  color:#ccc;
-  padding:9px 15px;
+  border:1px solid #252d40;
+  background:#101522;
+  color:#9faabe;
+  padding:9px 16px;
   border-radius:20px;
-  cursor:pointer;
 }
 
 .filter.active{
-  color:#fff;
-  background:rgba(255,79,145,.2);
-  border-color:#ff4f91;
+  background:#222b43;
+  color:white;
+  border-color:#6574ff;
 }
 
-.match-card{
-  background:rgba(255,255,255,.07);
-  border:1px solid rgba(255,255,255,.09);
-  border-radius:22px;
-  padding:18px;
-  margin-bottom:15px;
-  backdrop-filter:blur(15px);
+.container{
+  padding:0 15px 30px;
+}
+
+.status{
+  text-align:center;
+  color:#8995aa;
+  padding:20px;
+}
+
+.card{
+  background:rgba(18,23,37,.94);
+  border:1px solid #252c3d;
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:12px;
+  box-shadow:0 8px 25px rgba(0,0,0,.22);
 }
 
 .league{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  color:#aaa;
+  color:#8f9bb0;
   font-size:12px;
-  margin-bottom:18px;
-}
-
-.live{
-  color:#ff5475;
-  font-weight:bold;
+  margin-bottom:13px;
 }
 
 .teams{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  text-align:center;
+  gap:10px;
 }
 
 .team{
-  width:34%;
+  width:38%;
+  text-align:center;
 }
 
-.team-logo{
-  width:48px;
-  height:48px;
-  border-radius:50%;
-  margin:0 auto 8px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:linear-gradient(135deg,#30204c,#151525);
-  overflow:hidden;
-  font-size:22px;
-}
-
-.team-logo img{
-  width:100%;
-  height:100%;
+.team img{
+  width:42px;
+  height:42px;
   object-fit:contain;
+  margin-bottom:7px;
 }
 
 .team-name{
   font-size:14px;
+  font-weight:bold;
   line-height:1.3;
 }
 
 .score{
-  width:32%;
+  width:24%;
+  text-align:center;
+  font-size:22px;
+  font-weight:800;
 }
 
-.score-number{
-  font-size:25px;
-  font-weight:bold;
-}
-
-.score-info{
-  margin-top:5px;
-  color:#aaa;
+.time{
+  display:block;
   font-size:11px;
+  color:#7f8ba0;
+  margin-top:5px;
+  font-weight:normal;
 }
 
-.status{
-  margin-top:15px;
-  padding-top:13px;
-  border-top:1px solid rgba(255,255,255,.08);
-  text-align:center;
-  color:#bbb;
-  font-size:12px;
-}
-
-.loading{
-  text-align:center;
-  padding:45px 10px;
-  color:#aaa;
-}
-
-.loading-icon{
-  font-size:40px;
-  margin-bottom:12px;
+.live{
+  color:#35e58a;
+  font-size:11px;
+  margin-top:5px;
 }
 
 .error{
   text-align:center;
-  padding:30px 15px;
-  color:#ff9aaa;
-  line-height:1.7;
+  color:#ff7185;
+  padding:25px 10px;
 }
 
-.retry{
-  margin-top:15px;
-  padding:11px 20px;
+.refresh{
+  position:fixed;
+  right:18px;
+  bottom:20px;
+  width:54px;
+  height:54px;
   border:0;
-  border-radius:12px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#695cff,#a346ff);
   color:#fff;
-  background:linear-gradient(135deg,#ff4f91,#814cff);
+  font-size:23px;
+  box-shadow:0 8px 25px rgba(100,70,255,.4);
 }
 
 .empty{
   text-align:center;
-  padding:45px 10px;
-  color:#888;
+  padding:45px 20px;
+  color:#8995aa;
 }
 
-.empty-icon{
-  font-size:42px;
-  margin-bottom:10px;
-}
+@media(min-width:700px){
+  .container{
+    max-width:700px;
+    margin:auto;
+  }
 
-.bottom-nav{
-  position:sticky;
-  bottom:10px;
-  margin-top:25px;
-  display:flex;
-  justify-content:space-around;
-  background:rgba(15,15,25,.94);
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:20px;
-  padding:12px 5px;
-  backdrop-filter:blur(15px);
-}
-
-.nav-item{
-  text-align:center;
-  color:#888;
-  font-size:11px;
-}
-
-.nav-item span{
-  display:block;
-  font-size:20px;
-  margin-bottom:4px;
-}
-
-.nav-item.active{
-  color:#ff5b9d;
-}
-
-.updated{
-  text-align:center;
-  color:#666;
-  font-size:10px;
-  margin-top:12px;
+  .tabs,
+  .filters{
+    max-width:700px;
+    margin:auto;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="app">
-
-<header>
-
-<h1>⚡ Live Score</h1>
-
-<p>Football & Cricket-এর লাইভ স্কোর</p>
-
-<div class="live-status">
-<span class="dot"></span>
-Live Score
-</div>
-
+<header class="header">
+  <div class="logo">⚡ Live Score</div>
+  <div class="subtitle">Football & Cricket Live Scores</div>
 </header>
 
+<div class="tabs">
 
-<div class="sports">
+  <button
+    class="tab active"
+    onclick="changeSport('football',this)">
+    ⚽ Football
+  </button>
 
-<button
-class="sport-btn active"
-id="footballBtn"
-onclick="changeSport('football')">
-⚽ Football
-</button>
-
-<button
-class="sport-btn"
-id="cricketBtn"
-onclick="changeSport('cricket')">
-🏏 Cricket
-</button>
+  <button
+    class="tab"
+    onclick="changeSport('cricket',this)">
+    🏏 Cricket
+  </button>
 
 </div>
-
 
 <div class="filters">
 
+  <button
+    class="filter active"
+    onclick="changeFilter('live',this)">
+    🔴 Live
+  </button>
+
+  <button
+    class="filter"
+    onclick="changeFilter('upcoming',this)">
+    🕐 Upcoming
+  </button>
+
+  <button
+    class="filter"
+    onclick="changeFilter('finished',this)">
+    ✅ Finished
+  </button>
+
+</div>
+
+<main class="container">
+
+  <div id="status" class="status">
+    স্কোর লোড হচ্ছে...
+  </div>
+
+  <div id="matches"></div>
+
+</main>
+
 <button
-class="filter active"
-onclick="changeFilter('live',this)">
-🔴 Live
+  class="refresh"
+  onclick="loadScores()"
+  title="Refresh">
+  ↻
 </button>
-
-<button
-class="filter"
-onclick="changeFilter('upcoming',this)">
-📅 Upcoming
-</button>
-
-<button
-class="filter"
-onclick="changeFilter('finished',this)">
-✅ Finished
-</button>
-
-</div>
-
-
-<div id="matches">
-
-<div class="loading">
-
-<div class="loading-icon">⚡</div>
-
-<div>
-লাইভ ম্যাচ খোঁজা হচ্ছে...
-</div>
-
-</div>
-
-</div>
-
-
-<div class="updated" id="updated">
-ডেটা লোড হচ্ছে...
-</div>
-
-
-<div class="bottom-nav">
-
-<div class="nav-item active">
-<span>🏠</span>
-Home
-</div>
-
-<div
-class="nav-item"
-onclick="changeSport('football')">
-<span>⚽</span>
-Football
-</div>
-
-<div
-class="nav-item"
-onclick="changeSport('cricket')">
-<span>🏏</span>
-Cricket
-</div>
-
-<div class="nav-item">
-<span>❤️</span>
-Favorites
-</div>
-
-</div>
-
-</div>
-
 
 <script>
 
@@ -381,177 +263,86 @@ let currentSport = "football";
 let currentFilter = "live";
 
 
-// ======================================
-// CHANGE SPORT
-// ======================================
-
-function changeSport(sport){
+function changeSport(sport,button){
 
   currentSport = sport;
 
   document
-  .getElementById("footballBtn")
-  .classList
-  .toggle("active",sport === "football");
+    .querySelectorAll(".tab")
+    .forEach(btn => btn.classList.remove("active"));
 
-  document
-  .getElementById("cricketBtn")
-  .classList
-  .toggle("active",sport === "cricket");
+  button.classList.add("active");
 
-  loadMatches();
-
+  loadScores();
 }
 
-
-// ======================================
-// CHANGE FILTER
-// ======================================
 
 function changeFilter(filter,button){
 
   currentFilter = filter;
 
   document
-  .querySelectorAll(".filter")
-  .forEach(btn=>{
-    btn.classList.remove("active");
-  });
+    .querySelectorAll(".filter")
+    .forEach(btn => btn.classList.remove("active"));
 
   button.classList.add("active");
 
-  loadMatches();
-
+  loadScores();
 }
 
 
-// ======================================
-// LOAD MATCHES
-// ======================================
+function getValue(obj,keys,defaultValue=""){
 
-async function loadMatches(){
+  for(const key of keys){
 
-  const container =
-    document.getElementById("matches");
+    if(
+      obj &&
+      obj[key] !== undefined &&
+      obj[key] !== null &&
+      obj[key] !== ""
+    ){
 
-  container.innerHTML = `
-    <div class="loading">
-      <div class="loading-icon">⏳</div>
-      ম্যাচ খোঁজা হচ্ছে...
-    </div>
-  `;
+      return obj[key];
 
-  const endpoint =
-    currentSport === "football"
-    ? "/api/football"
-    : "/api/cricket";
-
-  try{
-
-    const response =
-      await fetch(
-        endpoint + "?filter=" + currentFilter,
-        {
-          cache:"no-store"
-        }
-      );
-
-    if(!response.ok){
-      throw new Error(
-        "Server error: " + response.status
-      );
     }
 
-    const data =
-      await response.json();
-
-    const matches =
-      extractMatches(data);
-
-    renderMatches(matches);
-
-    document.getElementById("updated").innerText =
-      "শেষ আপডেট: " +
-      new Date().toLocaleTimeString("bn-BD");
-
   }
 
-  catch(error){
-
-    console.error(error);
-
-    container.innerHTML = `
-
-      <div class="error">
-
-        ⚠️
-
-        <br>
-
-        লাইভ স্কোর লোড করা যাচ্ছে না।
-
-        <br>
-
-        কিছুক্ষণ পর আবার চেষ্টা করুন।
-
-        <br>
-
-        <button
-        class="retry"
-        onclick="loadMatches()">
-        আবার চেষ্টা করুন
-        </button>
-
-      </div>
-
-    `;
-
-    document.getElementById("updated").innerText =
-      "ডেটা পাওয়া যায়নি";
-
-  }
-
+  return defaultValue;
 }
 
 
-// ======================================
-// EXTRACT MATCHES
-// ======================================
-
-function extractMatches(data){
-
-  if(!data){
-    return [];
-  }
+function findArray(data){
 
   if(Array.isArray(data)){
     return data;
   }
 
-  if(Array.isArray(data.matches)){
-    return data.matches;
+  if(!data || typeof data !== "object"){
+    return [];
   }
 
-  if(Array.isArray(data.events)){
-    return data.events;
-  }
+  const possibleKeys=[
+    "matches",
+    "events",
+    "data",
+    "results",
+    "items",
+    "response"
+  ];
 
-  if(Array.isArray(data.results)){
-    return data.results;
-  }
+  for(const key of possibleKeys){
 
-  if(data.data){
-
-    if(Array.isArray(data.data)){
-      return data.data;
+    if(Array.isArray(data[key])){
+      return data[key];
     }
 
-    if(Array.isArray(data.data.matches)){
-      return data.data.matches;
-    }
+  }
 
-    if(Array.isArray(data.data.events)){
-      return data.data.events;
+  for(const key of Object.keys(data)){
+
+    if(Array.isArray(data[key])){
+      return data[key];
     }
 
   }
@@ -561,164 +352,228 @@ function extractMatches(data){
 }
 
 
-// ======================================
-// RENDER
-// ======================================
+function getTeam(match,side){
 
-function renderMatches(matches){
+  const prefix =
+    side === "home"
+    ? ["home","homeTeam","team1","team_home"]
+    : ["away","awayTeam","team2","team_away"];
 
-  const container =
-    document.getElementById("matches");
+  for(const key of prefix){
 
-  if(!matches.length){
+    if(
+      match[key] &&
+      typeof match[key] === "object"
+    ){
 
-    container.innerHTML = `
+      return match[key];
 
-      <div class="empty">
+    }
 
-        <div class="empty-icon">
-          ${currentSport === "football" ? "⚽" : "🏏"}
-        </div>
-
-        <div>
-          এই মুহূর্তে কোনো
-          ${currentFilter === "live" ? "লাইভ" : ""}
-          ম্যাচ পাওয়া যায়নি।
-        </div>
-
-      </div>
-
-    `;
-
-    return;
   }
 
-
-  container.innerHTML =
-    matches
-    .slice(0,50)
-    .map(createMatchCard)
-    .join("");
+  return {};
 
 }
 
 
-// ======================================
-// MATCH CARD
-// ======================================
+function teamName(team,side){
 
-function createMatchCard(match){
+  return getValue(
+    team,
+    ["name","title","shortName","team"],
+    side === "home" ? "Home" : "Away"
+  );
 
-  const home =
-    getValue(
-      match,
-      [
-        "home_team",
-        "homeTeam",
-        "home",
-        "team1",
-        "localteam"
-      ]
+}
+
+
+function teamLogo(team){
+
+  return getValue(
+    team,
+    ["logo","image","icon","crest","badge"],
+    ""
+  );
+
+}
+
+
+function teamScore(team){
+
+  return getValue(
+    team,
+    ["score","goals","runs","points","result"],
+    "-"
+  );
+
+}
+
+
+function formatDate(value){
+
+  if(!value){
+    return "";
+  }
+
+  try{
+
+    const d = new Date(value);
+
+    if(isNaN(d.getTime())){
+      return String(value);
+    }
+
+    return d.toLocaleString(
+      "bn-BD",
+      {
+        day:"numeric",
+        month:"short",
+        hour:"numeric",
+        minute:"2-digit"
+      }
     );
 
-  const away =
-    getValue(
-      match,
-      [
-        "away_team",
-        "awayTeam",
-        "away",
-        "team2",
-        "visitorteam"
-      ]
-    );
+  }catch(e){
+
+    return String(value);
+
+  }
+
+}
 
 
-  const homeName =
-    getTeamName(home,"Home Team");
+function isLive(match){
 
-  const awayName =
-    getTeamName(away,"Away Team");
+  const text = JSON.stringify(match).toLowerCase();
 
+  return(
+    text.includes("live") ||
+    text.includes("inplay") ||
+    text.includes("in_play") ||
+    text.includes("1h") ||
+    text.includes("2h")
+  );
 
-  const homeLogo =
-    getTeamLogo(home);
-
-  const awayLogo =
-    getTeamLogo(away);
-
-
-  const homeScore =
-    getScore(match,home,"home");
-
-  const awayScore =
-    getScore(match,away,"away");
+}
 
 
-  const league =
-    getValue(
-      match,
-      [
-        "league_name",
-        "league",
-        "competition",
-        "tournament"
-      ]
-    ) || "Live Match";
+function renderMatches(data){
+
+  const matches =
+    findArray(data);
+
+  const box =
+    document.getElementById("matches");
+
+  box.innerHTML = "";
+
+  if(!matches.length){
+
+    box.innerHTML = `
+      <div class="empty">
+        <div style="font-size:40px;margin-bottom:10px">
+          📭
+        </div>
+        আজ কোনো ম্যাচ পাওয়া যায়নি।
+      </div>
+    `;
+
+    return;
+
+  }
 
 
-  const status =
-    getValue(
-      match,
-      [
-        "status",
-        "match_status",
-        "state"
-      ]
-    ) || "LIVE";
+  matches.forEach(match => {
+
+    const home =
+      getTeam(match,"home");
+
+    const away =
+      getTeam(match,"away");
 
 
-  return `
+    const homeName =
+      teamName(home,"home");
 
-    <div class="match-card">
+    const awayName =
+      teamName(away,"away");
+
+
+    const homeScore =
+      teamScore(home);
+
+    const awayScore =
+      teamScore(away);
+
+
+    const homeLogo =
+      teamLogo(home);
+
+    const awayLogo =
+      teamLogo(away);
+
+
+    const league =
+      getValue(
+        match,
+        [
+          "league",
+          "tournament",
+          "competition",
+          "category"
+        ],
+        currentSport === "football"
+        ? "Football"
+        : "Cricket"
+      );
+
+
+    const date =
+      getValue(
+        match,
+        [
+          "startTime",
+          "start_time",
+          "date",
+          "time",
+          "timestamp"
+        ],
+        ""
+      );
+
+
+    const live =
+      isLive(match);
+
+
+    const card =
+      document.createElement("div");
+
+    card.className = "card";
+
+
+    card.innerHTML = `
 
       <div class="league">
-
-        <span>
-          ${escapeHTML(
-            getText(league)
-          )}
-        </span>
-
-        <span class="live">
-          ● ${escapeHTML(
-            getText(status)
-          )}
-        </span>
-
+        ${escapeHtml(String(league))}
       </div>
-
 
       <div class="teams">
 
         <div class="team">
 
-          <div class="team-logo">
-
-            ${
-              homeLogo
-              ?
-              `<img
-              src="${escapeAttribute(homeLogo)}"
-              onerror="this.style.display='none'">`
-              :
-              "⚽"
-            }
-
-          </div>
+          ${
+            homeLogo
+            ? `<img
+                src="${escapeAttribute(homeLogo)}"
+                onerror="this.style.display='none'"
+              >`
+            : ""
+          }
 
           <div class="team-name">
-            ${escapeHTML(homeName)}
+            ${escapeHtml(String(homeName))}
           </div>
 
         </div>
@@ -726,199 +581,53 @@ function createMatchCard(match){
 
         <div class="score">
 
-          <div class="score-number">
+          ${escapeHtml(String(homeScore))}
+          -
+          ${escapeHtml(String(awayScore))}
 
-            ${escapeHTML(
-              String(homeScore)
-            )}
-            -
-            ${escapeHTML(
-              String(awayScore)
-            )}
-
-          </div>
-
-          <div class="score-info">
-            ${currentSport === "cricket"
-              ? "Cricket"
-              : "Football"}
-          </div>
+          ${
+            live
+            ? `<span class="live">● LIVE</span>`
+            : `<span class="time">
+                ${escapeHtml(formatDate(date))}
+              </span>`
+          }
 
         </div>
 
 
         <div class="team">
 
-          <div class="team-logo">
-
-            ${
-              awayLogo
-              ?
-              `<img
-              src="${escapeAttribute(awayLogo)}"
-              onerror="this.style.display='none'">`
-              :
-              "⚽"
-            }
-
-          </div>
+          ${
+            awayLogo
+            ? `<img
+                src="${escapeAttribute(awayLogo)}"
+                onerror="this.style.display='none'"
+              >`
+            : ""
+          }
 
           <div class="team-name">
-            ${escapeHTML(awayName)}
+            ${escapeHtml(String(awayName))}
           </div>
 
         </div>
 
       </div>
 
+    `;
 
-      <div class="status">
 
-        ${
-          currentSport === "cricket"
-          ? "🏏 Cricket Live"
-          : "⚽ Football Live"
-        }
+    box.appendChild(card);
 
-      </div>
-
-    </div>
-
-  `;
+  });
 
 }
 
 
-// ======================================
-// HELPERS
-// ======================================
+function escapeHtml(value){
 
-function getValue(object,keys){
-
-  for(const key of keys){
-
-    if(
-      object &&
-      object[key] !== undefined &&
-      object[key] !== null
-    ){
-
-      return object[key];
-
-    }
-
-  }
-
-  return null;
-
-}
-
-
-function getText(value){
-
-  if(typeof value === "string"){
-    return value;
-  }
-
-  if(typeof value === "number"){
-    return String(value);
-  }
-
-  if(value && value.name){
-    return value.name;
-  }
-
-  return "Match";
-
-}
-
-
-function getTeamName(team,fallback){
-
-  if(!team){
-    return fallback;
-  }
-
-  if(typeof team === "string"){
-    return team;
-  }
-
-  return (
-    team.name ||
-    team.team_name ||
-    team.title ||
-    fallback
-  );
-
-}
-
-
-function getTeamLogo(team){
-
-  if(!team || typeof team === "string"){
-    return "";
-  }
-
-  return (
-    team.logo ||
-    team.image ||
-    team.logo_url ||
-    team.image_path ||
-    ""
-  );
-
-}
-
-
-function getScore(match,team,type){
-
-  if(team && typeof team === "object"){
-
-    const score =
-      team.score ??
-      team.runs ??
-      team.points;
-
-    if(score !== undefined){
-      return score;
-    }
-
-  }
-
-
-  const possibleKeys =
-    type === "home"
-    ?
-    [
-      "home_score",
-      "homeScore",
-      "home_runs",
-      "home_points"
-    ]
-    :
-    [
-      "away_score",
-      "awayScore",
-      "away_runs",
-      "away_points"
-    ];
-
-
-  return getValue(
-    match,
-    possibleKeys
-  ) ?? 0;
-
-}
-
-
-// ======================================
-// SECURITY
-// ======================================
-
-function escapeHTML(value){
-
-  return String(value)
+  return value
     .replace(/&/g,"&amp;")
     .replace(/</g,"&lt;")
     .replace(/>/g,"&gt;")
@@ -931,27 +640,85 @@ function escapeHTML(value){
 function escapeAttribute(value){
 
   return String(value)
-    .replace(/"/g,"%22")
-    .replace(/'/g,"%27")
-    .replace(/</g,"%3C")
-    .replace(/>/g,"%3E");
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
 }
 
 
-// ======================================
-// FIRST LOAD
-// ======================================
+async function loadScores(){
 
-loadMatches();
+  const status =
+    document.getElementById("status");
+
+  const matches =
+    document.getElementById("matches");
 
 
-// ======================================
-// AUTO REFRESH
-// ======================================
+  status.style.display = "block";
 
+  status.textContent =
+    currentSport === "football"
+    ? "⚽ Football স্কোর লোড হচ্ছে..."
+    : "🏏 Cricket স্কোর লোড হচ্ছে...";
+
+
+  matches.innerHTML = "";
+
+
+  try{
+
+    const response =
+      await fetch(
+        `/api/${currentSport}?filter=${currentFilter}`,
+        {
+          cache:"no-store"
+        }
+      );
+
+
+    if(!response.ok){
+
+      throw new Error(
+        "HTTP " + response.status
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    status.style.display = "none";
+
+    renderMatches(data);
+
+
+  }catch(error){
+
+    console.error(error);
+
+    status.style.display = "none";
+
+    matches.innerHTML = `
+      <div class="error">
+        স্কোর লোড করা যাচ্ছে না।<br>
+        কিছুক্ষণ পর আবার চেষ্টা করুন।
+      </div>
+    `;
+
+  }
+
+}
+
+
+loadScores();
+
+
+// প্রতি ৩০ সেকেন্ডে আপডেট
 setInterval(
-  loadMatches,
+  loadScores,
   30000
 );
 
