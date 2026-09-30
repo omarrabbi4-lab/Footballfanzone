@@ -1,465 +1,376 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090912">
 
-  <title>Live Score ⚽🏏</title>
+<title>Live Score ⚽🏏</title>
 
-  <meta name="theme-color" content="#090912">
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+}
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
+body{
+  min-height:100vh;
+  color:#fff;
+  background:
+    radial-gradient(circle at top,#291052 0%,#0c0915 45%,#050507 100%);
+}
 
-    body {
-      background:
-        radial-gradient(circle at top, #24134d 0%, #090912 45%, #050509 100%);
-      color: white;
-      min-height: 100vh;
-    }
+.app{
+  width:100%;
+  max-width:650px;
+  margin:auto;
+  padding:18px;
+}
 
-    .app {
-      max-width: 600px;
-      margin: auto;
-      padding: 18px;
-    }
+header{
+  text-align:center;
+  padding:20px 5px 25px;
+}
 
-    /* HEADER */
+header h1{
+  font-size:30px;
+  margin-bottom:7px;
+}
 
-    header {
-      text-align: center;
-      padding: 20px 10px 25px;
-    }
+header p{
+  color:#aaa;
+  font-size:14px;
+}
 
-    header h1 {
-      font-size: 30px;
-      margin-bottom: 7px;
-    }
+.live-status{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  margin-top:12px;
+  color:#5cff8d;
+  font-size:13px;
+}
 
-    header p {
-      color: #aaa;
-      font-size: 14px;
-    }
+.dot{
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:#39ff72;
+  box-shadow:0 0 12px #39ff72;
+}
 
-    /* LIVE STATUS */
+.sports{
+  display:flex;
+  gap:10px;
+  margin-bottom:18px;
+}
 
-    .live-status {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 7px;
-      margin-top: 12px;
-      color: #62ff91;
-      font-size: 13px;
-    }
+.sport-btn{
+  flex:1;
+  border:0;
+  padding:14px;
+  border-radius:15px;
+  background:rgba(255,255,255,.08);
+  color:#fff;
+  font-size:15px;
+  cursor:pointer;
+}
 
-    .dot {
-      width: 9px;
-      height: 9px;
-      background: #39ff72;
-      border-radius: 50%;
-      box-shadow: 0 0 12px #39ff72;
-    }
+.sport-btn.active{
+  background:linear-gradient(135deg,#ff4f91,#814cff);
+}
 
-    /* SPORTS TABS */
+.filters{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  margin-bottom:18px;
+}
 
-    .sports {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
+.filter{
+  white-space:nowrap;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.06);
+  color:#ccc;
+  padding:9px 15px;
+  border-radius:20px;
+  cursor:pointer;
+}
 
-    .sport-btn {
-      flex: 1;
-      border: none;
-      padding: 14px 10px;
-      border-radius: 15px;
-      background: rgba(255,255,255,0.08);
-      color: white;
-      font-size: 15px;
-      cursor: pointer;
-      border: 1px solid rgba(255,255,255,0.08);
-    }
+.filter.active{
+  color:#fff;
+  background:rgba(255,79,145,.2);
+  border-color:#ff4f91;
+}
 
-    .sport-btn.active {
-      background: linear-gradient(135deg, #ff4f91, #814cff);
-      box-shadow: 0 8px 25px rgba(129,76,255,0.25);
-    }
+.match-card{
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:22px;
+  padding:18px;
+  margin-bottom:15px;
+  backdrop-filter:blur(15px);
+}
 
-    /* FILTER */
+.league{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  color:#aaa;
+  font-size:12px;
+  margin-bottom:18px;
+}
 
-    .filters {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 18px;
-      overflow-x: auto;
-    }
+.live{
+  color:#ff5475;
+  font-weight:bold;
+}
 
-    .filter {
-      white-space: nowrap;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.06);
-      color: #ddd;
-      padding: 9px 15px;
-      border-radius: 20px;
-      cursor: pointer;
-    }
+.teams{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  text-align:center;
+}
 
-    .filter.active {
-      background: rgba(255,79,145,0.18);
-      color: #ff72aa;
-      border-color: #ff4f91;
-    }
+.team{
+  width:34%;
+}
 
-    /* MATCH CARD */
+.team-logo{
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  margin:0 auto 8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#30204c,#151525);
+  overflow:hidden;
+  font-size:22px;
+}
 
-    .match-card {
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.09);
-      border-radius: 22px;
-      padding: 18px;
-      margin-bottom: 15px;
-      backdrop-filter: blur(15px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-    }
+.team-logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
 
-    .league {
-      display: flex;
-      justify-content: space-between;
-      color: #aaa;
-      font-size: 12px;
-      margin-bottom: 18px;
-    }
+.team-name{
+  font-size:14px;
+  line-height:1.3;
+}
 
-    .live {
-      color: #ff4f6d;
-      font-weight: bold;
-    }
+.score{
+  width:32%;
+}
 
-    .teams {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      text-align: center;
-    }
+.score-number{
+  font-size:25px;
+  font-weight:bold;
+}
 
-    .team {
-      width: 35%;
-    }
+.score-info{
+  margin-top:5px;
+  color:#aaa;
+  font-size:11px;
+}
 
-    .team-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #30204c, #151525);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: auto auto 8px;
-      font-size: 22px;
-    }
+.status{
+  margin-top:15px;
+  padding-top:13px;
+  border-top:1px solid rgba(255,255,255,.08);
+  text-align:center;
+  color:#bbb;
+  font-size:12px;
+}
 
-    .team-name {
-      font-size: 14px;
-      line-height: 1.3;
-    }
+.loading{
+  text-align:center;
+  padding:45px 10px;
+  color:#aaa;
+}
 
-    .score {
-      width: 30%;
-    }
+.loading-icon{
+  font-size:40px;
+  margin-bottom:12px;
+}
 
-    .score-number {
-      font-size: 27px;
-      font-weight: bold;
-    }
+.error{
+  text-align:center;
+  padding:30px 15px;
+  color:#ff9aaa;
+  line-height:1.7;
+}
 
-    .score-info {
-      font-size: 11px;
-      color: #aaa;
-      margin-top: 4px;
-    }
+.retry{
+  margin-top:15px;
+  padding:11px 20px;
+  border:0;
+  border-radius:12px;
+  color:#fff;
+  background:linear-gradient(135deg,#ff4f91,#814cff);
+}
 
-    .vs {
-      font-size: 13px;
-      color: #777;
-    }
+.empty{
+  text-align:center;
+  padding:45px 10px;
+  color:#888;
+}
 
-    /* FOOTBALL EVENT */
+.empty-icon{
+  font-size:42px;
+  margin-bottom:10px;
+}
 
-    .event {
-      margin-top: 16px;
-      padding-top: 13px;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      color: #bbb;
-      font-size: 12px;
-      text-align: center;
-    }
+.bottom-nav{
+  position:sticky;
+  bottom:10px;
+  margin-top:25px;
+  display:flex;
+  justify-content:space-around;
+  background:rgba(15,15,25,.94);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:20px;
+  padding:12px 5px;
+  backdrop-filter:blur(15px);
+}
 
-    /* EMPTY */
+.nav-item{
+  text-align:center;
+  color:#888;
+  font-size:11px;
+}
 
-    .empty {
-      text-align: center;
-      padding: 50px 20px;
-      color: #888;
-    }
+.nav-item span{
+  display:block;
+  font-size:20px;
+  margin-bottom:4px;
+}
 
-    .empty-icon {
-      font-size: 45px;
-      margin-bottom: 12px;
-    }
+.nav-item.active{
+  color:#ff5b9d;
+}
 
-    /* BOTTOM NAV */
-
-    .bottom-nav {
-      position: sticky;
-      bottom: 10px;
-      margin-top: 25px;
-      display: flex;
-      justify-content: space-around;
-      background: rgba(15,15,25,0.92);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 20px;
-      padding: 12px 5px;
-      backdrop-filter: blur(15px);
-    }
-
-    .nav-item {
-      text-align: center;
-      color: #888;
-      font-size: 11px;
-    }
-
-    .nav-item span {
-      display: block;
-      font-size: 20px;
-      margin-bottom: 4px;
-    }
-
-    .nav-item.active {
-      color: #ff5b9d;
-    }
-
-    /* LOADING */
-
-    .loading {
-      text-align: center;
-      color: #aaa;
-      padding: 30px;
-    }
-
-  </style>
+.updated{
+  text-align:center;
+  color:#666;
+  font-size:10px;
+  margin-top:12px;
+}
+</style>
 </head>
 
 <body>
 
 <div class="app">
 
-  <header>
-    <h1>⚡ Live Score</h1>
+<header>
 
-    <p>Football & Cricket-এর লাইভ স্কোর</p>
+<h1>⚡ Live Score</h1>
 
-    <div class="live-status">
-      <span class="dot"></span>
-      Live Score
-    </div>
-  </header>
+<p>Football & Cricket-এর লাইভ স্কোর</p>
 
+<div class="live-status">
+<span class="dot"></span>
+Live Score
+</div>
 
-  <!-- SPORTS -->
+</header>
 
-  <div class="sports">
 
-    <button
-      class="sport-btn active"
-      onclick="changeSport('football', this)"
-    >
-      ⚽ Football
-    </button>
+<div class="sports">
 
-    <button
-      class="sport-btn"
-      onclick="changeSport('cricket', this)"
-    >
-      🏏 Cricket
-    </button>
+<button
+class="sport-btn active"
+id="footballBtn"
+onclick="changeSport('football')">
+⚽ Football
+</button>
 
-  </div>
+<button
+class="sport-btn"
+id="cricketBtn"
+onclick="changeSport('cricket')">
+🏏 Cricket
+</button>
 
+</div>
 
-  <!-- FILTER -->
 
-  <div class="filters">
+<div class="filters">
 
-    <button class="filter active">
-      🔴 Live
-    </button>
+<button
+class="filter active"
+onclick="changeFilter('live',this)">
+🔴 Live
+</button>
 
-    <button class="filter">
-      📅 Upcoming
-    </button>
+<button
+class="filter"
+onclick="changeFilter('upcoming',this)">
+📅 Upcoming
+</button>
 
-    <button class="filter">
-      ✅ Finished
-    </button>
+<button
+class="filter"
+onclick="changeFilter('finished',this)">
+✅ Finished
+</button>
 
-  </div>
+</div>
 
 
-  <!-- MATCH AREA -->
+<div id="matches">
 
-  <div id="matches">
+<div class="loading">
 
-    <!-- DEMO FOOTBALL MATCH -->
+<div class="loading-icon">⚡</div>
 
-    <div class="match-card">
+<div>
+লাইভ ম্যাচ খোঁজা হচ্ছে...
+</div>
 
-      <div class="league">
-        <span>Premier League</span>
-        <span class="live">● LIVE</span>
-      </div>
+</div>
 
-      <div class="teams">
+</div>
 
-        <div class="team">
 
-          <div class="team-icon">
-            ⚽
-          </div>
+<div class="updated" id="updated">
+ডেটা লোড হচ্ছে...
+</div>
 
-          <div class="team-name">
-            Team A
-          </div>
 
-        </div>
+<div class="bottom-nav">
 
+<div class="nav-item active">
+<span>🏠</span>
+Home
+</div>
 
-        <div class="score">
+<div
+class="nav-item"
+onclick="changeSport('football')">
+<span>⚽</span>
+Football
+</div>
 
-          <div class="score-number">
-            2 - 1
-          </div>
+<div
+class="nav-item"
+onclick="changeSport('cricket')">
+<span>🏏</span>
+Cricket
+</div>
 
-          <div class="score-info">
-            67'
-          </div>
+<div class="nav-item">
+<span>❤️</span>
+Favorites
+</div>
 
-        </div>
-
-
-        <div class="team">
-
-          <div class="team-icon">
-            ⚽
-          </div>
-
-          <div class="team-name">
-            Team B
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div class="event">
-        ⚽ 45' Team A &nbsp; • &nbsp; ⚽ 63' Team A
-      </div>
-
-    </div>
-
-
-    <!-- DEMO CRICKET -->
-
-    <div class="match-card">
-
-      <div class="league">
-        <span>International Cricket</span>
-        <span class="live">● LIVE</span>
-      </div>
-
-      <div class="teams">
-
-        <div class="team">
-
-          <div class="team-icon">
-            🏏
-          </div>
-
-          <div class="team-name">
-            Bangladesh
-          </div>
-
-        </div>
-
-
-        <div class="score">
-
-          <div class="score-number">
-            156/4
-          </div>
-
-          <div class="score-info">
-            18.2 Overs
-          </div>
-
-        </div>
-
-
-        <div class="team">
-
-          <div class="team-icon">
-            🏏
-          </div>
-
-          <div class="team-name">
-            India
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div class="event">
-        Bangladesh batting
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- BOTTOM NAV -->
-
-  <div class="bottom-nav">
-
-    <div class="nav-item active">
-      <span>🏠</span>
-      Home
-    </div>
-
-    <div class="nav-item">
-      <span>⚽</span>
-      Football
-    </div>
-
-    <div class="nav-item">
-      <span>🏏</span>
-      Cricket
-    </div>
-
-    <div class="nav-item">
-      <span>❤️</span>
-      Favorites
-    </div>
-
-  </div>
+</div>
 
 </div>
 
@@ -467,146 +378,582 @@
 <script>
 
 let currentSport = "football";
+let currentFilter = "live";
 
 
-function changeSport(sport, button) {
+// ======================================
+// CHANGE SPORT
+// ======================================
+
+function changeSport(sport){
 
   currentSport = sport;
 
   document
-    .querySelectorAll(".sport-btn")
-    .forEach(btn => {
-      btn.classList.remove("active");
-    });
+  .getElementById("footballBtn")
+  .classList
+  .toggle("active",sport === "football");
+
+  document
+  .getElementById("cricketBtn")
+  .classList
+  .toggle("active",sport === "cricket");
+
+  loadMatches();
+
+}
+
+
+// ======================================
+// CHANGE FILTER
+// ======================================
+
+function changeFilter(filter,button){
+
+  currentFilter = filter;
+
+  document
+  .querySelectorAll(".filter")
+  .forEach(btn=>{
+    btn.classList.remove("active");
+  });
 
   button.classList.add("active");
 
-  const matches = document.getElementById("matches");
+  loadMatches();
 
-  if (sport === "football") {
+}
 
-    matches.innerHTML = `
 
-      <div class="match-card">
+// ======================================
+// LOAD MATCHES
+// ======================================
 
-        <div class="league">
-          <span>Premier League</span>
-          <span class="live">● LIVE</span>
-        </div>
+async function loadMatches(){
 
-        <div class="teams">
+  const container =
+    document.getElementById("matches");
 
-          <div class="team">
+  container.innerHTML = `
+    <div class="loading">
+      <div class="loading-icon">⏳</div>
+      ম্যাচ খোঁজা হচ্ছে...
+    </div>
+  `;
 
-            <div class="team-icon">
-              ⚽
-            </div>
+  const endpoint =
+    currentSport === "football"
+    ? "/api/football"
+    : "/api/cricket";
 
-            <div class="team-name">
-              Team A
-            </div>
+  try{
 
-          </div>
+    const response =
+      await fetch(
+        endpoint + "?filter=" + currentFilter,
+        {
+          cache:"no-store"
+        }
+      );
 
-          <div class="score">
+    if(!response.ok){
+      throw new Error(
+        "Server error: " + response.status
+      );
+    }
 
-            <div class="score-number">
-              2 - 1
-            </div>
+    const data =
+      await response.json();
 
-            <div class="score-info">
-              67'
-            </div>
+    const matches =
+      extractMatches(data);
 
-          </div>
+    renderMatches(matches);
 
-          <div class="team">
-
-            <div class="team-icon">
-              ⚽
-            </div>
-
-            <div class="team-name">
-              Team B
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="event">
-          ⚽ Live match চলছে
-        </div>
-
-      </div>
-
-    `;
+    document.getElementById("updated").innerText =
+      "শেষ আপডেট: " +
+      new Date().toLocaleTimeString("bn-BD");
 
   }
 
+  catch(error){
 
-  if (sport === "cricket") {
+    console.error(error);
 
-    matches.innerHTML = `
+    container.innerHTML = `
 
-      <div class="match-card">
+      <div class="error">
 
-        <div class="league">
-          <span>International Cricket</span>
-          <span class="live">● LIVE</span>
-        </div>
+        ⚠️
 
-        <div class="teams">
+        <br>
 
-          <div class="team">
+        লাইভ স্কোর লোড করা যাচ্ছে না।
 
-            <div class="team-icon">
-              🏏
-            </div>
+        <br>
 
-            <div class="team-name">
-              Bangladesh
-            </div>
+        কিছুক্ষণ পর আবার চেষ্টা করুন।
 
-          </div>
+        <br>
 
-          <div class="score">
-
-            <div class="score-number">
-              156/4
-            </div>
-
-            <div class="score-info">
-              18.2 Overs
-            </div>
-
-          </div>
-
-          <div class="team">
-
-            <div class="team-icon">
-              🏏
-            </div>
-
-            <div class="team-name">
-              India
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="event">
-          🏏 Bangladesh batting
-        </div>
+        <button
+        class="retry"
+        onclick="loadMatches()">
+        আবার চেষ্টা করুন
+        </button>
 
       </div>
 
     `;
+
+    document.getElementById("updated").innerText =
+      "ডেটা পাওয়া যায়নি";
 
   }
 
 }
+
+
+// ======================================
+// EXTRACT MATCHES
+// ======================================
+
+function extractMatches(data){
+
+  if(!data){
+    return [];
+  }
+
+  if(Array.isArray(data)){
+    return data;
+  }
+
+  if(Array.isArray(data.matches)){
+    return data.matches;
+  }
+
+  if(Array.isArray(data.events)){
+    return data.events;
+  }
+
+  if(Array.isArray(data.results)){
+    return data.results;
+  }
+
+  if(data.data){
+
+    if(Array.isArray(data.data)){
+      return data.data;
+    }
+
+    if(Array.isArray(data.data.matches)){
+      return data.data.matches;
+    }
+
+    if(Array.isArray(data.data.events)){
+      return data.data.events;
+    }
+
+  }
+
+  return [];
+
+}
+
+
+// ======================================
+// RENDER
+// ======================================
+
+function renderMatches(matches){
+
+  const container =
+    document.getElementById("matches");
+
+  if(!matches.length){
+
+    container.innerHTML = `
+
+      <div class="empty">
+
+        <div class="empty-icon">
+          ${currentSport === "football" ? "⚽" : "🏏"}
+        </div>
+
+        <div>
+          এই মুহূর্তে কোনো
+          ${currentFilter === "live" ? "লাইভ" : ""}
+          ম্যাচ পাওয়া যায়নি।
+        </div>
+
+      </div>
+
+    `;
+
+    return;
+  }
+
+
+  container.innerHTML =
+    matches
+    .slice(0,50)
+    .map(createMatchCard)
+    .join("");
+
+}
+
+
+// ======================================
+// MATCH CARD
+// ======================================
+
+function createMatchCard(match){
+
+  const home =
+    getValue(
+      match,
+      [
+        "home_team",
+        "homeTeam",
+        "home",
+        "team1",
+        "localteam"
+      ]
+    );
+
+  const away =
+    getValue(
+      match,
+      [
+        "away_team",
+        "awayTeam",
+        "away",
+        "team2",
+        "visitorteam"
+      ]
+    );
+
+
+  const homeName =
+    getTeamName(home,"Home Team");
+
+  const awayName =
+    getTeamName(away,"Away Team");
+
+
+  const homeLogo =
+    getTeamLogo(home);
+
+  const awayLogo =
+    getTeamLogo(away);
+
+
+  const homeScore =
+    getScore(match,home,"home");
+
+  const awayScore =
+    getScore(match,away,"away");
+
+
+  const league =
+    getValue(
+      match,
+      [
+        "league_name",
+        "league",
+        "competition",
+        "tournament"
+      ]
+    ) || "Live Match";
+
+
+  const status =
+    getValue(
+      match,
+      [
+        "status",
+        "match_status",
+        "state"
+      ]
+    ) || "LIVE";
+
+
+  return `
+
+    <div class="match-card">
+
+      <div class="league">
+
+        <span>
+          ${escapeHTML(
+            getText(league)
+          )}
+        </span>
+
+        <span class="live">
+          ● ${escapeHTML(
+            getText(status)
+          )}
+        </span>
+
+      </div>
+
+
+      <div class="teams">
+
+        <div class="team">
+
+          <div class="team-logo">
+
+            ${
+              homeLogo
+              ?
+              `<img
+              src="${escapeAttribute(homeLogo)}"
+              onerror="this.style.display='none'">`
+              :
+              "⚽"
+            }
+
+          </div>
+
+          <div class="team-name">
+            ${escapeHTML(homeName)}
+          </div>
+
+        </div>
+
+
+        <div class="score">
+
+          <div class="score-number">
+
+            ${escapeHTML(
+              String(homeScore)
+            )}
+            -
+            ${escapeHTML(
+              String(awayScore)
+            )}
+
+          </div>
+
+          <div class="score-info">
+            ${currentSport === "cricket"
+              ? "Cricket"
+              : "Football"}
+          </div>
+
+        </div>
+
+
+        <div class="team">
+
+          <div class="team-logo">
+
+            ${
+              awayLogo
+              ?
+              `<img
+              src="${escapeAttribute(awayLogo)}"
+              onerror="this.style.display='none'">`
+              :
+              "⚽"
+            }
+
+          </div>
+
+          <div class="team-name">
+            ${escapeHTML(awayName)}
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="status">
+
+        ${
+          currentSport === "cricket"
+          ? "🏏 Cricket Live"
+          : "⚽ Football Live"
+        }
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+// ======================================
+// HELPERS
+// ======================================
+
+function getValue(object,keys){
+
+  for(const key of keys){
+
+    if(
+      object &&
+      object[key] !== undefined &&
+      object[key] !== null
+    ){
+
+      return object[key];
+
+    }
+
+  }
+
+  return null;
+
+}
+
+
+function getText(value){
+
+  if(typeof value === "string"){
+    return value;
+  }
+
+  if(typeof value === "number"){
+    return String(value);
+  }
+
+  if(value && value.name){
+    return value.name;
+  }
+
+  return "Match";
+
+}
+
+
+function getTeamName(team,fallback){
+
+  if(!team){
+    return fallback;
+  }
+
+  if(typeof team === "string"){
+    return team;
+  }
+
+  return (
+    team.name ||
+    team.team_name ||
+    team.title ||
+    fallback
+  );
+
+}
+
+
+function getTeamLogo(team){
+
+  if(!team || typeof team === "string"){
+    return "";
+  }
+
+  return (
+    team.logo ||
+    team.image ||
+    team.logo_url ||
+    team.image_path ||
+    ""
+  );
+
+}
+
+
+function getScore(match,team,type){
+
+  if(team && typeof team === "object"){
+
+    const score =
+      team.score ??
+      team.runs ??
+      team.points;
+
+    if(score !== undefined){
+      return score;
+    }
+
+  }
+
+
+  const possibleKeys =
+    type === "home"
+    ?
+    [
+      "home_score",
+      "homeScore",
+      "home_runs",
+      "home_points"
+    ]
+    :
+    [
+      "away_score",
+      "awayScore",
+      "away_runs",
+      "away_points"
+    ];
+
+
+  return getValue(
+    match,
+    possibleKeys
+  ) ?? 0;
+
+}
+
+
+// ======================================
+// SECURITY
+// ======================================
+
+function escapeHTML(value){
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+function escapeAttribute(value){
+
+  return String(value)
+    .replace(/"/g,"%22")
+    .replace(/'/g,"%27")
+    .replace(/</g,"%3C")
+    .replace(/>/g,"%3E");
+
+}
+
+
+// ======================================
+// FIRST LOAD
+// ======================================
+
+loadMatches();
+
+
+// ======================================
+// AUTO REFRESH
+// ======================================
+
+setInterval(
+  loadMatches,
+  30000
+);
 
 </script>
 
