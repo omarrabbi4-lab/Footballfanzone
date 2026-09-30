@@ -15,13 +15,33 @@ const MATCH_API =
    SPORTS API
 ========================================= */
 
-async function getMatches(sport, status) {
+async function getMatches(
+  sport,
+  status,
+  date
+) {
 
   let url =
     API_BASE +
     "?sport=" +
-    encodeURIComponent(sport) +
-    "&limit=100";
+    encodeURIComponent(sport);
+
+  /* DATE */
+
+  if (date) {
+
+    url +=
+      "&date=" +
+      encodeURIComponent(date);
+
+  }
+
+  /* LIMIT */
+
+  url += "&limit=200";
+
+
+  /* STATUS */
 
   if (status) {
 
@@ -31,10 +51,16 @@ async function getMatches(sport, status) {
 
   }
 
-  console.log("Fetching:", url);
+
+  console.log(
+    "Fetching:",
+    url
+  );
+
 
   const response =
     await fetch(url);
+
 
   if (!response.ok) {
 
@@ -44,6 +70,7 @@ async function getMatches(sport, status) {
     );
 
   }
+
 
   return await response.json();
 
@@ -66,13 +93,16 @@ async function getMatchDetails(
     "&slug=" +
     encodeURIComponent(slug);
 
+
   console.log(
     "Fetching match:",
     url
   );
 
+
   const response =
     await fetch(url);
+
 
   if (!response.ok) {
 
@@ -82,6 +112,7 @@ async function getMatchDetails(
     );
 
   }
+
 
   return await response.json();
 
@@ -114,6 +145,7 @@ function sendJSON(
     }
   );
 
+
   res.end(
     JSON.stringify(data)
   );
@@ -133,6 +165,7 @@ function serveFile(
   let requestedPath =
     req.url.split("?")[0];
 
+
   if (
     requestedPath === "/" ||
     requestedPath === ""
@@ -142,6 +175,7 @@ function serveFile(
       "/index.html";
 
   }
+
 
   const filePath =
     path.join(
@@ -181,9 +215,11 @@ function serveFile(
           }
         );
 
+
         res.end(
           "404 - File Not Found"
         );
+
 
         return;
 
@@ -255,9 +291,9 @@ const server =
     async (req, res) => {
 
 
-      /* ===============================
+      /* =====================================
          HEALTH
-      =============================== */
+      ===================================== */
 
       if (
         req.url === "/health"
@@ -270,25 +306,33 @@ const server =
 
             status: "ok",
 
-            app: "Football Fan Zone",
+            app:
+              "Football Fan Zone",
 
-            football: true,
+            football:
+              true,
 
-            cricket: true,
+            cricket:
+              true,
 
-            match_details: true
+            match_details:
+              true,
+
+            date_filter:
+              true
 
           }
         );
+
 
         return;
 
       }
 
 
-      /* ===============================
-         SINGLE MATCH DETAILS
-      =============================== */
+      /* =====================================
+         MATCH DETAILS
+      ===================================== */
 
       if (
         req.url.startsWith(
@@ -327,13 +371,15 @@ const server =
               400,
               {
 
-                success: false,
+                success:
+                  false,
 
                 error:
                   "sport এবং slug প্রয়োজন"
 
               }
             );
+
 
             return;
 
@@ -367,7 +413,8 @@ const server =
             500,
             {
 
-              success: false,
+              success:
+                false,
 
               error:
                 "Match details পাওয়া যাচ্ছে না",
@@ -380,14 +427,15 @@ const server =
 
         }
 
+
         return;
 
       }
 
 
-      /* ===============================
+      /* =====================================
          FOOTBALL
-      =============================== */
+      ===================================== */
 
       if (
         req.url.startsWith(
@@ -409,6 +457,14 @@ const server =
               "status"
             );
 
+
+          let date =
+            url.searchParams.get(
+              "date"
+            );
+
+
+          /* পুরোনো filter support */
 
           if (!status) {
 
@@ -435,7 +491,8 @@ const server =
           const data =
             await getMatches(
               "football",
-              status
+              status,
+              date
             );
 
 
@@ -459,7 +516,8 @@ const server =
             500,
             {
 
-              success: false,
+              success:
+                false,
 
               error:
                 "Football data পাওয়া যাচ্ছে না",
@@ -472,14 +530,15 @@ const server =
 
         }
 
+
         return;
 
       }
 
 
-      /* ===============================
+      /* =====================================
          CRICKET
-      =============================== */
+      ===================================== */
 
       if (
         req.url.startsWith(
@@ -501,6 +560,14 @@ const server =
               "status"
             );
 
+
+          let date =
+            url.searchParams.get(
+              "date"
+            );
+
+
+          /* পুরোনো filter support */
 
           if (!status) {
 
@@ -527,7 +594,8 @@ const server =
           const data =
             await getMatches(
               "cricket",
-              status
+              status,
+              date
             );
 
 
@@ -551,7 +619,8 @@ const server =
             500,
             {
 
-              success: false,
+              success:
+                false,
 
               error:
                 "Cricket data পাওয়া যাচ্ছে না",
@@ -564,14 +633,15 @@ const server =
 
         }
 
+
         return;
 
       }
 
 
-      /* ===============================
+      /* =====================================
          STATIC WEBSITE
-      =============================== */
+      ===================================== */
 
       serveFile(
         req,
@@ -583,7 +653,7 @@ const server =
 
 
 /* =========================================
-   START SERVER
+   START
 ========================================= */
 
 server.listen(
