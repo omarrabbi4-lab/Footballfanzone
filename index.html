@@ -1,683 +1,381 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ফুটবল ফ্যান জোন | Football Fan Zone Pro</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        pitch: '#0B132B',
-                        neonGreen: '#00FF87',
-                        neonYellow: '#FFDF00',
-                        neonBlue: '#00F0FF',
-                        darkCard: '#1C2541',
-                        darkSecondary: '#111827',
-                    },
-                    fontFamily: {
-                        sans: ['Hind Siliguri', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        body {
-            font-family: 'Hind Siliguri', sans-serif;
-            background-color: #0B132B;
-            color: #F3F4F6;
-            overflow-x: hidden;
-        }
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0B132B;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #1C2541;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #00FF87;
-        }
-        .pulse-live {
-            animation: pulse-animation 1.5s infinite;
-        }
-        @keyframes pulse-animation {
-            0% { opacity: 1; }
-            50% { opacity: 0.4; }
-            100% { opacity: 1; }
-        }
-        /* Floating Emoji Reaction Animation */
-        .floating-emoji {
-            position: fixed;
-            bottom: 20px;
-            font-size: 2.5rem;
-            pointer-events: none;
-            z-index: 9999;
-            animation: floatUp 2.5s ease-out forwards;
-        }
-        @keyframes floatUp {
-            0% {
-                transform: translateY(0) scale(0.8);
-                opacity: 1;
-            }
-            50% {
-                transform: translateY(-200px) scale(1.3) rotate(15deg);
-                opacity: 0.8;
-            }
-            100% {
-                transform: translateY(-450px) scale(1) rotate(-15deg);
-                opacity: 0;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ফুটবল ফ্যান জোন - Football Fan Zone</title>
+  <style>
+    :root {
+      --bg-dark: #0a0f1d;
+      --card-bg: #131b2e;
+      --accent-green: #00ff88;
+      --accent-yellow: #ffcc00;
+      --accent-blue: #00d2ff;
+      --text-light: #f0f4f8;
+      --text-dim: #8a99ad;
+      --border-color: #23314a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0d1527, #18253f);
+      border-bottom: 2px solid var(--accent-green);
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: var(--accent-green);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-sound {
+      background: #1e2c48;
+      border: 1px solid var(--border-color);
+      color: var(--text-light);
+      padding: 8px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+
+    .btn-sound:hover {
+      background: var(--accent-green);
+      color: #000;
+    }
+
+    nav {
+      background: #0d1527;
+      display: flex;
+      justify-content: space-around;
+      border-bottom: 1px solid var(--border-color);
+      overflow-x: auto;
+    }
+
+    nav button {
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      padding: 12px 16px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s;
+    }
+
+    nav button.active {
+      color: var(--accent-green);
+      border-bottom-color: var(--accent-green);
+    }
+
+    main {
+      flex: 1;
+      padding: 15px;
+      max-width: 1000px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+
+    .card-title {
+      color: var(--accent-yellow);
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sofascore-container {
+      width: 100%;
+      height: 650px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      background: #1e293b;
+    }
+
+    .chat-box {
+      height: 300px;
+      overflow-y: auto;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 10px;
+      background: #0b1120;
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .chat-message {
+      background: #182339;
+      padding: 8px 12px;
+      border-radius: 8px;
+      max-width: 85%;
+    }
+
+    .chat-user {
+      font-size: 0.8rem;
+      color: var(--accent-blue);
+      font-weight: bold;
+      margin-bottom: 3px;
+    }
+
+    .chat-text {
+      font-size: 0.9rem;
+    }
+
+    .chat-input-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .chat-input-group input {
+      flex: 1;
+      background: #0b1120;
+      border: 1px solid var(--border-color);
+      color: #fff;
+      padding: 10px;
+      border-radius: 6px;
+      outline: none;
+    }
+
+    .chat-input-group button {
+      background: var(--accent-green);
+      color: #000;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .reactions {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .react-btn {
+      background: #1a263d;
+      border: 1px solid var(--border-color);
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 15px;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+
+    .react-btn:hover {
+      background: var(--accent-blue);
+      color: #000;
+    }
+
+    /* Floating Reactions FX */
+    .floating-emoji {
+      position: fixed;
+      bottom: 20px;
+      font-size: 2rem;
+      animation: floatUp 2s linear forwards;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-300px); opacity: 0; }
+    }
+  </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between">
+<body>
 
-    <header class="bg-darkCard border-b border-gray-800 sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-green-400 to-blue-500 flex items-center justify-center text-pitch text-xl font-bold shadow-lg">
-                    <i class="fa-solid font-bold fa-soccer-ball"></i>
-                </div>
-                <div>
-                    <h1 class="text-xl font-bold text-neonGreen tracking-wide leading-tight">ফ্যান জোন প্রো</h1>
-                    <p class="text-xs text-gray-400">Matchday Hub for Football Fans</p>
-                </div>
-            </div>
-            
-            <div class="flex items-center gap-2 sm:gap-3">
-                <!-- Live Audio FX Toggle -->
-                <button onclick="toggleAudioMute()" id="audioMuteBtn" class="bg-gray-800 hover:bg-gray-700 px-3 py-1.5 rounded-lg border border-gray-700 text-xs sm:text-sm text-neonYellow flex items-center gap-1.5" title="সাউন্ড অন/অফ">
-                    <i class="fa-solid fa-volume-high" id="audioIcon"></i>
-                    <span class="hidden md:inline">সাউন্ড অন</span>
-                </button>
+  <header>
+    <div class="logo">⚽ ফুটবল ফ্যান জোন</div>
+    <div class="controls">
+      <button class="btn-sound" onclick="playSound('horn')">📢 হর্ন</button>
+      <button class="btn-sound" onclick="playSound('whistle')">🏁 বাঁশি</button>
+    </div>
+  </header>
 
-                <span class="bg-red-600 text-white text-xs px-2.5 py-1 rounded-full font-bold uppercase flex items-center gap-1.5 pulse-live">
-                    <span class="w-2 h-2 bg-white rounded-full"></span> লাইভ
-                </span>
-                <button onclick="toggleUserModal()" class="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 px-3 py-1.5 rounded-lg border border-gray-700 text-sm">
-                    <i class="fa-solid fa-user-gear text-neonGreen"></i>
-                    <span id="currentUserName" class="hidden sm:inline">ব্রাজিলিয়ান সাম্বা</span>
-                </button>
-            </div>
+  <nav>
+    <button class="nav-btn active" onclick="switchTab('tracker')">📺 লাইভ ট্র্যাকার</button>
+    <button class="nav-btn" onclick="switchTab('chat')">💬 ফ্যান চ্যাট</button>
+    <button class="nav-btn" onclick="switchTab('polls')">📊 প্রেডিকশন</button>
+  </nav>
+
+  <main>
+
+    <!-- LIVE TRACKER TAB -->
+    <div id="tracker" class="tab-content active">
+      <div class="card">
+        <div class="card-title">📡 Sofascore Real-Time Live Score Tracker</div>
+        <div class="sofascore-container">
+          <iframe 
+            id="sofascore-embed-widget-match" 
+            src="https://widgets.sofascore.com/embed/football" 
+            style="width: 100%; height: 100%; border: none;" 
+            scrolling="yes">
+          </iframe>
         </div>
-    </header>
-
-    <section class="max-w-6xl mx-auto px-4 mt-4 w-full">
-        <div class="bg-gradient-to-r from-gray-900 via-darkCard to-gray-900 rounded-2xl p-4 sm:p-6 border border-gray-800 relative overflow-hidden shadow-2xl">
-            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#00FF87_1px,transparent_1px)] [background-size:16px_16px]"></div>
-            
-            <div class="relative z-10">
-                <div class="text-center text-xs text-gray-400 mb-2 uppercase font-semibold tracking-wider">
-                    🏆 আন্তর্জাতিক ফ্রেন্ডলি ম্যাচ • <span class="text-neonYellow">৮৮' মিনিট</span>
-                </div>
-
-                <div class="grid grid-cols-3 items-center text-center my-2">
-                    <!-- Home Team -->
-                    <div class="flex flex-col items-center">
-                        <div class="w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-yellow-500/10 border-2 border-yellow-400 p-2 flex items-center justify-center mb-1">
-                            <span class="text-3xl sm:text-5xl">🇧🇷</span>
-                        </div>
-                        <h2 class="font-bold text-base sm:text-xl text-white">ব্রাজিল</h2>
-                        <span class="text-xs text-gray-400">সাম্বা বয়েজ</span>
-                    </div>
-
-                    <!-- Score Board -->
-                    <div class="flex flex-col items-center">
-                        <div class="text-3xl sm:text-5xl font-black text-neonGreen tracking-widest bg-gray-900/80 px-4 py-2 rounded-xl border border-gray-700">
-                            ২ - ১
-                        </div>
-                        <div class="mt-2 text-xs text-neonYellow flex items-center gap-1 font-semibold">
-                            <i class="fa-solid fa-fire"></i> হাই ভোল্টেজ ম্যাচ!
-                        </div>
-                    </div>
-
-                    <!-- Away Team -->
-                    <div class="flex flex-col items-center">
-                        <div class="w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-blue-500/10 border-2 border-blue-400 p-2 flex items-center justify-center mb-1">
-                            <span class="text-3xl sm:text-5xl">🇦🇷</span>
-                        </div>
-                        <h2 class="font-bold text-base sm:text-xl text-white">আর্জেন্টিনা</h2>
-                        <span class="text-xs text-gray-400">আলবিসেলেস্তে</span>
-                    </div>
-                </div>
-
-                <!-- Web Audio Stadium Soundboard Control Bar -->
-                <div class="mt-4 pt-3 border-t border-gray-800/80 flex flex-wrap justify-center gap-2 text-xs">
-                    <span class="text-gray-400 self-center mr-1"><i class="fa-solid fa-bullhorn text-neonGreen"></i> সাউন্ড সায়রেন:</span>
-                    <button onclick="playAudioSound('horn'); triggerEmojiFloat('🎺')" class="bg-gray-800 hover:bg-gray-700 border border-gray-700 px-2.5 py-1 rounded-full text-neonYellow flex items-center gap-1">
-                        🎺 স্টেডিয়াম হর্ন
-                    </button>
-                    <button onclick="playAudioSound('whistle'); triggerEmojiFloat('😙')" class="bg-gray-800 hover:bg-gray-700 border border-gray-700 px-2.5 py-1 rounded-full text-neonGreen flex items-center gap-1">
-                        😙 রেফারি বাঁশি
-                    </button>
-                    <button onclick="playAudioSound('chant'); triggerEmojiFloat('👏')" class="bg-gray-800 hover:bg-gray-700 border border-gray-700 px-2.5 py-1 rounded-full text-neonBlue flex items-center gap-1">
-                        👏 স্টেডিয়াম ক্রাউড চ্যান্ট
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <main class="max-w-6xl mx-auto px-4 py-6 w-full flex-1">
-        
-        <!-- Tab Navigation -->
-        <div class="flex border-b border-gray-800 mb-6 space-x-2 sm:space-x-4 overflow-x-auto pb-1">
-            <button onclick="switchTab('chat')" id="tab-chat" class="tab-btn py-2.5 px-3.5 rounded-t-lg font-bold text-sm sm:text-base flex items-center gap-2 border-b-2 border-neonGreen text-neonGreen">
-                <i class="fa-solid fa-comments"></i> লাইভ চ্যাট
-            </button>
-            <button onclick="switchTab('tactics')" id="tab-tactics" class="tab-btn py-2.5 px-3.5 rounded-t-lg font-semibold text-sm sm:text-base flex items-center gap-2 border-b-2 border-transparent text-gray-400 hover:text-white">
-                <i class="fa-solid fa-chess-board"></i> টেকটিক্স বোর্ড
-            </button>
-            <button onclick="switchTab('badge')" id="tab-badge" class="tab-btn py-2.5 px-3.5 rounded-t-lg font-semibold text-sm sm:text-base flex items-center gap-2 border-b-2 border-transparent text-gray-400 hover:text-white">
-                <i class="fa-solid fa-shield-halved"></i> ব্যাজ মেকার
-            </button>
-            <button onclick="switchTab('prediction')" id="tab-prediction" class="tab-btn py-2.5 px-3.5 rounded-t-lg font-semibold text-sm sm:text-base flex items-center gap-2 border-b-2 border-transparent text-gray-400 hover:text-white">
-                <i class="fa-solid fa-chart-pie"></i> প্রেডিকশন
-            </button>
-            <button onclick="switchTab('feed')" id="tab-feed" class="tab-btn py-2.5 px-3.5 rounded-t-lg font-semibold text-sm sm:text-base flex items-center gap-2 border-b-2 border-transparent text-gray-400 hover:text-white">
-                <i class="fa-solid fa-images"></i> ফ্যান ফিড
-            </button>
-        </div>
-
-        <!-- Section 1: Live Chat -->
-        <div id="section-chat" class="tab-content grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div class="lg:col-span-2 bg-darkCard rounded-xl border border-gray-800 flex flex-col h-[500px]">
-                <div class="p-3 border-b border-gray-800 flex justify-between items-center bg-gray-900/50 rounded-t-xl">
-                    <div class="flex items-center gap-2">
-                        <span class="w-3 h-3 bg-neonGreen rounded-full pulse-live"></span>
-                        <h3 class="font-bold text-sm sm:text-base">ম্যাচ চ্যাট রুম (<span id="onlineCount">১৮৪</span> জন অনলাইনে)</h3>
-                    </div>
-                    <button onclick="clearChat()" class="text-xs text-gray-400 hover:text-red-400">
-                        <i class="fa-solid fa-trash"></i> মুছুন
-                    </button>
-                </div>
-
-                <div id="chatMessages" class="flex-1 overflow-y-auto p-4 space-y-3">
-                    <div class="text-center my-2">
-                        <span class="bg-gray-800 text-gray-400 text-xs px-3 py-1 rounded-full border border-gray-700">
-                            ⚽ স্বাগতম! ভদ্রতা বজায় রেখে চ্যাট করুন।
-                        </span>
-                    </div>
-                </div>
-
-                <!-- Fast Reaction Emojis with Floating Effects -->
-                <div class="px-3 py-2 bg-gray-900/30 border-t border-gray-800/80 flex gap-2 overflow-x-auto">
-                    <button onclick="sendQuickReaction('⚽ গোললল!!'); triggerEmojiFloat('⚽'); playAudioSound('horn');" class="bg-gray-800 hover:bg-gray-700 text-xs px-2.5 py-1 rounded-full text-neonYellow whitespace-nowrap">⚽ গোললল!</button>
-                    <button onclick="sendQuickReaction('💛 হলুদ কার্ড!'); triggerEmojiFloat('🟨');" class="bg-gray-800 hover:bg-gray-700 text-xs px-2.5 py-1 rounded-full text-yellow-400 whitespace-nowrap">💛 হলুদ কার্ড</button>
-                    <button onclick="sendQuickReaction('🔥 অবিশ্বাস্য ড্রিবলিং!'); triggerEmojiFloat('🔥');" class="bg-gray-800 hover:bg-gray-700 text-xs px-2.5 py-1 rounded-full text-orange-400 whitespace-nowrap">🔥 ড্রিবলিং!</button>
-                    <button onclick="sendQuickReaction('😱 মিস কীভাবে হলো?!'); triggerEmojiFloat('😱');" class="bg-gray-800 hover:bg-gray-700 text-xs px-2.5 py-1 rounded-full text-pink-400 whitespace-nowrap">😱 মিস!</button>
-                </div>
-
-                <form id="chatForm" onsubmit="handleSendMessage(event)" class="p-3 border-t border-gray-800 flex gap-2">
-                    <input type="text" id="chatInput" placeholder="আপনার অনুভূতি বা কমেন্ট লিখুন..." required
-                           class="flex-1 bg-gray-900 border border-gray-700 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-neonGreen">
-                    <button type="submit" class="bg-neonGreen hover:bg-green-400 text-pitch font-bold px-4 py-2 rounded-lg text-sm flex items-center gap-1 transition">
-                        <span>পাঠান</span>
-                        <i class="fa-solid fa-paper-plane"></i>
-                    </button>
-                </form>
-            </div>
-
-            <!-- Sidebar -->
-            <div class="space-y-4">
-                <div class="bg-darkCard p-4 rounded-xl border border-gray-800">
-                    <h3 class="font-bold text-neonGreen mb-3 text-sm flex items-center gap-2">
-                        <i class="fa-solid fa-list-check"></i> ম্যাচ হাইলাইটস
-                    </h3>
-                    <ul class="space-y-3 text-xs text-gray-300">
-                        <li class="flex gap-2 items-start">
-                            <span class="font-bold text-neonYellow w-8">৮২'</span>
-                            <div><b>ব্রাজিল!</b> ভিনিসিয়াসের দুর্দান্ত অ্যাসিস্টে দ্বিতীয় গোল।</div>
-                        </li>
-                        <li class="flex gap-2 items-start">
-                            <span class="font-bold text-blue-400 w-8">৬৪'</span>
-                            <div><b>আর্জেন্টিনা!</b> মেসির নিখুঁত ফ্রি-কিক থেকে গোল!</div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Section 2: Interactive Tactics Pitch Board -->
-        <div id="section-tactics" class="tab-content hidden space-y-4">
-            <div class="bg-darkCard p-4 rounded-xl border border-gray-800">
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
-                    <div>
-                        <h3 class="text-base sm:text-lg font-bold text-neonGreen flex items-center gap-2">
-                            <i class="fa-solid fa-vector-square"></i> ডাইনামিক ফিল্ড টেকটিক্স ড্রয়ার
-                        </h3>
-                        <p class="text-xs text-gray-400">আপনার পছন্দের ফরমেশন বা প্লেয়ার সাজিয়ে নিন</p>
-                    </div>
-
-                    <div class="flex gap-2 w-full sm:w-auto">
-                        <select id="formationSelect" onchange="renderTacticsPitch()" class="bg-gray-900 text-xs text-white border border-gray-700 rounded-lg px-3 py-1.5 focus:outline-none">
-                            <option value="433">ফরমেশন: 4-3-3</option>
-                            <option value="4231">ফরমেশন: 4-2-3-1</option>
-                            <option value="352">ফরমেশন: 3-5-2</option>
-                        </select>
-                        <button onclick="renderTacticsPitch()" class="bg-neonGreen text-pitch font-bold text-xs px-3 py-1.5 rounded-lg">
-                            রিসেট ফিল্ড
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Football Pitch Canvas / Wrapper -->
-                <div class="relative w-full h-[380px] sm:h-[450px] bg-emerald-900 rounded-xl border-4 border-emerald-700 overflow-hidden shadow-inner">
-                    <!-- Pitch Lines Markings -->
-                    <div class="absolute inset-x-0 top-1/2 h-0.5 bg-white/30 transform -translate-y-1/2"></div>
-                    <div class="absolute top-1/2 left-1/2 w-28 h-28 border-2 border-white/30 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
-                    <div class="absolute top-0 left-1/2 w-48 h-20 border-b-2 border-x-2 border-white/30 transform -translate-x-1/2"></div>
-                    <div class="absolute bottom-0 left-1/2 w-48 h-20 border-t-2 border-x-2 border-white/30 transform -translate-x-1/2"></div>
-
-                    <!-- Interactive Tactical Nodes Layer -->
-                    <div id="tacticsPitchNodes" class="absolute inset-0">
-                        <!-- Rendered by JS -->
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Section 3: Fan Badge Creator -->
-        <div id="section-badge" class="tab-content hidden space-y-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Controls -->
-                <div class="bg-darkCard p-5 rounded-xl border border-gray-800 space-y-4">
-                    <h3 class="text-base font-bold text-neonYellow flex items-center gap-2">
-                        <i class="fa-solid fa-shield-cat"></i> কাস্টম ফ্যান ব্যাজ ও ক্রাফট মেকার
-                    </h3>
-                    
-                    <div>
-                        <label class="block text-xs text-gray-400 mb-1">ব্যাজের নাম / টাইটেল</label>
-                        <input type="text" id="badgeNameInput" value="SUPER FAN" oninput="updateBadgePreview()" 
-                               class="w-full bg-gray-900 border border-gray-700 rounded-lg p-2 text-sm text-white focus:outline-none">
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-3">
-                        <div>
-                            <label class="block text-xs text-gray-400 mb-1">ব্যাজ কালার</label>
-                            <select id="badgeColorSelect" onchange="updateBadgePreview()" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-2 text-xs text-white">
-                                <option value="from-yellow-400 to-green-600">🇧🇷 সাম্বা গোল্ড</option>
-                                <option value="from-blue-400 to-sky-600">🇦🇷 স্কাই ব্লু</option>
-                                <option value="from-purple-600 to-pink-600">🔥 মেগা ভাইব</option>
-                                <option value="from-emerald-500 to-teal-800">⚡ সাইবার গ্রীন</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-400 mb-1">আইকন বেছে নিন</label>
-                            <select id="badgeIconSelect" onchange="updateBadgePreview()" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-2 text-xs text-white">
-                                <option value="fa-trophy">🏆 ট্রফি</option>
-                                <option value="fa-crown">👑 মুকুট</option>
-                                <option value="fa-fire">🔥 আগুন</option>
-                                <option value="fa-bolt">⚡ ভোল্ট</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <button onclick="saveBadgeToProfile()" class="w-full bg-neonGreen text-pitch font-bold py-2 rounded-lg text-xs hover:bg-green-400">
-                        ব্যাজ প্রোফাইলে যোগ করুন
-                    </button>
-                </div>
-
-                <!-- Preview Area -->
-                <div class="bg-darkCard p-5 rounded-xl border border-gray-800 flex flex-col items-center justify-center text-center">
-                    <h4 class="text-xs text-gray-400 mb-4">লাইভ ব্যাজ প্রিভিউ</h4>
-                    
-                    <div id="badgeCardPreview" class="w-40 h-52 bg-gradient-to-b from-yellow-400 to-green-600 rounded-2xl border-4 border-yellow-300 shadow-2xl flex flex-col items-center justify-between p-4 transform hover:scale-105 transition">
-                        <i class="fa-solid fa-star text-white text-xs"></i>
-                        <i id="previewIcon" class="fa-solid fa-trophy text-4xl text-white my-2"></i>
-                        <span id="previewName" class="text-xs font-black text-white uppercase tracking-wider text-center">SUPER FAN</span>
-                        <div class="w-full bg-black/40 text-[9px] text-white py-0.5 rounded text-center">VERIFIED FAN</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Section 4: Predictions -->
-        <div id="section-prediction" class="tab-content hidden space-y-6">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div class="bg-darkCard p-5 rounded-xl border border-gray-800">
-                    <h3 class="text-lg font-bold text-neonGreen mb-2 flex items-center gap-2">
-                        <i class="fa-solid fa-bullseye"></i> ম্যাচের ফলাফল প্রেডিকশন
-                    </h3>
-                    <form onsubmit="submitPrediction(event)" class="space-y-4">
-                        <div class="grid grid-cols-2 gap-4 text-center">
-                            <div class="bg-gray-900 p-3 rounded-lg border border-gray-800">
-                                <label class="block text-xs font-bold text-gray-300 mb-2">🇧🇷 ব্রাজিল গোল</label>
-                                <input type="number" id="predHome" min="0" max="15" value="2" required 
-                                       class="w-16 h-12 text-center text-xl font-bold bg-gray-800 border border-gray-700 rounded-lg text-neonGreen focus:outline-none">
-                            </div>
-                            <div class="bg-gray-900 p-3 rounded-lg border border-gray-800">
-                                <label class="block text-xs font-bold text-gray-300 mb-2">🇦🇷 আর্জেন্টিনা গোল</label>
-                                <input type="number" id="predAway" min="0" max="15" value="1" required 
-                                       class="w-16 h-12 text-center text-xl font-bold bg-gray-800 border border-gray-700 rounded-lg text-neonBlue focus:outline-none">
-                            </div>
-                        </div>
-                        <button type="submit" class="w-full bg-gradient-to-r from-neonGreen to-blue-500 text-pitch font-bold py-2.5 rounded-lg text-sm">
-                            প্রেডিকশন সাবমিট করুন
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <!-- Section 5: Fan Feed -->
-        <div id="section-feed" class="tab-content hidden space-y-6">
-            <div class="bg-darkCard p-4 rounded-xl border border-gray-800">
-                <h3 class="text-sm font-bold text-gray-300 mb-2">পোস্ট করুন (আর্ট, কথা বা ট্রল মিম)</h3>
-                <textarea id="postText" rows="2" placeholder="ম্যাচ নিয়ে আপনার মতামত বা মিম ক্যাপশন লিখুন..."
-                          class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-neonGreen"></textarea>
-                <button onclick="createNewPost()" class="mt-2 bg-neonGreen text-pitch font-bold px-4 py-1.5 rounded-lg text-xs">
-                    পোস্ট শেয়ার করুন
-                </button>
-            </div>
-            <div id="feedStream" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
-        </div>
-
-    </main>
-
-    <!-- User Profile Modal -->
-    <div id="userModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
-        <div class="bg-darkCard border border-gray-700 rounded-2xl p-6 max-w-sm w-full shadow-2xl">
-            <h3 class="text-base font-bold text-neonGreen mb-3">আপনার ফ্যান প্রোফাইল সেট করুন</h3>
-            <div class="space-y-3">
-                <div>
-                    <label class="block text-xs text-gray-400 mb-1">আপনার নাম</label>
-                    <input type="text" id="usernameInput" value="ব্রাজিলিয়ান সাম্বা" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-2 text-sm text-white focus:outline-none">
-                </div>
-            </div>
-            <div class="mt-5 flex justify-end gap-2">
-                <button onclick="toggleUserModal()" class="px-3 py-1.5 rounded-lg text-xs text-gray-400">বাতিল</button>
-                <button onclick="saveUserProfile()" class="px-4 py-1.5 bg-neonGreen text-pitch font-bold rounded-lg text-xs">সংরক্ষণ</button>
-            </div>
-        </div>
+      </div>
     </div>
 
-    <!-- Notification Toast -->
-    <div id="toast" class="fixed bottom-5 right-5 bg-neonGreen text-pitch px-4 py-2.5 rounded-lg shadow-xl font-bold text-xs hidden z-50">
-        বার্তা প্রেরিত হয়েছে!
+    <!-- CHAT TAB -->
+    <div id="chat" class="tab-content">
+      <div class="card">
+        <div class="card-title">💬 লাইভ ম্যাচ চ্যাট রুম</div>
+        <div class="chat-box" id="chatBox">
+          <div class="chat-message">
+            <div class="chat-user">SuperFan_88</div>
+            <div class="chat-text">আজকের ম্যাচে জয় নিশ্চিত! গোল কে করবে প্রথম?</div>
+          </div>
+          <div class="chat-message">
+            <div class="chat-user">SambaMagic</div>
+            <div class="chat-text">ব্রাজিল আজ ৩-০ গোলে জিতবে! 🇧🇷🔥</div>
+          </div>
+        </div>
+        <div class="chat-input-group">
+          <input type="text" id="chatInput" placeholder="আপনার বার্তা লিখুন...">
+          <button onclick="sendMessage()">পাঠান</button>
+        </div>
+        <div class="reactions">
+          <button class="react-btn" onclick="triggerFx('⚽')">⚽ গোল!</button>
+          <button class="react-btn" onclick="triggerFx('🔥')">🔥 আগুন</button>
+          <button class="react-btn" onclick="triggerFx('🟨')">🟨 কার্ড</button>
+          <button class="react-btn" onclick="triggerFx('👏')">👏 তালি</button>
+        </div>
+      </div>
     </div>
 
-    <script>
-        // Global Application State
-        let audioMuted = false;
-        let currentUser = { name: "ব্রাজিলিয়ান সাম্বা", team: "🇧🇷 Brazil" };
+    <!-- POLLS TAB -->
+    <div id="polls" class="tab-content">
+      <div class="card">
+        <div class="card-title">📊 আজকের ম্যাচ প্রেডিকশন</div>
+        <p style="margin-bottom: 12px; font-size: 0.95rem;">আজকের ম্যাচে জয়ী হবে কোন দল?</p>
+        <button class="react-btn" style="width: 100%; margin-bottom: 8px; padding: 10px;" onclick="vote('brazil')">🇧🇷 ব্রাজিল</button>
+        <button class="react-btn" style="width: 100%; margin-bottom: 8px; padding: 10px;" onclick="vote('argentina')">🇦🇷 আর্জেন্টিনা</button>
+        <button class="react-btn" style="width: 100%; padding: 10px;" onclick="vote('draw')">🤝 ড্র</button>
+      </div>
+    </div>
 
-        // Web Audio API Sound Synthesizer Engine
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        let audioCtx = null;
+  </main>
 
-        function initAudioContext() {
-            if (!audioCtx) {
-                audioCtx = new AudioContext();
-            }
-        }
+  <script>
+    // Tab Switcher
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+      
+      document.getElementById(tabId).classList.add('active');
+      event.target.classList.add('active');
+    }
 
-        function playAudioSound(type) {
-            if (audioMuted) return;
-            initAudioContext();
+    // Chat Logic
+    function sendMessage() {
+      const input = document.getElementById('chatInput');
+      const text = input.value.trim();
+      if (!text) return;
 
-            if (type === 'horn') {
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = 'sawtooth';
-                osc.frequency.setValueAtTime(150, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.8);
-                gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.8);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.8);
-            } 
-            else if (type === 'whistle') {
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(2500, audioCtx.currentTime);
-                osc.frequency.setValueAtTime(2800, audioCtx.currentTime + 0.1);
-                gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.3);
-            }
-            else if (type === 'chant') {
-                for (let i = 0; i < 4; i++) {
-                    setTimeout(() => {
-                        const osc = audioCtx.createOscillator();
-                        const gain = audioCtx.createGain();
-                        osc.type = 'triangle';
-                        osc.frequency.setValueAtTime(200 + i * 40, audioCtx.currentTime);
-                        gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-                        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
-                        osc.connect(gain);
-                        gain.connect(audioCtx.destination);
-                        osc.start();
-                        osc.stop(audioCtx.currentTime + 0.2);
-                    }, i * 150);
-                }
-            }
-        }
+      const chatBox = document.getElementById('chatBox');
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'chat-message';
+      msgDiv.innerHTML = `<div class="chat-user">আপনি</div><div class="chat-text">${text}</div>`;
+      
+      chatBox.appendChild(msgDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+      input.value = '';
+    }
 
-        function toggleAudioMute() {
-            audioMuted = !audioMuted;
-            const btn = document.getElementById('audioMuteBtn');
-            const icon = document.getElementById('audioIcon');
-            if (audioMuted) {
-                btn.classList.add('text-gray-500');
-                icon.className = "fa-solid fa-volume-xmark";
-                showToast("সাউন্ড মিউট করা হয়েছে");
-            } else {
-                btn.classList.remove('text-gray-500');
-                icon.className = "fa-solid fa-volume-high";
-                showToast("সাউন্ড আনমিউট করা হয়েছে");
-            }
-        }
+    // Web Audio API Effects
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    
+    function playSound(type) {
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
 
-        // Floating Emoji Reaction Animation
-        function triggerEmojiFloat(emoji) {
-            const el = document.createElement('div');
-            el.className = 'floating-emoji';
-            el.innerText = emoji;
-            el.style.left = Math.random() * 80 + 10 + 'vw';
-            document.body.appendChild(el);
-            setTimeout(() => el.remove(), 2500);
-        }
+      if (type === 'whistle') {
+        osc.frequency.setValueAtTime(2500, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.3);
+      } else if (type === 'horn') {
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(200, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.4, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.8);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.8);
+      }
+    }
 
-        const formationsData = {
-            "433": [
-                { top: '85%', left: '50%', label: 'GK' },
-                { top: '68%', left: '20%', label: 'LB' },
-                { top: '72%', left: '40%', label: 'CB' },
-                { top: '72%', left: '60%', label: 'CB' },
-                { top: '68%', left: '80%', label: 'RB' },
-                { top: '48%', left: '30%', label: 'CM' },
-                { top: '52%', left: '50%', label: 'CDM' },
-                { top: '48%', left: '70%', label: 'CM' },
-                { top: '22%', left: '22%', label: 'LW' },
-                { top: '18%', left: '50%', label: 'ST' },
-                { top: '22%', left: '78%', label: 'RW' }
-            ],
-            "4231": [
-                { top: '85%', left: '50%', label: 'GK' },
-                { top: '68%', left: '20%', label: 'LB' },
-                { top: '72%', left: '40%', label: 'CB' },
-                { top: '72%', left: '60%', label: 'CB' },
-                { top: '68%', left: '80%', label: 'RB' },
-                { top: '55%', left: '38%', label: 'CDM' },
-                { top: '55%', left: '62%', label: 'CDM' },
-                { top: '35%', left: '25%', label: 'LAM' },
-                { top: '32%', left: '50%', label: 'CAM' },
-                { top: '35%', left: '75%', label: 'RAM' },
-                { top: '16%', left: '50%', label: 'ST' }
-            ],
-            "352": [
-                { top: '85%', left: '50%', label: 'GK' },
-                { top: '72%', left: '30%', label: 'CB' },
-                { top: '74%', left: '50%', label: 'CB' },
-                { top: '72%', left: '70%', label: 'CB' },
-                { top: '48%', left: '15%', label: 'LWB' },
-                { top: '50%', left: '35%', label: 'CM' },
-                { top: '52%', left: '50%', label: 'CDM' },
-                { top: '50%', left: '65%', label: 'CM' },
-                { top: '48%', left: '85%', label: 'RWB' },
-                { top: '20%', left: '38%', label: 'ST' },
-                { top: '20%', left: '62%', label: 'ST' }
-            ]
-        };
+    // Floating FX Animation
+    function triggerFx(emoji) {
+      const el = document.createElement('div');
+      el.className = 'floating-emoji';
+      el.innerText = emoji;
+      el.style.left = (Math.random() * 80 + 10) + 'vw';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 2000);
+    }
 
-        function renderTacticsPitch() {
-            const pitch = document.getElementById('tacticsPitchNodes');
-            pitch.innerHTML = '';
-            const fmt = document.getElementById('formationSelect').value;
-            const nodes = formationsData[fmt] || formationsData["433"];
+    function vote(team) {
+      alert('আপনার ভোটিং সফল হয়েছে!');
+    }
+  </script>
 
-            nodes.forEach((node, idx) => {
-                const el = document.createElement('div');
-                el.className = 'absolute transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center cursor-pointer group';
-                el.style.top = node.top;
-                el.style.left = node.left;
-
-                el.innerHTML = `
-                    <div class="w-8 h-8 rounded-full bg-neonGreen text-pitch font-bold text-xs flex items-center justify-center border-2 border-white shadow-lg group-hover:scale-125 transition">
-                        ${idx + 1}
-                    </div>
-                    <span class="bg-black/70 text-[10px] text-neonYellow px-1.5 py-0.5 rounded mt-1 font-bold">${node.label}</span>
-                `;
-                pitch.appendChild(el);
-            });
-        }
-
-        // Custom Fan Badge Customizer logic
-        function updateBadgePreview() {
-            const name = document.getElementById('badgeNameInput').value.trim() || "SUPER FAN";
-            const colorClass = document.getElementById('badgeColorSelect').value;
-            const iconClass = document.getElementById('badgeIconSelect').value;
-
-            const card = document.getElementById('badgeCardPreview');
-            card.className = `w-40 h-52 bg-gradient-to-b ${colorClass} rounded-2xl border-4 border-yellow-300 shadow-2xl flex flex-col items-center justify-between p-4 transform hover:scale-105 transition`;
-            
-            document.getElementById('previewName').innerText = name;
-            document.getElementById('previewIcon').className = `fa-solid ${iconClass} text-4xl text-white my-2`;
-        }
-
-        function saveBadgeToProfile() {
-            showToast("কাস্টম ব্যাজ আপনার প্রোফাইলে যুক্ত হয়েছে!");
-        }
-
-        // Standard Navigation Tab Switcher
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('.tab-btn').forEach(el => {
-                el.classList.remove('border-neonGreen', 'text-neonGreen');
-                el.classList.add('border-transparent', 'text-gray-400');
-            });
-
-            document.getElementById(`section-${tabName}`).classList.remove('hidden');
-            const activeTab = document.getElementById(`tab-${tabName}`);
-            activeTab.classList.remove('border-transparent', 'text-gray-400');
-            activeTab.classList.add('border-neonGreen', 'text-neonGreen');
-
-            if (tabName === 'tactics') {
-                renderTacticsPitch();
-            }
-        }
-
-        // Send User Chat Message
-        function handleSendMessage(e) {
-            e.preventDefault();
-            const input = document.getElementById('chatInput');
-            const message = input.value.trim();
-
-            if (message) {
-                appendChatMessage(currentUser.name, currentUser.team, message, true);
-                input.value = '';
-            }
-        }
-
-        function sendQuickReaction(reactionText) {
-            appendChatMessage(currentUser.name, currentUser.team, reactionText, true);
-        }
-
-        function appendChatMessage(name, team, text, isSelf) {
-            const chatBox = document.getElementById('chatMessages');
-            const msgDiv = document.createElement('div');
-            msgDiv.className = `flex flex-col ${isSelf ? 'items-end' : 'items-start'}`;
-
-            msgDiv.innerHTML = `
-                <div class="flex items-center gap-1.5 text-[11px] text-gray-400 mb-0.5">
-                    <span class="font-bold text-yellow-400">${team}</span>
-                    <span>•</span>
-                    <span>${name}</span>
-                </div>
-                <div class="max-w-[85%] rounded-2xl px-3.5 py-2 text-xs ${isSelf ? 'bg-neonGreen text-pitch font-medium rounded-tr-none' : 'bg-gray-800 text-gray-100 border border-gray-700/60 rounded-tl-none'} shadow">
-                    ${text}
-                </div>
-            `;
-
-            chatBox.appendChild(msgDiv);
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
-
-        function clearChat() {
-            document.getElementById('chatMessages').innerHTML = '';
-            showToast("চ্যাট পরিষ্কার করা হয়েছে!");
-        }
-
-        function submitPrediction(e) {
-            e.preventDefault();
-            showToast(`প্রেডিকশন সাবমিট করা হয়েছে!`);
-        }
-
-        function createNewPost() {
-            const text = document.getElementById('postText').value.trim();
-            if (!text) return;
-
-            const feedStream = document.getElementById('feedStream');
-            const postCard = document.createElement('div');
-            postCard.className = "bg-darkCard rounded-xl border border-gray-800 p-4 text-xs";
-            postCard.innerText = text;
-
-            feedStream.prepend(postCard);
-            document.getElementById('postText').value = '';
-            showToast("পোস্ট সফলভাবে শেয়ার হয়েছে!");
-        }
-
-        function toggleUserModal() {
-            document.getElementById('userModal').classList.toggle('hidden');
-        }
-
-        function saveUserProfile() {
-            const name = document.getElementById('usernameInput').value.trim();
-            if (name) {
-                currentUser.name = name;
-                document.getElementById('currentUserName').innerText = name;
-                toggleUserModal();
-                showToast("প্রোফাইল আপডেট হয়েছে!");
-            }
-        }
-
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            toast.innerText = msg;
-            toast.classList.remove('hidden');
-            setTimeout(() => toast.classList.add('hidden'), 3000);
-        }
-
-        window.onload = function() {
-            renderTacticsPitch();
-            updateBadgePreview();
-        };
-    </script>
 </body>
 </html>
