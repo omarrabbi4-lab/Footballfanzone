@@ -1,13 +1,24 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#080b14">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1.0"
+>
+
+<meta
+  name="theme-color"
+  content="#080b14"
+>
 
 <title>Live Score ⚽🏏</title>
 
 <style>
+
 *{
   box-sizing:border-box;
   margin:0;
@@ -17,24 +28,29 @@
 body{
   font-family:Arial,sans-serif;
   background:
-    radial-gradient(circle at top,#17213d 0%,#080b14 45%,#05070c 100%);
+    radial-gradient(
+      circle at top,
+      #1b2850 0%,
+      #0a0e19 45%,
+      #05070c 100%
+    );
   color:#fff;
   min-height:100vh;
 }
 
 .header{
-  padding:25px 18px 18px;
   text-align:center;
+  padding:28px 15px 20px;
 }
 
 .logo{
-  font-size:30px;
+  font-size:32px;
   font-weight:800;
 }
 
 .subtitle{
-  color:#9ca8bd;
-  margin-top:7px;
+  color:#9da8bd;
+  margin-top:8px;
   font-size:14px;
 }
 
@@ -42,207 +58,296 @@ body{
   display:flex;
   gap:10px;
   padding:10px 15px;
+  max-width:720px;
+  margin:auto;
 }
 
 .tab{
   flex:1;
   border:0;
-  padding:13px;
-  border-radius:14px;
-  background:#151b2b;
+  padding:15px;
+  border-radius:17px;
+  background:#131a2a;
   color:#aeb8ca;
-  font-size:16px;
+  font-size:17px;
   font-weight:bold;
-  cursor:pointer;
 }
 
 .tab.active{
-  background:linear-gradient(135deg,#6757ff,#9b45ff);
-  color:white;
+  background:
+    linear-gradient(
+      135deg,
+      #6654ff,
+      #a13cff
+    );
+  color:#fff;
+  box-shadow:
+    0 8px 25px
+    rgba(108,70,255,.25);
 }
 
 .filters{
   display:flex;
-  gap:8px;
+  gap:9px;
+  padding:10px 15px 18px;
   overflow-x:auto;
-  padding:8px 15px 15px;
+  max-width:720px;
+  margin:auto;
 }
 
 .filter{
   white-space:nowrap;
-  border:1px solid #252d40;
-  background:#101522;
-  color:#9faabe;
-  padding:9px 16px;
-  border-radius:20px;
+  border:1px solid #252e43;
+  background:#101624;
+  color:#9da8bc;
+  padding:10px 17px;
+  border-radius:22px;
+  font-size:14px;
 }
 
 .filter.active{
-  background:#222b43;
-  color:white;
   border-color:#6574ff;
+  background:#202943;
+  color:#fff;
 }
 
 .container{
-  padding:0 15px 30px;
+  max-width:720px;
+  margin:auto;
+  padding:0 15px 90px;
 }
 
 .status{
   text-align:center;
-  color:#8995aa;
-  padding:20px;
+  color:#9ca8bd;
+  padding:25px 10px;
 }
 
 .card{
-  background:rgba(18,23,37,.94);
-  border:1px solid #252c3d;
-  border-radius:18px;
+  background:rgba(17,23,37,.96);
+  border:1px solid #273047;
+  border-radius:19px;
   padding:16px;
-  margin-bottom:12px;
-  box-shadow:0 8px 25px rgba(0,0,0,.22);
-}
-
-.league{
-  color:#8f9bb0;
-  font-size:12px;
   margin-bottom:13px;
+  box-shadow:
+    0 10px 30px
+    rgba(0,0,0,.22);
 }
 
-.teams{
+.competition{
   display:flex;
   align-items:center;
-  justify-content:space-between;
-  gap:10px;
+  gap:8px;
+  color:#a6b0c3;
+  font-size:13px;
+  margin-bottom:15px;
+}
+
+.competition img{
+  width:22px;
+  height:22px;
+  object-fit:contain;
+}
+
+.match{
+  display:grid;
+  grid-template-columns:1fr 90px 1fr;
+  align-items:center;
+  gap:8px;
 }
 
 .team{
-  width:38%;
   text-align:center;
 }
 
 .team img{
-  width:42px;
-  height:42px;
+  width:50px;
+  height:50px;
   object-fit:contain;
-  margin-bottom:7px;
+  margin-bottom:8px;
 }
 
 .team-name{
   font-size:14px;
   font-weight:bold;
-  line-height:1.3;
+  line-height:1.35;
+}
+
+.center{
+  text-align:center;
 }
 
 .score{
-  width:24%;
-  text-align:center;
-  font-size:22px;
+  font-size:23px;
   font-weight:800;
+  white-space:nowrap;
 }
 
-.time{
-  display:block;
-  font-size:11px;
-  color:#7f8ba0;
-  margin-top:5px;
-  font-weight:normal;
+.match-status{
+  display:inline-block;
+  margin-top:7px;
+  padding:4px 8px;
+  border-radius:10px;
+  background:#20283b;
+  color:#aeb8cc;
+  font-size:10px;
 }
 
-.live{
-  color:#35e58a;
+.match-status.live{
+  background:#163d2a;
+  color:#43ee91;
+}
+
+.match-status.finished{
+  color:#b7c0d0;
+}
+
+.match-status.upcoming{
+  color:#ffd76b;
+}
+
+.match-time{
+  margin-top:6px;
+  color:#78859c;
   font-size:11px;
-  margin-top:5px;
+  line-height:1.4;
+}
+
+.empty{
+  text-align:center;
+  color:#8d99ad;
+  padding:50px 15px;
+}
+
+.empty-icon{
+  font-size:45px;
+  margin-bottom:12px;
 }
 
 .error{
   text-align:center;
   color:#ff7185;
-  padding:25px 10px;
+  padding:35px 10px;
 }
 
 .refresh{
   position:fixed;
-  right:18px;
+  right:20px;
   bottom:20px;
-  width:54px;
-  height:54px;
+  width:58px;
+  height:58px;
   border:0;
   border-radius:50%;
-  background:linear-gradient(135deg,#695cff,#a346ff);
-  color:#fff;
-  font-size:23px;
-  box-shadow:0 8px 25px rgba(100,70,255,.4);
+  background:
+    linear-gradient(
+      135deg,
+      #6958ff,
+      #a23cff
+    );
+  color:white;
+  font-size:25px;
+  box-shadow:
+    0 8px 25px
+    rgba(100,70,255,.4);
 }
 
-.empty{
-  text-align:center;
-  padding:45px 20px;
-  color:#8995aa;
+.loading{
+  animation:pulse 1.2s infinite;
 }
 
-@media(min-width:700px){
-  .container{
-    max-width:700px;
-    margin:auto;
+@keyframes pulse{
+
+  0%{
+    opacity:.4;
   }
 
-  .tabs,
-  .filters{
-    max-width:700px;
-    margin:auto;
+  50%{
+    opacity:1;
   }
+
+  100%{
+    opacity:.4;
+  }
+
 }
+
 </style>
+
 </head>
+
 
 <body>
 
+
 <header class="header">
-  <div class="logo">⚡ Live Score</div>
-  <div class="subtitle">Football & Cricket Live Scores</div>
+
+  <div class="logo">
+    ⚡ Live Score
+  </div>
+
+  <div class="subtitle">
+    Football & Cricket Live Scores
+  </div>
+
 </header>
+
 
 <div class="tabs">
 
   <button
+    id="footballTab"
     class="tab active"
-    onclick="changeSport('football',this)">
+    onclick="changeSport('football')"
+  >
     ⚽ Football
   </button>
 
   <button
+    id="cricketTab"
     class="tab"
-    onclick="changeSport('cricket',this)">
+    onclick="changeSport('cricket')"
+  >
     🏏 Cricket
   </button>
 
 </div>
 
+
 <div class="filters">
 
   <button
+    id="liveFilter"
     class="filter active"
-    onclick="changeFilter('live',this)">
+    onclick="changeFilter('live')"
+  >
     🔴 Live
   </button>
 
   <button
+    id="upcomingFilter"
     class="filter"
-    onclick="changeFilter('upcoming',this)">
+    onclick="changeFilter('upcoming')"
+  >
     🕐 Upcoming
   </button>
 
   <button
+    id="finishedFilter"
     class="filter"
-    onclick="changeFilter('finished',this)">
+    onclick="changeFilter('finished')"
+  >
     ✅ Finished
   </button>
 
 </div>
 
+
 <main class="container">
 
-  <div id="status" class="status">
+  <div
+    id="status"
+    class="status loading"
+  >
     স্কোর লোড হচ্ছে...
   </div>
 
@@ -250,384 +355,137 @@ body{
 
 </main>
 
+
 <button
   class="refresh"
   onclick="loadScores()"
-  title="Refresh">
+  title="Refresh"
+>
   ↻
 </button>
 
+
 <script>
 
+
 let currentSport = "football";
+
 let currentFilter = "live";
 
 
-function changeSport(sport,button){
+/* =====================================
+   SPORT CHANGE
+===================================== */
+
+function changeSport(sport){
 
   currentSport = sport;
 
   document
-    .querySelectorAll(".tab")
-    .forEach(btn => btn.classList.remove("active"));
+    .getElementById("footballTab")
+    .classList
+    .toggle(
+      "active",
+      sport === "football"
+    );
 
-  button.classList.add("active");
+  document
+    .getElementById("cricketTab")
+    .classList
+    .toggle(
+      "active",
+      sport === "cricket"
+    );
 
   loadScores();
+
 }
 
 
-function changeFilter(filter,button){
+/* =====================================
+   FILTER CHANGE
+===================================== */
+
+function changeFilter(filter){
 
   currentFilter = filter;
 
   document
     .querySelectorAll(".filter")
-    .forEach(btn => btn.classList.remove("active"));
+    .forEach(
+      button =>
+        button.classList.remove("active")
+    );
 
-  button.classList.add("active");
+
+  if(filter === "live"){
+
+    document
+      .getElementById("liveFilter")
+      .classList.add("active");
+
+  }
+
+
+  if(filter === "upcoming"){
+
+    document
+      .getElementById("upcomingFilter")
+      .classList.add("active");
+
+  }
+
+
+  if(filter === "finished"){
+
+    document
+      .getElementById("finishedFilter")
+      .classList.add("active");
+
+  }
+
 
   loadScores();
-}
-
-
-function getValue(obj,keys,defaultValue=""){
-
-  for(const key of keys){
-
-    if(
-      obj &&
-      obj[key] !== undefined &&
-      obj[key] !== null &&
-      obj[key] !== ""
-    ){
-
-      return obj[key];
-
-    }
-
-  }
-
-  return defaultValue;
-}
-
-
-function findArray(data){
-
-  if(Array.isArray(data)){
-    return data;
-  }
-
-  if(!data || typeof data !== "object"){
-    return [];
-  }
-
-  const possibleKeys=[
-    "matches",
-    "events",
-    "data",
-    "results",
-    "items",
-    "response"
-  ];
-
-  for(const key of possibleKeys){
-
-    if(Array.isArray(data[key])){
-      return data[key];
-    }
-
-  }
-
-  for(const key of Object.keys(data)){
-
-    if(Array.isArray(data[key])){
-      return data[key];
-    }
-
-  }
-
-  return [];
 
 }
 
 
-function getTeam(match,side){
+/* =====================================
+   DATE
+===================================== */
 
-  const prefix =
-    side === "home"
-    ? ["home","homeTeam","team1","team_home"]
-    : ["away","awayTeam","team2","team_away"];
+function formatDate(date){
 
-  for(const key of prefix){
-
-    if(
-      match[key] &&
-      typeof match[key] === "object"
-    ){
-
-      return match[key];
-
-    }
-
-  }
-
-  return {};
-
-}
-
-
-function teamName(team,side){
-
-  return getValue(
-    team,
-    ["name","title","shortName","team"],
-    side === "home" ? "Home" : "Away"
-  );
-
-}
-
-
-function teamLogo(team){
-
-  return getValue(
-    team,
-    ["logo","image","icon","crest","badge"],
-    ""
-  );
-
-}
-
-
-function teamScore(team){
-
-  return getValue(
-    team,
-    ["score","goals","runs","points","result"],
-    "-"
-  );
-
-}
-
-
-function formatDate(value){
-
-  if(!value){
+  if(!date){
     return "";
   }
 
-  try{
+  const d = new Date(date);
 
-    const d = new Date(value);
-
-    if(isNaN(d.getTime())){
-      return String(value);
-    }
-
-    return d.toLocaleString(
-      "bn-BD",
-      {
-        day:"numeric",
-        month:"short",
-        hour:"numeric",
-        minute:"2-digit"
-      }
-    );
-
-  }catch(e){
-
-    return String(value);
-
+  if(isNaN(d.getTime())){
+    return date;
   }
 
-}
-
-
-function isLive(match){
-
-  const text = JSON.stringify(match).toLowerCase();
-
-  return(
-    text.includes("live") ||
-    text.includes("inplay") ||
-    text.includes("in_play") ||
-    text.includes("1h") ||
-    text.includes("2h")
+  return d.toLocaleString(
+    "bn-BD",
+    {
+      day:"numeric",
+      month:"short",
+      hour:"numeric",
+      minute:"2-digit"
+    }
   );
 
 }
 
 
-function renderMatches(data){
+/* =====================================
+   ESCAPE
+===================================== */
 
-  const matches =
-    findArray(data);
+function escapeHTML(value){
 
-  const box =
-    document.getElementById("matches");
-
-  box.innerHTML = "";
-
-  if(!matches.length){
-
-    box.innerHTML = `
-      <div class="empty">
-        <div style="font-size:40px;margin-bottom:10px">
-          📭
-        </div>
-        আজ কোনো ম্যাচ পাওয়া যায়নি।
-      </div>
-    `;
-
-    return;
-
-  }
-
-
-  matches.forEach(match => {
-
-    const home =
-      getTeam(match,"home");
-
-    const away =
-      getTeam(match,"away");
-
-
-    const homeName =
-      teamName(home,"home");
-
-    const awayName =
-      teamName(away,"away");
-
-
-    const homeScore =
-      teamScore(home);
-
-    const awayScore =
-      teamScore(away);
-
-
-    const homeLogo =
-      teamLogo(home);
-
-    const awayLogo =
-      teamLogo(away);
-
-
-    const league =
-      getValue(
-        match,
-        [
-          "league",
-          "tournament",
-          "competition",
-          "category"
-        ],
-        currentSport === "football"
-        ? "Football"
-        : "Cricket"
-      );
-
-
-    const date =
-      getValue(
-        match,
-        [
-          "startTime",
-          "start_time",
-          "date",
-          "time",
-          "timestamp"
-        ],
-        ""
-      );
-
-
-    const live =
-      isLive(match);
-
-
-    const card =
-      document.createElement("div");
-
-    card.className = "card";
-
-
-    card.innerHTML = `
-
-      <div class="league">
-        ${escapeHtml(String(league))}
-      </div>
-
-      <div class="teams">
-
-        <div class="team">
-
-          ${
-            homeLogo
-            ? `<img
-                src="${escapeAttribute(homeLogo)}"
-                onerror="this.style.display='none'"
-              >`
-            : ""
-          }
-
-          <div class="team-name">
-            ${escapeHtml(String(homeName))}
-          </div>
-
-        </div>
-
-
-        <div class="score">
-
-          ${escapeHtml(String(homeScore))}
-          -
-          ${escapeHtml(String(awayScore))}
-
-          ${
-            live
-            ? `<span class="live">● LIVE</span>`
-            : `<span class="time">
-                ${escapeHtml(formatDate(date))}
-              </span>`
-          }
-
-        </div>
-
-
-        <div class="team">
-
-          ${
-            awayLogo
-            ? `<img
-                src="${escapeAttribute(awayLogo)}"
-                onerror="this.style.display='none'"
-              >`
-            : ""
-          }
-
-          <div class="team-name">
-            ${escapeHtml(String(awayName))}
-          </div>
-
-        </div>
-
-      </div>
-
-    `;
-
-
-    box.appendChild(card);
-
-  });
-
-}
-
-
-function escapeHtml(value){
-
-  return value
+  return String(value ?? "")
     .replace(/&/g,"&amp;")
     .replace(/</g,"&lt;")
     .replace(/>/g,"&gt;")
@@ -637,40 +495,374 @@ function escapeHtml(value){
 }
 
 
-function escapeAttribute(value){
+/* =====================================
+   FILTER MATCHES
+===================================== */
 
-  return String(value)
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+function filterMatches(matches){
+
+  if(!Array.isArray(matches)){
+    return [];
+  }
+
+
+  if(currentFilter === "live"){
+
+    return matches.filter(
+      match =>
+        String(match.status || "")
+          .toLowerCase()
+          === "live"
+    );
+
+  }
+
+
+  if(currentFilter === "upcoming"){
+
+    return matches.filter(
+      match =>
+        String(match.status || "")
+          .toLowerCase()
+          === "upcoming"
+    );
+
+  }
+
+
+  if(currentFilter === "finished"){
+
+    return matches.filter(
+      match =>
+        String(match.status || "")
+          .toLowerCase()
+          === "finished"
+    );
+
+  }
+
+
+  return matches;
 
 }
 
 
-async function loadScores(){
+/* =====================================
+   CREATE MATCH CARD
+===================================== */
+
+function createMatchCard(match){
+
+  const home =
+    match.home || "Home";
+
+  const away =
+    match.away || "Away";
+
+
+  const homeLogo =
+    match.home_logo || "";
+
+  const awayLogo =
+    match.away_logo || "";
+
+
+  const homeScore =
+    match.home_score ??
+    "-";
+
+
+  const awayScore =
+    match.away_score ??
+    "-";
+
 
   const status =
-    document.getElementById("status");
+    String(
+      match.status || ""
+    ).toLowerCase();
+
+
+  const statusText =
+    match.status_text ||
+    "Unknown";
+
+
+  const competition =
+    match.competition ||
+    (
+      currentSport === "football"
+      ? "Football"
+      : "Cricket"
+    );
+
+
+  const competitionLogo =
+    match.competition_logo ||
+    "";
+
+
+  let statusClass = "";
+
+
+  if(status === "live"){
+
+    statusClass = "live";
+
+  }
+
+  else if(status === "finished"){
+
+    statusClass = "finished";
+
+  }
+
+  else if(status === "upcoming"){
+
+    statusClass = "upcoming";
+
+  }
+
+
+  const card =
+    document.createElement("div");
+
+  card.className = "card";
+
+
+  card.innerHTML = `
+
+    <div class="competition">
+
+      ${
+        competitionLogo
+        ?
+        `
+        <img
+          src="${escapeHTML(competitionLogo)}"
+          onerror="this.style.display='none'"
+        >
+        `
+        :
+        ""
+      }
+
+      <span>
+        ${escapeHTML(competition)}
+      </span>
+
+    </div>
+
+
+    <div class="match">
+
+
+      <div class="team">
+
+        ${
+          homeLogo
+          ?
+          `
+          <img
+            src="${escapeHTML(homeLogo)}"
+            onerror="this.style.display='none'"
+          >
+          `
+          :
+          ""
+        }
+
+        <div class="team-name">
+          ${escapeHTML(home)}
+        </div>
+
+      </div>
+
+
+      <div class="center">
+
+        <div class="score">
+
+          ${escapeHTML(homeScore)}
+          -
+          ${escapeHTML(awayScore)}
+
+        </div>
+
+
+        <div
+          class="match-status ${statusClass}"
+        >
+
+          ${
+            status === "live"
+            ? "🔴 LIVE"
+            : escapeHTML(statusText)
+          }
+
+        </div>
+
+
+        <div class="match-time">
+
+          ${escapeHTML(
+            formatDate(match.time)
+          )}
+
+        </div>
+
+      </div>
+
+
+      <div class="team">
+
+        ${
+          awayLogo
+          ?
+          `
+          <img
+            src="${escapeHTML(awayLogo)}"
+            onerror="this.style.display='none'"
+          >
+          `
+          :
+          ""
+        }
+
+        <div class="team-name">
+          ${escapeHTML(away)}
+        </div>
+
+      </div>
+
+
+    </div>
+
+  `;
+
+
+  return card;
+
+}
+
+
+/* =====================================
+   RENDER
+===================================== */
+
+function renderMatches(data){
+
+  const box =
+    document.getElementById(
+      "matches"
+    );
+
+
+  box.innerHTML = "";
+
+
+  const allMatches =
+    Array.isArray(data.matches)
+    ? data.matches
+    : [];
+
 
   const matches =
-    document.getElementById("matches");
+    filterMatches(allMatches);
 
 
-  status.style.display = "block";
+  if(!matches.length){
 
-  status.textContent =
+    let message =
+      "এই মুহূর্তে কোনো ম্যাচ নেই।";
+
+
+    if(currentFilter === "live"){
+
+      message =
+        "এই মুহূর্তে কোনো LIVE ম্যাচ নেই।";
+
+    }
+
+    if(currentFilter === "upcoming"){
+
+      message =
+        "কোনো Upcoming ম্যাচ পাওয়া যায়নি।";
+
+    }
+
+    if(currentFilter === "finished"){
+
+      message =
+        "কোনো Finished ম্যাচ পাওয়া যায়নি।";
+
+    }
+
+
+    box.innerHTML = `
+
+      <div class="empty">
+
+        <div class="empty-icon">
+          📭
+        </div>
+
+        ${message}
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  matches.forEach(
+    match =>
+      box.appendChild(
+        createMatchCard(match)
+      )
+  );
+
+}
+
+
+/* =====================================
+   LOAD API
+===================================== */
+
+async function loadScores(){
+
+  const statusBox =
+    document.getElementById(
+      "status"
+    );
+
+  const box =
+    document.getElementById(
+      "matches"
+    );
+
+
+  statusBox.style.display =
+    "block";
+
+
+  statusBox.textContent =
     currentSport === "football"
     ? "⚽ Football স্কোর লোড হচ্ছে..."
     : "🏏 Cricket স্কোর লোড হচ্ছে...";
 
 
-  matches.innerHTML = "";
+  box.innerHTML = "";
 
 
   try{
 
     const response =
       await fetch(
-        `/api/${currentSport}?filter=${currentFilter}`,
+        `/api/${currentSport}`,
         {
           cache:"no-store"
         }
@@ -680,7 +872,8 @@ async function loadScores(){
     if(!response.ok){
 
       throw new Error(
-        "HTTP " + response.status
+        "HTTP " +
+        response.status
       );
 
     }
@@ -690,22 +883,36 @@ async function loadScores(){
       await response.json();
 
 
-    status.style.display = "none";
+    statusBox.style.display =
+      "none";
+
 
     renderMatches(data);
 
 
-  }catch(error){
+  }
+
+  catch(error){
 
     console.error(error);
 
-    status.style.display = "none";
 
-    matches.innerHTML = `
+    statusBox.style.display =
+      "none";
+
+
+    box.innerHTML = `
+
       <div class="error">
-        স্কোর লোড করা যাচ্ছে না।<br>
+
+        ⚠️ স্কোর লোড করা যাচ্ছে না।
+
+        <br><br>
+
         কিছুক্ষণ পর আবার চেষ্টা করুন।
+
       </div>
+
     `;
 
   }
@@ -713,16 +920,25 @@ async function loadScores(){
 }
 
 
+/* =====================================
+   START
+===================================== */
+
 loadScores();
 
 
-// প্রতি ৩০ সেকেন্ডে আপডেট
+/* =====================================
+   AUTO REFRESH
+===================================== */
+
 setInterval(
   loadScores,
   30000
 );
 
+
 </script>
 
 </body>
+
 </html>
