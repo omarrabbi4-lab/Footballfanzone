@@ -1,0 +1,12 @@
+{
+  "name": "live-score-app",
+  "version": "1.0.0",
+  "description": "Football and Cricket Live Score App",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}
