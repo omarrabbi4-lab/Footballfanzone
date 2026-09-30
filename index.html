@@ -2,7 +2,6 @@
 <html lang="bn">
 
 <head>
-
 <meta charset="UTF-8">
 
 <meta
@@ -12,840 +11,688 @@
 
 <meta
   name="theme-color"
-  content="#0b1020"
+  content="#090d1d"
 >
 
 <title>Football Fan Zone</title>
 
 <style>
 
-/* =========================================
+/* ================================
    RESET
-========================================= */
+================================ */
 
 *{
+  box-sizing:border-box;
   margin:0;
   padding:0;
-  box-sizing:border-box;
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+}
+
+html{
+  scroll-behavior:smooth;
 }
 
 body{
+  font-family:
+    Arial,
+    "Noto Sans Bengali",
+    sans-serif;
 
   background:
     radial-gradient(
       circle at top left,
-      #172554,
-      transparent 35%
-    ),
-    radial-gradient(
-      circle at bottom right,
-      #312e81,
-      transparent 35%
-    ),
-    #070b16;
+      #172b66 0,
+      #090d1d 42%,
+      #070a15 100%
+    );
 
   color:#fff;
-
   min-height:100vh;
-
-  transition:
-    background .3s,
-    color .3s;
-
+  padding-bottom:90px;
+  overflow-x:hidden;
 }
 
 body.light{
-
   background:
     linear-gradient(
       135deg,
       #eef2ff,
-      #f8fafc
+      #ffffff
     );
 
-  color:#111827;
-
+  color:#15182a;
 }
 
 
-/* =========================================
+/* ================================
    HEADER
-========================================= */
+================================ */
 
 .header{
-
-  position:sticky;
-
-  top:0;
-
-  z-index:50;
-
-  padding:
-    15px
-    15px
-    12px;
-
-  background:
-    rgba(7,11,22,.84);
-
-  backdrop-filter:
-    blur(18px);
-
-  border-bottom:
-    1px solid
-    rgba(255,255,255,.08);
-
-}
-
-body.light .header{
-
-  background:
-    rgba(255,255,255,.85);
-
-  border-bottom:
-    1px solid
-    rgba(0,0,0,.08);
-
-}
-
-.header-top{
+  padding:20px 18px 12px;
 
   display:flex;
-
   align-items:center;
-
   justify-content:space-between;
 
+  gap:12px;
 }
 
-.logo{
-
+.brand{
   display:flex;
-
   align-items:center;
-
-  gap:10px;
-
+  gap:12px;
 }
 
-.logo-icon{
+.brand-icon{
+  width:58px;
+  height:58px;
 
-  width:42px;
-
-  height:42px;
-
-  border-radius:14px;
+  border-radius:18px;
 
   display:flex;
-
   align-items:center;
-
   justify-content:center;
 
-  font-size:23px;
+  font-size:31px;
 
   background:
     linear-gradient(
       135deg,
-      #2563eb,
-      #7c3aed
+      #286cff,
+      #7b36ee
     );
 
   box-shadow:
-    0 8px 25px
-    rgba(79,70,229,.35);
-
+    0 8px 25px rgba(56,93,255,.35);
 }
 
-.logo-text{
-
-  font-size:18px;
-
+.brand-title{
+  font-size:24px;
   font-weight:800;
-
 }
 
-.logo-sub{
+.brand-sub{
+  margin-top:5px;
+  color:#9da5bd;
+  font-size:14px;
+}
 
-  font-size:11px;
-
-  opacity:.6;
-
-  margin-top:2px;
-
+.light .brand-sub{
+  color:#6c7285;
 }
 
 .header-actions{
-
   display:flex;
-
-  gap:8px;
-
+  gap:9px;
 }
 
 .icon-btn{
-
-  width:40px;
-
-  height:40px;
+  width:50px;
+  height:50px;
 
   border:0;
+  border-radius:16px;
 
-  border-radius:13px;
+  background:#171c30;
+  color:#fff;
 
-  background:
-    rgba(255,255,255,.08);
-
-  color:inherit;
-
-  font-size:18px;
+  font-size:24px;
 
   cursor:pointer;
-
 }
 
-body.light .icon-btn{
-
-  background:
-    rgba(0,0,0,.06);
-
+.light .icon-btn{
+  background:#e7eafa;
+  color:#161a2c;
 }
 
 
-/* =========================================
+/* ================================
    SEARCH
-========================================= */
+================================ */
 
 .search-box{
+  margin:10px 24px 14px;
 
-  margin-top:14px;
+  height:80px;
 
-  position:relative;
+  border-radius:25px;
 
+  background:
+    rgba(27,31,49,.9);
+
+  border:1px solid
+    rgba(255,255,255,.07);
+
+  display:flex;
+  align-items:center;
+
+  padding:0 20px;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.15);
+}
+
+.light .search-box{
+  background:#fff;
+  border-color:#e2e5ef;
+}
+
+.search-box span{
+  font-size:25px;
+  margin-right:13px;
 }
 
 .search-box input{
-
   width:100%;
 
-  height:48px;
+  background:none;
+  border:0;
+  outline:0;
 
-  border:
-    1px solid
-    rgba(255,255,255,.08);
+  color:#fff;
 
-  border-radius:15px;
-
-  outline:none;
-
-  padding:
-    0 16px
-    0 45px;
-
-  background:
-    rgba(255,255,255,.06);
-
-  color:inherit;
-
-  font-size:14px;
-
+  font-size:17px;
 }
 
-body.light .search-box input{
-
-  background:
-    rgba(0,0,0,.05);
-
-  border-color:
-    rgba(0,0,0,.08);
-
+.light .search-box input{
+  color:#111;
 }
 
-.search-icon{
-
-  position:absolute;
-
-  left:16px;
-
-  top:14px;
-
-  opacity:.65;
-
+.search-box input::placeholder{
+  color:#777d92;
 }
 
 
-/* =========================================
+/* ================================
    SPORT TABS
-========================================= */
+================================ */
 
 .sport-tabs{
+  display:grid;
 
-  display:flex;
+  grid-template-columns:1fr 1fr;
 
-  gap:8px;
+  gap:12px;
 
-  margin-top:14px;
-
+  padding:10px 24px 16px;
 }
 
-.sport-tab{
-
-  flex:1;
-
-  height:44px;
+.sport-btn{
+  height:74px;
 
   border:0;
+  border-radius:24px;
 
-  border-radius:14px;
+  background:#171b2d;
 
-  background:
-    rgba(255,255,255,.06);
+  color:#fff;
 
-  color:inherit;
-
+  font-size:20px;
   font-weight:700;
 
   cursor:pointer;
 
+  transition:.25s;
 }
 
-.sport-tab.active{
-
+.sport-btn.active{
   background:
     linear-gradient(
       135deg,
-      #2563eb,
-      #7c3aed
+      #286cff,
+      #8136ec
     );
 
   box-shadow:
-    0 8px 25px
-    rgba(79,70,229,.3);
+    0 10px 30px
+    rgba(79,74,255,.35);
+}
 
+.light .sport-btn{
+  background:#e7eafa;
+  color:#22263a;
+}
+
+.light .sport-btn.active{
+  color:#fff;
 }
 
 
-/* =========================================
-   DATE BAR
-========================================= */
-
-.date-bar{
-
-  display:flex;
-
-  align-items:center;
-
-  gap:8px;
-
-  padding:
-    12px 15px 4px;
-
-}
-
-.date-btn{
-
-  width:42px;
-
-  height:42px;
-
-  border:0;
-
-  border-radius:13px;
-
-  background:
-    rgba(255,255,255,.07);
-
-  color:inherit;
-
-  font-size:25px;
-
-  cursor:pointer;
-
-}
-
-.date-main{
-
-  flex:1;
-
-  height:42px;
-
-  border:0;
-
-  border-radius:13px;
-
-  background:
-    rgba(255,255,255,.07);
-
-  color:inherit;
-
-  cursor:pointer;
-
-}
-
-.date-main span{
-
-  display:block;
-
-  font-size:13px;
-
-  font-weight:800;
-
-}
-
-.date-main small{
-
-  display:block;
-
-  font-size:10px;
-
-  opacity:.55;
-
-  margin-top:2px;
-
-}
-
-body.light .date-btn,
-body.light .date-main{
-
-  background:
-    rgba(0,0,0,.06);
-
-}
-
-
-/* =========================================
-   FILTERS
-========================================= */
-
-.filters{
-
-  display:flex;
-
-  gap:8px;
-
-  overflow-x:auto;
-
-  padding:
-    15px
-    15px
-    5px;
-
-}
-
-.filters::-webkit-scrollbar{
-
-  display:none;
-
-}
-
-.filter{
-
-  white-space:nowrap;
-
-  padding:
-    9px 14px;
-
-  border:0;
-
-  border-radius:20px;
-
-  background:
-    rgba(255,255,255,.07);
-
-  color:inherit;
-
-  font-size:12px;
-
-  cursor:pointer;
-
-}
-
-.filter.active{
-
-  background:
-    linear-gradient(
-      135deg,
-      #2563eb,
-      #7c3aed
-    );
-
-}
-
-
-/* =========================================
-   INFO
-========================================= */
-
-.info-bar{
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:space-between;
-
-  padding:
-    8px 15px
-    12px;
-
-  font-size:11px;
-
-  opacity:.7;
-
-}
-
-.live-dot{
-
-  width:7px;
-
-  height:7px;
-
-  border-radius:50%;
-
-  background:#22c55e;
-
-  display:inline-block;
-
-  margin-right:5px;
-
-  box-shadow:
-    0 0 10px
-    #22c55e;
-
-}
-
-
-/* =========================================
-   MATCH LIST
-========================================= */
-
-.matches{
-
-  padding:
-    0 15px
-    90px;
-
+/* ================================
+   DATE SELECTOR
+================================ */
+
+.date-section{
+  margin:2px 0 8px;
+  padding:0 20px;
 }
 
 .date-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 
-  margin:
-    12px 0 9px;
+  margin-bottom:10px;
+}
+
+.date-title-left{
+  font-size:16px;
+  font-weight:700;
+}
+
+.date-title-right{
+  color:#8f98b2;
+  font-size:13px;
+}
+
+.date-scroll{
+  display:flex;
+
+  gap:9px;
+
+  overflow-x:auto;
+
+  padding:3px 4px 9px;
+
+  scrollbar-width:none;
+}
+
+.date-scroll::-webkit-scrollbar{
+  display:none;
+}
+
+.date-chip{
+  flex:0 0 auto;
+
+  min-width:68px;
+
+  padding:10px 9px;
+
+  border:1px solid
+    rgba(255,255,255,.07);
+
+  border-radius:18px;
+
+  background:
+    rgba(29,35,61,.85);
+
+  color:#aeb5ca;
+
+  text-align:center;
+
+  cursor:pointer;
+
+  transition:.2s;
+}
+
+.date-chip .day{
+  display:block;
 
   font-size:12px;
 
+  margin-bottom:5px;
+}
+
+.date-chip .number{
+  display:block;
+
+  font-size:19px;
+
   font-weight:800;
 
-  opacity:.65;
+  color:#fff;
+}
 
+.date-chip.active{
+  background:
+    linear-gradient(
+      135deg,
+      #316dff,
+      #7d39ee
+    );
+
+  border-color:transparent;
+
+  color:#fff;
+
+  transform:translateY(-2px);
+
+  box-shadow:
+    0 8px 20px
+    rgba(65,75,255,.3);
+}
+
+.date-chip.active .number{
+  color:#fff;
+}
+
+.date-chip.today{
+  border-color:#536cff;
+}
+
+.light .date-chip{
+  background:#fff;
+  color:#73798d;
+  border-color:#e2e5ef;
+}
+
+.light .date-chip .number{
+  color:#20243a;
+}
+
+.light .date-chip.active .number{
+  color:#fff;
 }
 
 
-/* =========================================
-   MATCH CARD
-========================================= */
+/* ================================
+   FILTERS
+================================ */
+
+.filters{
+  display:flex;
+
+  gap:9px;
+
+  padding:8px 24px 12px;
+
+  overflow-x:auto;
+
+  scrollbar-width:none;
+}
+
+.filters::-webkit-scrollbar{
+  display:none;
+}
+
+.filter-btn{
+  flex:0 0 auto;
+
+  border:0;
+
+  padding:12px 17px;
+
+  border-radius:22px;
+
+  background:#1a2035;
+
+  color:#d6d9e5;
+
+  font-size:15px;
+
+  cursor:pointer;
+}
+
+.filter-btn.active{
+  background:
+    linear-gradient(
+      135deg,
+      #376cff,
+      #7c39ed
+    );
+
+  color:#fff;
+}
+
+.light .filter-btn{
+  background:#e7eafa;
+  color:#444a60;
+}
+
+
+/* ================================
+   INFO
+================================ */
+
+.info-bar{
+  padding:8px 24px 12px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  color:#9fa7bd;
+
+  font-size:13px;
+}
+
+.live-dot{
+  width:11px;
+  height:11px;
+
+  background:#20c875;
+
+  border-radius:50%;
+
+  display:inline-block;
+
+  margin-right:7px;
+
+  box-shadow:
+    0 0 12px
+    rgba(32,200,117,.7);
+}
+
+
+/* ================================
+   MATCH LIST
+================================ */
+
+.matches{
+  padding:0 24px;
+}
 
 .match-card{
-
   position:relative;
 
-  margin-bottom:12px;
+  margin-bottom:18px;
 
-  padding:15px;
+  padding:18px 14px 17px;
 
-  border-radius:20px;
+  border-radius:28px;
 
   background:
     linear-gradient(
       145deg,
-      rgba(255,255,255,.095),
-      rgba(255,255,255,.035)
+      rgba(37,45,76,.95),
+      rgba(23,29,53,.96)
     );
 
-  border:
-    1px solid
-    rgba(255,255,255,.08);
-
-  backdrop-filter:
-    blur(15px);
+  border:1px solid
+    rgba(255,255,255,.06);
 
   box-shadow:
-    0 10px 35px
-    rgba(0,0,0,.18);
+    0 12px 35px
+    rgba(0,0,0,.16);
 
   cursor:pointer;
 
-  transition:
-    transform .18s;
-
+  transition:.2s;
 }
 
 .match-card:active{
-
   transform:scale(.985);
-
 }
 
-body.light .match-card{
+.light .match-card{
+  background:#fff;
 
-  background:
-    rgba(255,255,255,.82);
-
-  border-color:
-    rgba(0,0,0,.07);
+  border-color:#e2e5ef;
 
   box-shadow:
-    0 8px 25px
-    rgba(0,0,0,.06);
-
+    0 10px 30px
+    rgba(40,50,90,.08);
 }
 
 .competition{
-
   display:flex;
-
   align-items:center;
 
-  gap:8px;
+  gap:9px;
 
-  font-size:11px;
+  color:#aab1c6;
 
-  opacity:.65;
+  font-size:14px;
 
-  margin-bottom:12px;
-
+  margin-bottom:18px;
 }
 
 .competition img{
-
-  width:22px;
-
-  height:22px;
+  width:25px;
+  height:25px;
 
   object-fit:contain;
 
   border-radius:6px;
+}
 
+.teams{
+  display:grid;
+
+  grid-template-columns:1fr 100px 1fr;
+
+  align-items:center;
+
+  text-align:center;
+}
+
+.team img{
+  width:58px;
+  height:58px;
+
+  object-fit:contain;
+
+  margin:auto;
+
+  display:block;
+}
+
+.team-name{
+  margin-top:9px;
+
+  font-size:17px;
+  font-weight:700;
+
+  line-height:1.2;
+}
+
+.score{
+  font-size:25px;
+
+  font-weight:800;
+
+  letter-spacing:4px;
+}
+
+.status{
+  margin-top:8px;
+
+  font-size:13px;
+
+  color:#a9afc1;
+}
+
+.status.live{
+  color:#23d17c;
+  font-weight:700;
+}
+
+.match-time{
+  text-align:center;
+
+  color:#aab1c5;
+
+  font-size:13px;
+
+  margin-top:20px;
 }
 
 .favorite{
-
   position:absolute;
 
-  top:12px;
+  top:16px;
+  right:15px;
 
-  right:12px;
-
-  width:32px;
-
-  height:32px;
+  width:48px;
+  height:48px;
 
   border:0;
 
-  border-radius:10px;
+  border-radius:16px;
 
   background:
     rgba(255,255,255,.07);
 
   color:#fff;
 
-  cursor:pointer;
+  font-size:23px;
 
+  cursor:pointer;
 }
 
 .favorite.active{
-
-  color:#facc15;
-
-}
-
-.teams{
-
-  display:grid;
-
-  grid-template-columns:
-    1fr
-    65px
-    1fr;
-
-  align-items:center;
-
-  gap:10px;
-
-}
-
-.team{
-
-  display:flex;
-
-  flex-direction:column;
-
-  align-items:center;
-
-  text-align:center;
-
-  gap:7px;
-
-}
-
-.team img{
-
-  width:46px;
-
-  height:46px;
-
-  object-fit:contain;
-
-}
-
-.team-name{
-
-  font-size:13px;
-
-  font-weight:700;
-
-  line-height:1.25;
-
-}
-
-.score{
-
-  text-align:center;
-
-}
-
-.score-number{
-
-  font-size:23px;
-
-  font-weight:900;
-
-}
-
-.score-status{
-
-  margin-top:5px;
-
-  font-size:10px;
-
-  opacity:.65;
-
-}
-
-.score-status.live{
-
-  color:#22c55e;
-
-  opacity:1;
-
-  font-weight:800;
-
-}
-
-.match-time{
-
-  text-align:center;
-
-  margin-top:13px;
-
-  font-size:11px;
-
-  opacity:.6;
-
+  color:#ffd42a;
 }
 
 
-/* =========================================
-   EMPTY
-========================================= */
-
-.empty{
-
-  text-align:center;
-
-  padding:
-    60px 20px;
-
-  opacity:.65;
-
-}
-
-.empty-icon{
-
-  font-size:42px;
-
-  margin-bottom:10px;
-
-}
-
-
-/* =========================================
+/* ================================
    LOADING
-========================================= */
+================================ */
 
 .loading{
+  text-align:center;
 
-  display:flex;
+  padding:45px 10px;
 
-  flex-direction:column;
-
-  align-items:center;
-
-  justify-content:center;
-
-  padding:70px 20px;
-
-  opacity:.7;
-
+  color:#9ea6bd;
 }
 
 .spinner{
+  width:40px;
+  height:40px;
 
-  width:35px;
+  border:4px solid
+    rgba(255,255,255,.12);
 
-  height:35px;
-
-  border:
-    3px solid
-    rgba(255,255,255,.15);
-
-  border-top-color:#7c3aed;
+  border-top-color:#5571ff;
 
   border-radius:50%;
 
-  animation:
-    spin .8s linear infinite;
+  animation:spin .8s linear infinite;
 
-  margin-bottom:12px;
-
+  margin:0 auto 15px;
 }
 
 @keyframes spin{
-
   to{
     transform:rotate(360deg);
   }
+}
 
+.empty{
+  text-align:center;
+
+  padding:50px 15px;
+
+  color:#9da5ba;
 }
 
 
-/* =========================================
+/* ================================
    MODAL
-========================================= */
+================================ */
 
 .modal{
-
   position:fixed;
 
   inset:0;
 
-  z-index:100;
+  background:
+    rgba(2,4,12,.82);
+
+  backdrop-filter:blur(10px);
 
   display:none;
 
@@ -853,380 +700,164 @@ body.light .match-card{
 
   justify-content:center;
 
-  background:
-    rgba(0,0,0,.7);
-
-  backdrop-filter:
-    blur(8px);
-
+  z-index:1000;
 }
 
 .modal.show{
-
   display:flex;
-
 }
 
 .modal-box{
-
   width:100%;
-
   max-width:600px;
 
   max-height:90vh;
 
-  overflow-y:auto;
+  overflow:auto;
 
-  padding:20px;
+  background:
+    linear-gradient(
+      145deg,
+      #171d35,
+      #0d1224
+    );
 
   border-radius:
-    25px 25px 0 0;
+    30px 30px 0 0;
 
-  background:#101525;
+  padding:22px;
 
-  border-top:
-    1px solid
-    rgba(255,255,255,.1);
-
+  animation:slideUp .25s ease;
 }
 
-body.light .modal-box{
+@keyframes slideUp{
+  from{
+    transform:translateY(100%);
+  }
 
-  background:#fff;
-
+  to{
+    transform:translateY(0);
+  }
 }
 
 .modal-head{
-
   display:flex;
 
   align-items:center;
-
   justify-content:space-between;
 
   margin-bottom:20px;
-
 }
 
-.modal-title{
-
-  font-size:18px;
-
-  font-weight:800;
-
+.modal-head h2{
+  font-size:20px;
 }
 
-.close{
-
-  width:38px;
-
-  height:38px;
+.close-btn{
+  width:42px;
+  height:42px;
 
   border:0;
 
-  border-radius:12px;
+  border-radius:14px;
 
-  background:
-    rgba(255,255,255,.08);
+  background:#262d47;
 
-  color:inherit;
+  color:#fff;
 
   font-size:20px;
-
-  cursor:pointer;
-
 }
 
+.detail-content{
+  color:#dce0ec;
+}
 
-/* =========================================
-   DETAIL
-========================================= */
-
-.detail-competition{
-
+.detail-score{
   text-align:center;
 
-  font-size:12px;
+  font-size:32px;
 
-  opacity:.65;
+  font-weight:800;
 
-  margin-bottom:15px;
-
+  margin:20px 0;
 }
 
-.detail-teams{
+
+/* ================================
+   BOTTOM NAV
+================================ */
+
+.bottom-nav{
+  position:fixed;
+
+  left:0;
+  right:0;
+  bottom:0;
+
+  height:82px;
 
   display:grid;
 
   grid-template-columns:
-    1fr
-    80px
-    1fr;
-
-  align-items:center;
-
-  gap:10px;
-
-}
-
-.detail-team{
-
-  text-align:center;
-
-}
-
-.detail-team img{
-
-  width:65px;
-
-  height:65px;
-
-  object-fit:contain;
-
-  margin-bottom:8px;
-
-}
-
-.detail-team-name{
-
-  font-weight:800;
-
-  font-size:14px;
-
-}
-
-.detail-score{
-
-  text-align:center;
-
-}
-
-.detail-score-number{
-
-  font-size:30px;
-
-  font-weight:900;
-
-}
-
-.detail-status{
-
-  margin-top:5px;
-
-  font-size:11px;
-
-  opacity:.7;
-
-}
-
-.detail-status.live{
-
-  color:#22c55e;
-
-  font-weight:800;
-
-}
-
-.detail-info{
-
-  margin-top:22px;
-
-  display:grid;
-
-  gap:9px;
-
-}
-
-.detail-row{
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:space-between;
-
-  padding:
-    13px 14px;
-
-  border-radius:14px;
+    repeat(4,1fr);
 
   background:
-    rgba(255,255,255,.05);
+    rgba(9,13,29,.96);
 
-}
+  border-top:1px solid
+    rgba(255,255,255,.06);
 
-.detail-label{
+  backdrop-filter:blur(15px);
 
-  opacity:.6;
-
-  font-size:12px;
-
-}
-
-.detail-value{
-
-  font-size:12px;
-
-  font-weight:700;
-
-  text-align:right;
-
-}
-
-.detail-actions{
-
-  display:flex;
-
-  gap:9px;
-
-  margin-top:15px;
-
-}
-
-.detail-btn{
-
-  flex:1;
-
-  height:45px;
-
-  border:0;
-
-  border-radius:13px;
-
-  cursor:pointer;
-
-  font-weight:800;
-
-  color:#fff;
-
-  background:
-    linear-gradient(
-      135deg,
-      #2563eb,
-      #7c3aed
-    );
-
-}
-
-.detail-btn.secondary{
-
-  background:
-    rgba(255,255,255,.08);
-
-  color:inherit;
-
-}
-
-
-/* =========================================
-   BOTTOM NAV
-========================================= */
-
-.bottom-nav{
-
-  position:fixed;
-
-  bottom:0;
-
-  left:0;
-
-  right:0;
-
-  z-index:40;
-
-  height:67px;
-
-  display:flex;
-
-  justify-content:space-around;
-
-  align-items:center;
-
-  background:
-    rgba(7,11,22,.9);
-
-  backdrop-filter:
-    blur(18px);
-
-  border-top:
-    1px solid
-    rgba(255,255,255,.08);
-
-}
-
-body.light .bottom-nav{
-
-  background:
-    rgba(255,255,255,.92);
-
-  border-top:
-    1px solid
-    rgba(0,0,0,.08);
-
+  z-index:900;
 }
 
 .nav-btn{
+  border:0;
 
   background:none;
 
-  border:0;
+  color:#838aa0;
 
-  color:inherit;
-
-  opacity:.55;
-
-  display:flex;
-
-  flex-direction:column;
-
-  align-items:center;
-
-  gap:4px;
-
-  font-size:10px;
+  font-size:13px;
 
   cursor:pointer;
-
 }
 
-.nav-btn span:first-child{
+.nav-btn span{
+  display:block;
 
-  font-size:19px;
+  font-size:25px;
 
+  margin-bottom:4px;
 }
 
 .nav-btn.active{
-
-  opacity:1;
-
+  color:#fff;
 }
 
 
-/* =========================================
+/* ================================
    TOAST
-========================================= */
+================================ */
 
 .toast{
-
   position:fixed;
 
   left:50%;
-
-  bottom:80px;
+  bottom:100px;
 
   transform:
-    translate(-50%,20px);
+    translateX(-50%)
+    translateY(20px);
 
-  padding:
-    11px 16px;
-
-  border-radius:13px;
-
-  background:#111827;
+  background:#20263c;
 
   color:#fff;
 
-  font-size:12px;
+  padding:12px 18px;
+
+  border-radius:15px;
 
   opacity:0;
 
@@ -1234,173 +865,91 @@ body.light .bottom-nav{
 
   transition:.25s;
 
-  z-index:200;
+  z-index:2000;
 
+  white-space:nowrap;
 }
 
 .toast.show{
-
   opacity:1;
 
   transform:
-    translate(-50%,0);
-
+    translateX(-50%)
+    translateY(0);
 }
 
 
-/* =========================================
-   DATE PICKER
-========================================= */
-
-#datePicker{
-
-  position:fixed;
-
-  left:50%;
-
-  top:50%;
-
-  transform:
-    translate(-50%,-50%);
-
-  z-index:300;
-
-}
-
-
-/* =========================================
+/* ================================
    DESKTOP
-========================================= */
+================================ */
 
 @media(min-width:700px){
 
-  .header{
-
-    padding-left:
-      max(
-        15px,
-        calc((100% - 700px)/2 + 15px)
-      );
-
-    padding-right:
-      max(
-        15px,
-        calc((100% - 700px)/2 + 15px)
-      );
-
+  body{
+    max-width:850px;
+    margin:auto;
   }
 
-  .matches{
-
-    max-width:700px;
-
-    margin:auto;
-
+  .bottom-nav{
+    max-width:850px;
+    left:50%;
+    transform:translateX(-50%);
   }
 
-  .filters,
-  .date-bar,
-  .info-bar{
-
-    max-width:700px;
-
-    margin:auto;
-
+  .modal-box{
+    border-radius:30px;
+    margin-bottom:30px;
   }
 
 }
 
 </style>
-
 </head>
 
 
 <body>
 
 
-<!-- =========================================
+<!-- ================================
      HEADER
-========================================= -->
+================================ -->
 
 <header class="header">
 
-  <div class="header-top">
+  <div class="brand">
 
-    <div class="logo">
-
-      <div class="logo-icon">
-        ⚽
-      </div>
-
-      <div>
-
-        <div class="logo-text">
-          Football Fan Zone
-        </div>
-
-        <div class="logo-sub">
-          Live Scores & Match Center
-        </div>
-
-      </div>
-
+    <div class="brand-icon">
+      ⚽
     </div>
 
+    <div>
+      <div class="brand-title">
+        Football Fan Zone
+      </div>
 
-    <div class="header-actions">
-
-      <button
-        class="icon-btn"
-        id="themeBtn"
-        onclick="toggleTheme()"
-      >
-        🌙
-      </button>
-
-      <button
-        class="icon-btn"
-        onclick="loadMatches()"
-      >
-        🔄
-      </button>
-
+      <div class="brand-sub">
+        Live Scores & Match Center
+      </div>
     </div>
 
   </div>
 
 
-  <div class="search-box">
-
-    <span class="search-icon">
-      🔎
-    </span>
-
-    <input
-      id="search"
-      type="search"
-      placeholder="দল বা লীগ খুঁজুন..."
-      autocomplete="off"
-    >
-
-  </div>
-
-
-  <div class="sport-tabs">
+  <div class="header-actions">
 
     <button
-      class="sport-tab active"
-      id="footballTab"
-      onclick="changeSport('football')"
+      class="icon-btn"
+      onclick="toggleTheme()"
+      id="themeBtn"
     >
-      ⚽ Football
+      🌙
     </button>
 
     <button
-      class="sport-tab"
-      id="cricketTab"
-      onclick="changeSport('cricket')"
+      class="icon-btn"
+      onclick="loadMatches()"
     >
-      🏏 Cricket
+      🔄
     </button>
 
   </div>
@@ -1408,98 +957,124 @@ body.light .bottom-nav{
 </header>
 
 
-<!-- =========================================
-     DATE
-========================================= -->
 
-<div class="date-bar">
+<!-- ================================
+     SEARCH
+================================ -->
+
+<div class="search-box">
+
+  <span>🔎</span>
+
+  <input
+    type="text"
+    id="searchInput"
+    placeholder="দল বা লীগ খুঁজুন..."
+  >
+
+</div>
+
+
+
+<!-- ================================
+     SPORT
+================================ -->
+
+<div class="sport-tabs">
 
   <button
-    class="date-btn"
-    onclick="changeDate(-1)"
+    class="sport-btn active"
+    id="footballBtn"
+    onclick="changeSport('football')"
   >
-    ‹
+    ⚽ Football
   </button>
 
-
   <button
-    class="date-main"
-    onclick="openDatePicker()"
+    class="sport-btn"
+    id="cricketBtn"
+    onclick="changeSport('cricket')"
   >
-
-    <span id="dateTitle">
-      আজ
-    </span>
-
-    <small id="dateValue">
-      -
-    </small>
-
-  </button>
-
-
-  <button
-    class="date-btn"
-    onclick="changeDate(1)"
-  >
-    ›
+    🏏 Cricket
   </button>
 
 </div>
 
 
-<input
-  type="date"
-  id="datePicker"
->
+
+<!-- ================================
+     DATE SELECTOR
+================================ -->
+
+<section class="date-section">
+
+  <div class="date-title">
+
+    <div class="date-title-left">
+      📅 ম্যাচের তারিখ
+    </div>
+
+    <div
+      class="date-title-right"
+      id="selectedDateText"
+    >
+      আজ
+    </div>
+
+  </div>
 
 
-<!-- =========================================
-     FILTERS
-========================================= -->
+  <div
+    class="date-scroll"
+    id="dateScroll"
+  ></div>
+
+</section>
+
+
+
+<!-- ================================
+     FILTER
+================================ -->
 
 <div class="filters">
 
   <button
-    class="filter active"
+    class="filter-btn active"
     data-filter="all"
-    onclick="changeFilter('all',this)"
+    onclick="changeFilter('all')"
   >
     সব
   </button>
 
-
   <button
-    class="filter"
+    class="filter-btn"
     data-filter="live"
-    onclick="changeFilter('live',this)"
+    onclick="changeFilter('live')"
   >
     🔴 Live
   </button>
 
-
   <button
-    class="filter"
+    class="filter-btn"
     data-filter="upcoming"
-    onclick="changeFilter('upcoming',this)"
+    onclick="changeFilter('upcoming')"
   >
     🟢 Upcoming
   </button>
 
-
   <button
-    class="filter"
+    class="filter-btn"
     data-filter="finished"
-    onclick="changeFilter('finished',this)"
+    onclick="changeFilter('finished')"
   >
     ⚪ Finished
   </button>
 
-
   <button
-    class="filter"
+    class="filter-btn"
     data-filter="favorites"
-    onclick="changeFilter('favorites',this)"
+    onclick="changeFilter('favorites')"
   >
     ⭐ Favorites
   </button>
@@ -1507,31 +1082,29 @@ body.light .bottom-nav{
 </div>
 
 
-<!-- =========================================
+
+<!-- ================================
      INFO
-========================================= -->
+================================ -->
 
 <div class="info-bar">
 
   <div>
-
     <span class="live-dot"></span>
-
     Live Score
-
   </div>
 
-
-  <div id="updated">
-    আপডেট হচ্ছে...
+  <div id="updateText">
+    শেষ আপডেট: --:--
   </div>
 
 </div>
 
 
-<!-- =========================================
+
+<!-- ================================
      MATCHES
-========================================= -->
+================================ -->
 
 <main
   class="matches"
@@ -1549,51 +1122,48 @@ body.light .bottom-nav{
 </main>
 
 
-<!-- =========================================
+
+<!-- ================================
      MODAL
-========================================= -->
+================================ -->
 
 <div
   class="modal"
-  id="modal"
+  id="matchModal"
   onclick="closeModalOutside(event)"
 >
 
-  <div
-    class="modal-box"
-    id="modalBox"
-  >
+  <div class="modal-box">
 
     <div class="modal-head">
 
-      <div class="modal-title">
-        Match Details
-      </div>
+      <h2>
+        ম্যাচ বিস্তারিত
+      </h2>
 
       <button
-        class="close"
+        class="close-btn"
         onclick="closeModal()"
       >
-        ×
+        ✕
       </button>
 
     </div>
 
-
-    <div id="detailContent">
-
-      Loading...
-
-    </div>
+    <div
+      class="detail-content"
+      id="detailContent"
+    ></div>
 
   </div>
 
 </div>
 
 
-<!-- =========================================
+
+<!-- ================================
      BOTTOM NAV
-========================================= -->
+================================ -->
 
 <nav class="bottom-nav">
 
@@ -1601,47 +1171,41 @@ body.light .bottom-nav{
     class="nav-btn active"
     onclick="goHome()"
   >
-
     <span>🏠</span>
-    <span>Home</span>
-
+    Home
   </button>
-
 
   <button
     class="nav-btn"
     onclick="showLive()"
   >
-
     <span>🔴</span>
-    <span>Live</span>
-
+    Live
   </button>
-
 
   <button
     class="nav-btn"
     onclick="showFavorites()"
   >
-
     <span>⭐</span>
-    <span>Favorites</span>
-
+    Favorites
   </button>
-
 
   <button
     class="nav-btn"
     onclick="loadMatches()"
   >
-
     <span>🔄</span>
-    <span>Refresh</span>
-
+    Refresh
   </button>
 
 </nav>
 
+
+
+<!-- ================================
+     TOAST
+================================ -->
 
 <div
   class="toast"
@@ -1649,27 +1213,24 @@ body.light .bottom-nav{
 ></div>
 
 
+
 <script>
 
-/* =========================================
-   CONFIG
-========================================= */
+/* =================================
+   SETTINGS
+================================ */
 
-const API_URL = "";
+const API_BASE = "";
 
+let sport = "cricket";
 
-/* =========================================
-   STATE
-========================================= */
+let currentFilter = "all";
 
-let sport =
-  "football";
+let allMatches = [];
 
-let currentFilter =
-  "all";
-
-let allMatches =
-  [];
+let selectedDate = getDateString(
+  new Date()
+);
 
 let favorites =
   JSON.parse(
@@ -1679,28 +1240,18 @@ let favorites =
   );
 
 
-/* =========================================
-   DATE STATE
-========================================= */
+/* =================================
+   DATE
+================================ */
 
-let selectedDate =
-  new Date();
-
-
-/* =========================================
-   DATE STRING
-========================================= */
-
-function getDateString(
-  date
-){
+function getDateString(date){
 
   const year =
     date.getFullYear();
 
   const month =
     String(
-      date.getMonth() + 1
+      date.getMonth()+1
     ).padStart(2,"0");
 
   const day =
@@ -1708,241 +1259,227 @@ function getDateString(
       date.getDate()
     ).padStart(2,"0");
 
-  return (
-    year +
-    "-" +
-    month +
-    "-" +
-    day
+  return `${year}-${month}-${day}`;
+}
+
+
+function getDateObject(dateString){
+
+  const parts =
+    dateString.split("-");
+
+  return new Date(
+    Number(parts[0]),
+    Number(parts[1])-1,
+    Number(parts[2])
   );
 
 }
 
 
-/* =========================================
-   DATE UI
-========================================= */
+function formatShortDate(date){
 
-function updateDateUI(){
-
-  const today =
-    new Date();
-
-
-  const todayString =
-    getDateString(
-      today
-    );
-
-
-  const selectedString =
-    getDateString(
-      selectedDate
-    );
-
-
-  const title =
-    document.getElementById(
-      "dateTitle"
-    );
-
-
-  const value =
-    document.getElementById(
-      "dateValue"
-    );
-
-
-  if(
-    selectedString ===
-    todayString
-  ){
-
-    title.textContent =
-      "আজ";
-
-  }else{
-
-    title.textContent =
-      selectedDate.toLocaleDateString(
-        "bn-BD",
-        {
-          weekday:
-            "long"
-        }
-      );
-
-  }
-
-
-  value.textContent =
-    selectedDate.toLocaleDateString(
-      "bn-BD",
-      {
-        day:
-          "numeric",
-
-        month:
-          "long",
-
-        year:
-          "numeric"
-      }
-    );
-
-}
-
-
-/* =========================================
-   CHANGE DATE
-========================================= */
-
-function changeDate(
-  amount
-){
-
-  selectedDate =
-    new Date(
-      selectedDate
-    );
-
-
-  selectedDate.setDate(
-    selectedDate.getDate() +
-    amount
-  );
-
-
-  updateDateUI();
-
-  loadMatches();
-
-}
-
-
-/* =========================================
-   DATE PICKER
-========================================= */
-
-function openDatePicker(){
-
-  const picker =
-    document.getElementById(
-      "datePicker"
-    );
-
-
-  picker.value =
-    getDateString(
-      selectedDate
-    );
-
-
-  if(
-    picker.showPicker
-  ){
-
-    picker.showPicker();
-
-  }else{
-
-    picker.click();
-
-  }
-
-}
-
-
-document
-  .getElementById(
-    "datePicker"
-  )
-  .addEventListener(
-    "change",
-    function(){
-
-      if(!this.value){
-
-        return;
-
-      }
-
-
-      selectedDate =
-        new Date(
-          this.value +
-          "T00:00:00"
-        );
-
-
-      updateDateUI();
-
-      loadMatches();
-
+  return date.toLocaleDateString(
+    "bn-BD",
+    {
+      day:"numeric",
+      month:"short"
     }
   );
 
+}
 
-/* =========================================
-   CHANGE SPORT
-========================================= */
+
+function getDayName(date){
+
+  return date.toLocaleDateString(
+    "bn-BD",
+    {
+      weekday:"short"
+    }
+  );
+
+}
+
+
+function renderDates(){
+
+  const container =
+    document.getElementById(
+      "dateScroll"
+    );
+
+  container.innerHTML = "";
+
+  const selected =
+    getDateObject(
+      selectedDate
+    );
+
+
+  for(
+    let i=-3;
+    i<=3;
+    i++
+  ){
+
+    const date =
+      new Date(selected);
+
+    date.setDate(
+      selected.getDate()+i
+    );
+
+
+    const value =
+      getDateString(date);
+
+
+    const chip =
+      document.createElement(
+        "button"
+      );
+
+    chip.className =
+      "date-chip";
+
+
+    if(
+      value === selectedDate
+    ){
+
+      chip.classList.add(
+        "active"
+      );
+
+    }
+
+
+    const today =
+      getDateString(
+        new Date()
+      );
+
+
+    if(
+      value === today
+    ){
+
+      chip.classList.add(
+        "today"
+      );
+
+    }
+
+
+    chip.innerHTML = `
+
+      <span class="day">
+        ${getDayName(date)}
+      </span>
+
+      <span class="number">
+        ${date.getDate()}
+      </span>
+
+    `;
+
+
+    chip.onclick = () => {
+
+      selectedDate =
+        value;
+
+      renderDates();
+
+      updateSelectedDateText();
+
+      loadMatches();
+
+    };
+
+
+    container.appendChild(
+      chip
+    );
+
+  }
+
+
+  setTimeout(() => {
+
+    const active =
+      container.querySelector(
+        ".active"
+      );
+
+    if(active){
+
+      active.scrollIntoView({
+        behavior:"smooth",
+        block:"nearest",
+        inline:"center"
+      });
+
+    }
+
+  },50);
+
+}
+
+
+function updateSelectedDateText(){
+
+  const date =
+    getDateObject(
+      selectedDate
+    );
+
+  const today =
+    getDateString(
+      new Date()
+    );
+
+
+  document.getElementById(
+    "selectedDateText"
+  ).textContent =
+    selectedDate === today
+      ? "আজ"
+      : formatShortDate(date);
+
+}
+
+
+/* =================================
+   SPORT
+================================ */
 
 function changeSport(
-  newSport
+  selectedSport
 ){
 
   sport =
-    newSport;
-
-
-  currentFilter =
-    "all";
+    selectedSport;
 
 
   document
     .getElementById(
-      "footballTab"
+      "footballBtn"
     )
-    .classList
-    .toggle(
+    .classList.toggle(
       "active",
-      sport ===
-      "football"
+      sport === "football"
     );
 
 
   document
     .getElementById(
-      "cricketTab"
+      "cricketBtn"
     )
-    .classList
-    .toggle(
+    .classList.toggle(
       "active",
-      sport ===
-      "cricket"
-    );
-
-
-  document
-    .querySelectorAll(
-      ".filter"
-    )
-    .forEach(
-      btn =>
-        btn.classList
-          .remove(
-            "active"
-          )
-    );
-
-
-  document
-    .querySelector(
-      '[data-filter="all"]'
-    )
-    .classList
-    .add(
-      "active"
+      sport === "cricket"
     );
 
 
@@ -1951,9 +1488,9 @@ function changeSport(
 }
 
 
-/* =========================================
+/* =================================
    LOAD MATCHES
-========================================= */
+================================ */
 
 async function loadMatches(){
 
@@ -1969,7 +1506,10 @@ async function loadMatches(){
 
       <div class="spinner"></div>
 
-      ম্যাচ লোড হচ্ছে...
+      ${sport === "football"
+        ? "Football"
+        : "Cricket"
+      } ম্যাচ লোড হচ্ছে...
 
     </div>
 
@@ -1978,31 +1518,18 @@ async function loadMatches(){
 
   try{
 
-    const date =
-      getDateString(
-        selectedDate
-      );
+    const url =
+      `${API_BASE}/api/${sport}?date=${selectedDate}`;
 
 
     const response =
-      await fetch(
-        API_URL +
-        "/api/" +
-        sport +
-        "?date=" +
-        encodeURIComponent(
-          date
-        ) +
-        "&t=" +
-        Date.now()
-      );
+      await fetch(url);
 
 
     if(!response.ok){
 
       throw new Error(
-        "HTTP " +
-        response.status
+        "API error"
       );
 
     }
@@ -2012,73 +1539,58 @@ async function loadMatches(){
       await response.json();
 
 
-    allMatches =
-      Array.isArray(
-        data
-      )
-      ?
-      data
-      :
-      (
-        Array.isArray(
-          data.matches
-        )
-        ?
-        data.matches
-        :
-        []
-      );
+    if(
+      Array.isArray(data)
+    ){
+
+      allMatches =
+        data;
+
+    }
+
+    else if(
+      Array.isArray(data.matches)
+    ){
+
+      allMatches =
+        data.matches;
+
+    }
+
+    else if(
+      Array.isArray(data.data)
+    ){
+
+      allMatches =
+        data.data;
+
+    }
+
+    else{
+
+      allMatches = [];
+
+    }
 
 
-    document.getElementById(
-      "updated"
-    ).textContent =
-      "শেষ আপডেট: " +
-      new Date()
-        .toLocaleTimeString(
-          "bn-BD",
-          {
-            hour:
-              "2-digit",
-
-            minute:
-              "2-digit"
-          }
-        );
-
+    updateTime();
 
     renderMatches();
 
 
   }catch(error){
 
-    console.error(
-      error
-    );
-
+    console.error(error);
 
     container.innerHTML = `
 
       <div class="empty">
 
-        <div class="empty-icon">
-          ⚠️
-        </div>
+        😕 ম্যাচ ডাটা পাওয়া যাচ্ছে না।
 
-        <div>
-          ম্যাচের তথ্য পাওয়া যাচ্ছে না
-        </div>
+        <br><br>
 
-        <button
-          class="detail-btn"
-          style="
-            margin-top:15px;
-            max-width:180px;
-          "
-          onclick="loadMatches()"
-        >
-          আবার চেষ্টা করুন
-        </button>
+        আবার Refresh করুন।
 
       </div>
 
@@ -2089,13 +1601,37 @@ async function loadMatches(){
 }
 
 
-/* =========================================
+/* =================================
+   UPDATE TIME
+================================ */
+
+function updateTime(){
+
+  const now =
+    new Date();
+
+
+  document.getElementById(
+    "updateText"
+  ).textContent =
+    "শেষ আপডেট: " +
+    now.toLocaleTimeString(
+      "bn-BD",
+      {
+        hour:"numeric",
+        minute:"2-digit"
+      }
+    );
+
+}
+
+
+/* =================================
    FILTER
-========================================= */
+================================ */
 
 function changeFilter(
-  filter,
-  button
+  filter
 ){
 
   currentFilter =
@@ -2104,20 +1640,16 @@ function changeFilter(
 
   document
     .querySelectorAll(
-      ".filter"
+      ".filter-btn"
     )
-    .forEach(
-      btn =>
-        btn.classList
-          .remove(
-            "active"
-          )
-    );
+    .forEach(btn => {
 
+      btn.classList.toggle(
+        "active",
+        btn.dataset.filter === filter
+      );
 
-  button.classList.add(
-    "active"
-  );
+    });
 
 
   renderMatches();
@@ -2125,13 +1657,13 @@ function changeFilter(
 }
 
 
-/* =========================================
+/* =================================
    SEARCH
-========================================= */
+================================ */
 
 document
   .getElementById(
-    "search"
+    "searchInput"
   )
   .addEventListener(
     "input",
@@ -2139,47 +1671,14 @@ document
   );
 
 
-/* =========================================
-   GET FILTERED
-========================================= */
+/* =================================
+   FILTERED MATCHES
+================================ */
 
 function getFilteredMatches(){
 
-  const search =
-    document
-      .getElementById(
-        "search"
-      )
-      .value
-      .trim()
-      .toLowerCase();
-
-
   let matches =
-    [
-      ...allMatches
-    ];
-
-
-  if(
-    currentFilter !==
-      "all" &&
-    currentFilter !==
-      "favorites"
-  ){
-
-    matches =
-      matches.filter(
-        match =>
-          String(
-            match.status ||
-            ""
-          ).toLowerCase()
-          ===
-          currentFilter
-      );
-
-  }
+    [...allMatches];
 
 
   if(
@@ -2191,13 +1690,64 @@ function getFilteredMatches(){
       matches.filter(
         match =>
           favorites.includes(
-            getMatchId(
-              match
-            )
+            getMatchId(match)
           )
       );
 
   }
+
+
+  else if(
+    currentFilter ===
+    "live"
+  ){
+
+    matches =
+      matches.filter(
+        match =>
+          isLive(match)
+      );
+
+  }
+
+
+  else if(
+    currentFilter ===
+    "finished"
+  ){
+
+    matches =
+      matches.filter(
+        match =>
+          isFinished(match)
+      );
+
+  }
+
+
+  else if(
+    currentFilter ===
+    "upcoming"
+  ){
+
+    matches =
+      matches.filter(
+        match =>
+          !isLive(match) &&
+          !isFinished(match)
+      );
+
+  }
+
+
+  const search =
+    document
+      .getElementById(
+        "searchInput"
+      )
+      .value
+      .trim()
+      .toLowerCase();
 
 
   if(search){
@@ -2206,21 +1756,11 @@ function getFilteredMatches(){
       matches.filter(
         match => {
 
-          const text = (
-
-            (match.home ||
-              "") +
-            " " +
-
-            (match.away ||
-              "") +
-            " " +
-
-            (match.competition ||
-              "")
-
-          ).toLowerCase();
-
+          const text =
+            JSON.stringify(
+              match
+            )
+            .toLowerCase();
 
           return text.includes(
             search
@@ -2237,9 +1777,51 @@ function getFilteredMatches(){
 }
 
 
-/* =========================================
+/* =================================
+   STATUS
+================================ */
+
+function isLive(match){
+
+  const text =
+    String(
+      match.status ||
+      match.status_text ||
+      ""
+    ).toLowerCase();
+
+
+  return (
+    text.includes("live") ||
+    text.includes("inplay") ||
+    text.includes("playing")
+  );
+
+}
+
+
+function isFinished(match){
+
+  const text =
+    String(
+      match.status ||
+      match.status_text ||
+      ""
+    ).toLowerCase();
+
+
+  return (
+    text.includes("finished") ||
+    text.includes("ended") ||
+    text.includes("complete")
+  );
+
+}
+
+
+/* =================================
    RENDER
-========================================= */
+================================ */
 
 function renderMatches(){
 
@@ -2253,21 +1835,17 @@ function renderMatches(){
     getFilteredMatches();
 
 
-  if(
-    matches.length === 0
-  ){
+  if(!matches.length){
 
     container.innerHTML = `
 
       <div class="empty">
 
-        <div class="empty-icon">
-          ⚽
-        </div>
+        🏟️
 
-        <div>
-          এই তারিখে কোনো ম্যাচ পাওয়া যায়নি
-        </div>
+        <br><br>
+
+        এই তারিখে কোনো ম্যাচ পাওয়া যায়নি।
 
       </div>
 
@@ -2281,9 +1859,10 @@ function renderMatches(){
   container.innerHTML =
     matches
       .map(
-        match =>
+        (match,index) =>
           createMatchCard(
-            match
+            match,
+            index
           )
       )
       .join("");
@@ -2291,218 +1870,204 @@ function renderMatches(){
 }
 
 
-/* =========================================
+/* =================================
    MATCH ID
-========================================= */
+================================ */
 
-function getMatchId(
-  match
-){
+function getMatchId(match){
 
-  return (
+  return String(
+    match.id ||
+    match.match_id ||
     match.url ||
     (
-      (match.home ||
-        "") +
-      "_" +
-      (match.away ||
-        "") +
-      "_" +
-      (match.time ||
-        "")
+      match.home +
+      "-" +
+      match.away
     )
   );
 
 }
 
 
-/* =========================================
+/* =================================
    MATCH CARD
-========================================= */
+================================ */
 
 function createMatchCard(
-  match
+  match,
+  index
 ){
 
-  const id =
-    getMatchId(
-      match
-    );
+  const home =
+    match.home ||
+    match.home_team ||
+    "Home";
 
 
-  const isFavorite =
-    favorites.includes(
-      id
-    );
+  const away =
+    match.away ||
+    match.away_team ||
+    "Away";
 
 
-  const status =
-    String(
-      match.status ||
-      ""
-    ).toLowerCase();
+  const homeLogo =
+    match.home_logo ||
+    match.home_image ||
+    "";
 
 
-  const isLive =
-    status ===
-    "live";
+  const awayLogo =
+    match.away_logo ||
+    match.away_image ||
+    "";
 
 
-  const scoreHome =
+  const competition =
+    match.competition ||
+    match.league ||
+    "Football";
+
+
+  const competitionLogo =
+    match.competition_logo ||
+    "";
+
+
+  const homeScore =
     match.home_score ??
     "-";
 
 
-  const scoreAway =
+  const awayScore =
     match.away_score ??
     "-";
 
 
+  const live =
+    isLive(match);
+
+
+  const finished =
+    isFinished(match);
+
+
+  const status =
+    match.status_text ||
+    match.status ||
+    (
+      live
+        ? "Live"
+        : finished
+          ? "Finished"
+          : "Not started"
+    );
+
+
+  const time =
+    match.time ||
+    match.date_time ||
+    match.start_time ||
+    "";
+
+
+  const id =
+    getMatchId(match);
+
+
+  const fav =
+    favorites.includes(id);
+
+
   return `
 
-    <article
+    <div
       class="match-card"
-      onclick='openMatch(${JSON.stringify(match)})'
+      onclick="openMatchByIndex(${index})"
     >
-
-      <button
-        class="favorite ${
-          isFavorite
-          ? "active"
-          : ""
-        }"
-        onclick="
-          event.stopPropagation();
-          toggleFavorite(
-            '${escapeJs(id)}'
-          )
-        "
-      >
-        ${
-          isFavorite
-          ? "★"
-          : "☆"
-        }
-      </button>
-
 
       <div class="competition">
 
         ${
-          match.competition_logo
-          ?
-          `
-          <img
-            src="${safeUrl(
-              match.competition_logo
-            )}"
-            alt=""
-          >
-          `
-          :
-          "🏆"
+          competitionLogo
+            ? `
+              <img
+                src="${safeUrl(
+                  competitionLogo
+                )}"
+                onerror="this.style.display='none'"
+              >
+            `
+            : "🏆"
         }
 
-
         <span>
-          ${
-            escapeHtml(
-              match.competition ||
-              "Competition"
-            )
-          }
+          ${escapeHtml(
+            competition
+          )}
         </span>
 
       </div>
 
 
-      <div class="teams">
+      <button
+        class="favorite ${fav ? "active" : ""}"
+        onclick="toggleFavoriteByIndex(event,${index})"
+      >
+        ${fav ? "★" : "☆"}
+      </button>
 
+
+      <div class="teams">
 
         <div class="team">
 
           ${
-            match.home_logo
-            ?
-            `
-            <img
-              src="${safeUrl(
-                match.home_logo
-              )}"
-              alt=""
-              onerror="
-                this.style.display='none'
-              "
-            >
-            `
-            :
-            `
-            <div style="
-              font-size:35px
-            ">
-              ⚽
-            </div>
-            `
+            homeLogo
+              ? `
+                <img
+                  src="${safeUrl(
+                    homeLogo
+                  )}"
+                  onerror="this.style.display='none'"
+                >
+              `
+              : "⚽"
           }
 
-
           <div class="team-name">
-
-            ${
-              escapeHtml(
-                match.home ||
-                "Home"
-              )
-            }
-
+            ${escapeHtml(home)}
           </div>
 
         </div>
 
 
-        <div class="score">
+        <div>
 
-          <div class="score-number">
+          <div class="score">
 
-            ${
-              escapeHtml(
-                String(
-                  scoreHome
-                )
-              )
-            }
+            ${escapeHtml(
+              String(homeScore)
+            )}
 
             -
 
-            ${
-              escapeHtml(
-                String(
-                  scoreAway
-                )
-              )
-            }
+            ${escapeHtml(
+              String(awayScore)
+            )}
 
           </div>
 
 
           <div
-            class="
-              score-status
-              ${
-                isLive
-                ? "live"
-                : ""
-              }
-            "
+            class="status ${live ? "live" : ""}"
           >
 
-            ${
-              escapeHtml(
-                match.status_text ||
-                match.status ||
-                "Unknown"
-              )
-            }
+            ${live ? "🔴 " : ""}
+
+            ${escapeHtml(
+              status
+            )}
 
           </div>
 
@@ -2512,39 +2077,20 @@ function createMatchCard(
         <div class="team">
 
           ${
-            match.away_logo
-            ?
-            `
-            <img
-              src="${safeUrl(
-                match.away_logo
-              )}"
-              alt=""
-              onerror="
-                this.style.display='none'
-              "
-            >
-            `
-            :
-            `
-            <div style="
-              font-size:35px
-            ">
-              ⚽
-            </div>
-            `
+            awayLogo
+              ? `
+                <img
+                  src="${safeUrl(
+                    awayLogo
+                  )}"
+                  onerror="this.style.display='none'"
+                >
+              `
+              : "⚽"
           }
 
-
           <div class="team-name">
-
-            ${
-              escapeHtml(
-                match.away ||
-                "Away"
-              )
-            }
-
+            ${escapeHtml(away)}
           </div>
 
         </div>
@@ -2556,32 +2102,47 @@ function createMatchCard(
 
         🕐
 
-        ${
-          formatDate(
-            match.time
-          )
-        }
+        ${formatDate(time)}
 
       </div>
 
-    </article>
+    </div>
 
   `;
 
 }
 
 
-/* =========================================
+/* =================================
    OPEN MATCH
-========================================= */
+================================ */
 
-async function openMatch(
-  match
+function openMatchByIndex(
+  index
 ){
+
+  const matches =
+    getFilteredMatches();
+
+
+  const match =
+    matches[index];
+
+
+  if(match){
+
+    openMatch(match);
+
+  }
+
+}
+
+
+async function openMatch(match){
 
   const modal =
     document.getElementById(
-      "modal"
+      "matchModal"
     );
 
 
@@ -2591,362 +2152,168 @@ async function openMatch(
     );
 
 
-  modal.classList.add(
-    "show"
-  );
+  const home =
+    match.home ||
+    match.home_team ||
+    "Home";
 
 
-  const scoreHome =
-    match.home_score ??
-    "-";
+  const away =
+    match.away ||
+    match.away_team ||
+    "Away";
 
 
-  const scoreAway =
-    match.away_score ??
-    "-";
+  const homeScore =
+    match.home_score ?? "-";
 
 
-  const status =
-    String(
-      match.status ||
-      ""
-    ).toLowerCase();
+  const awayScore =
+    match.away_score ?? "-";
 
 
   content.innerHTML = `
 
-    <div class="detail-competition">
+    <div style="text-align:center">
 
-      ${
-        match.competition_logo
-        ?
-        `
-        <img
-          src="${safeUrl(
-            match.competition_logo
-          )}"
-          style="
-            width:30px;
-            height:30px;
-            object-fit:contain;
-            vertical-align:middle;
-            margin-right:5px;
-          "
-        >
-        `
-        :
-        "🏆"
-      }
+      <div style="
+        color:#9ea6bd;
+        margin-bottom:15px;
+      ">
 
-
-      ${
-        escapeHtml(
+        ${escapeHtml(
           match.competition ||
-          "Match"
-        )
-      }
-
-    </div>
-
-
-    <div class="detail-teams">
-
-
-      <div class="detail-team">
-
-        ${
-          match.home_logo
-          ?
-          `
-          <img
-            src="${safeUrl(
-              match.home_logo
-            )}"
-            alt=""
-          >
-          `
-          :
-          `
-          <div style="
-            font-size:50px
-          ">
-            ⚽
-          </div>
-          `
-        }
-
-
-        <div class="detail-team-name">
-
-          ${
-            escapeHtml(
-              match.home ||
-              "Home"
-            )
-          }
-
-        </div>
+          match.league ||
+          ""
+        )}
 
       </div>
 
 
       <div class="detail-score">
 
-        <div class="detail-score-number">
+        ${escapeHtml(
+          String(homeScore)
+        )}
 
-          ${
-            escapeHtml(
-              String(
-                scoreHome
-              )
-            )
-          }
+        &nbsp; - &nbsp;
 
-          -
-
-          ${
-            escapeHtml(
-              String(
-                scoreAway
-              )
-            )
-          }
-
-        </div>
-
-
-        <div
-          class="
-            detail-status
-            ${
-              status === "live"
-              ? "live"
-              : ""
-            }
-          "
-        >
-
-          ${
-            escapeHtml(
-              match.status_text ||
-              match.status ||
-              "Unknown"
-            )
-          }
-
-        </div>
+        ${escapeHtml(
+          String(awayScore)
+        )}
 
       </div>
 
 
-      <div class="detail-team">
+      <div style="
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:15px;
+        margin-top:20px;
+      ">
 
-        ${
-          match.away_logo
-          ?
-          `
-          <img
-            src="${safeUrl(
-              match.away_logo
-            )}"
-            alt=""
-          >
-          `
-          :
-          `
+        <div>
+
           <div style="
-            font-size:50px
+            font-size:18px;
+            font-weight:700;
           ">
-            ⚽
+
+            ${escapeHtml(home)}
+
           </div>
-          `
-        }
+
+        </div>
 
 
-        <div class="detail-team-name">
+        <div>
 
-          ${
-            escapeHtml(
-              match.away ||
-              "Away"
-            )
-          }
+          <div style="
+            font-size:18px;
+            font-weight:700;
+          ">
+
+            ${escapeHtml(away)}
+
+          </div>
 
         </div>
 
       </div>
 
-    </div>
 
+      <div style="
+        margin-top:25px;
+        color:#aab1c5;
+      ">
 
-    <div class="detail-info">
+        ${escapeHtml(
+          match.status_text ||
+          match.status ||
+          "Not started"
+        )}
 
-      <div class="detail-row">
+        <br><br>
 
-        <span class="detail-label">
-          🏆 Competition
-        </span>
-
-        <span class="detail-value">
-
-          ${
-            escapeHtml(
-              match.competition ||
-              "-"
-            )
-          }
-
-        </span>
+        ${formatDate(
+          match.time ||
+          match.date_time ||
+          ""
+        )}
 
       </div>
-
-
-      <div class="detail-row">
-
-        <span class="detail-label">
-          📅 Date & Time
-        </span>
-
-        <span class="detail-value">
-
-          ${
-            formatDate(
-              match.time
-            )
-          }
-
-        </span>
-
-      </div>
-
-
-      <div class="detail-row">
-
-        <span class="detail-label">
-          📊 Status
-        </span>
-
-        <span class="detail-value">
-
-          ${
-            escapeHtml(
-              match.status_text ||
-              match.status ||
-              "-"
-            )
-          }
-
-        </span>
-
-      </div>
-
-    </div>
-
-
-    <div class="detail-actions">
-
-      <button
-        class="detail-btn"
-        onclick="
-          toggleFavorite(
-            '${escapeJs(
-              getMatchId(
-                match
-              )
-            )}'
-          )
-        "
-      >
-
-        ${
-          favorites.includes(
-            getMatchId(
-              match
-            )
-          )
-          ?
-          "★ Favorite"
-          :
-          "☆ Add Favorite"
-        }
-
-      </button>
-
-
-      <button
-        class="
-          detail-btn
-          secondary
-        "
-        onclick="closeModal()"
-      >
-
-        বন্ধ করুন
-
-      </button>
 
     </div>
 
   `;
 
 
-  /* =====================================
-     EXTRA MATCH API
-  ===================================== */
+  modal.classList.add(
+    "show"
+  );
 
-  if(match.url){
+
+  /* ==========================
+     EXTRA MATCH DETAILS
+  ========================== */
+
+  const slug =
+    match.slug ||
+    match.match_slug ||
+    "";
+
+
+  if(slug){
 
     try{
 
-      const parts =
-        match.url
-          .split("/")
-          .filter(
-            Boolean
-          );
+      const response =
+        await fetch(
+          `/api/match?sport=${encodeURIComponent(
+            sport
+          )}&slug=${encodeURIComponent(
+            slug
+          )}`
+        );
 
 
-      const slug =
-        parts[
-          parts.length - 1
-        ];
+      if(response.ok){
+
+        const details =
+          await response.json();
 
 
-      if(slug){
-
-        const response =
-          await fetch(
-            "/api/match" +
-            "?sport=" +
-            encodeURIComponent(
-              sport
-            ) +
-            "&slug=" +
-            encodeURIComponent(
-              slug
-            )
-          );
-
-
-        if(response.ok){
-
-          const details =
-            await response.json();
-
-
-          console.log(
-            "Match details:",
-            details
-          );
-
-        }
+        console.log(
+          "Match details:",
+          details
+        );
 
       }
 
     }catch(error){
 
       console.log(
-        "Extra details unavailable:",
+        "Details unavailable",
         error
       );
 
@@ -2957,39 +2324,59 @@ async function openMatch(
 }
 
 
-/* =========================================
+/* =================================
    FAVORITE
-========================================= */
+================================ */
 
-function toggleFavorite(
-  id
+function toggleFavoriteByIndex(
+  event,
+  index
 ){
 
-  const index =
-    favorites.indexOf(
-      id
-    );
+  event.stopPropagation();
 
 
-  if(index >= 0){
+  const matches =
+    getFilteredMatches();
 
-    favorites.splice(
-      index,
-      1
-    );
+
+  const match =
+    matches[index];
+
+
+  if(!match)return;
+
+
+  const id =
+    getMatchId(match);
+
+
+  toggleFavorite(id);
+
+}
+
+
+function toggleFavorite(id){
+
+  if(
+    favorites.includes(id)
+  ){
+
+    favorites =
+      favorites.filter(
+        item => item !== id
+      );
 
     showToast(
-      "⭐ Favorite থেকে সরানো হয়েছে"
+      "⭐ Favorites থেকে সরানো হয়েছে"
     );
 
   }else{
 
-    favorites.push(
-      id
-    );
+    favorites.push(id);
 
     showToast(
-      "⭐ Favorite-এ যোগ হয়েছে"
+      "⭐ Favorites এ যোগ হয়েছে"
     );
 
   }
@@ -3008,9 +2395,9 @@ function toggleFavorite(
 }
 
 
-/* =========================================
+/* =================================
    THEME
-========================================= */
+================================ */
 
 function toggleTheme(){
 
@@ -3029,15 +2416,15 @@ function toggleTheme(){
     "themeBtn"
   ).textContent =
     light
-    ? "☀️"
-    : "🌙";
+      ? "☀️"
+      : "🌙";
 
 
   localStorage.setItem(
     "fanZoneTheme",
     light
-    ? "light"
-    : "dark"
+      ? "light"
+      : "dark"
   );
 
 }
@@ -3053,7 +2440,6 @@ if(
     "light"
   );
 
-
   document.getElementById(
     "themeBtn"
   ).textContent =
@@ -3062,124 +2448,77 @@ if(
 }
 
 
-/* =========================================
-   NAV
-========================================= */
+/* =================================
+   BOTTOM NAV
+================================ */
 
 function goHome(){
 
   currentFilter =
     "all";
 
-
   document
     .querySelectorAll(
-      ".filter"
+      ".filter-btn"
     )
-    .forEach(
-      btn =>
-        btn.classList
-          .remove(
-            "active"
-          )
-    );
+    .forEach(btn => {
 
+      btn.classList.toggle(
+        "active",
+        btn.dataset.filter === "all"
+      );
 
-  document
-    .querySelector(
-      '[data-filter="all"]'
-    )
-    .classList
-    .add(
-      "active"
-    );
-
+    });
 
   renderMatches();
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 
 }
 
 
 function showLive(){
 
-  currentFilter =
-    "live";
+  changeFilter(
+    "live"
+  );
 
-
-  document
-    .querySelectorAll(
-      ".filter"
-    )
-    .forEach(
-      btn =>
-        btn.classList
-          .remove(
-            "active"
-          )
-    );
-
-
-  document
-    .querySelector(
-      '[data-filter="live"]'
-    )
-    .classList
-    .add(
-      "active"
-    );
-
-
-  renderMatches();
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 
 }
 
 
 function showFavorites(){
 
-  currentFilter =
-    "favorites";
+  changeFilter(
+    "favorites"
+  );
 
-
-  document
-    .querySelectorAll(
-      ".filter"
-    )
-    .forEach(
-      btn =>
-        btn.classList
-          .remove(
-            "active"
-          )
-    );
-
-
-  document
-    .querySelector(
-      '[data-filter="favorites"]'
-    )
-    .classList
-    .add(
-      "active"
-    );
-
-
-  renderMatches();
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 
 }
 
 
-/* =========================================
+/* =================================
    MODAL
-========================================= */
+================================ */
 
 function closeModal(){
 
   document
     .getElementById(
-      "modal"
+      "matchModal"
     )
-    .classList
-    .remove(
+    .classList.remove(
       "show"
     );
 
@@ -3192,7 +2531,7 @@ function closeModalOutside(
 
   if(
     event.target.id ===
-    "modal"
+    "matchModal"
   ){
 
     closeModal();
@@ -3202,104 +2541,9 @@ function closeModalOutside(
 }
 
 
-/* =========================================
-   ESCAPE HTML
-========================================= */
-
-function escapeHtml(
-  value
-){
-
-  return String(
-    value
-  )
-  .replace(
-    /&/g,
-    "&amp;"
-  )
-  .replace(
-    /</g,
-    "&lt;"
-  )
-  .replace(
-    />/g,
-    "&gt;"
-  )
-  .replace(
-    /"/g,
-    "&quot;"
-  )
-  .replace(
-    /'/g,
-    "&#039;"
-  );
-
-}
-
-
-/* =========================================
-   ESCAPE JS
-========================================= */
-
-function escapeJs(
-  value
-){
-
-  return String(
-    value
-  )
-  .replace(
-    /\\/g,
-    "\\\\"
-  )
-  .replace(
-    /'/g,
-    "\\'"
-  );
-
-}
-
-
-/* =========================================
-   SAFE URL
-========================================= */
-
-function safeUrl(
-  url
-){
-
-  if(
-    typeof url !==
-    "string"
-  ){
-
-    return "";
-
-  }
-
-
-  if(
-    url.startsWith(
-      "https://"
-    ) ||
-    url.startsWith(
-      "http://"
-    )
-  ){
-
-    return url;
-
-  }
-
-
-  return "";
-
-}
-
-
-/* =========================================
+/* =================================
    FORMAT DATE
-========================================= */
+================================ */
 
 function formatDate(
   value
@@ -3315,18 +2559,18 @@ function formatDate(
   try{
 
     const date =
-      new Date(
-        value
-      );
+      new Date(value);
 
 
     if(
-      Number.isNaN(
+      isNaN(
         date.getTime()
       )
     ){
 
-      return value;
+      return escapeHtml(
+        String(value)
+      );
 
     }
 
@@ -3334,38 +2578,69 @@ function formatDate(
     return date.toLocaleString(
       "bn-BD",
       {
-        day:
-          "numeric",
-
-        month:
-          "short",
-
-        year:
-          "numeric",
-
-        hour:
-          "2-digit",
-
-        minute:
-          "2-digit"
+        day:"numeric",
+        month:"long",
+        year:"numeric",
+        hour:"numeric",
+        minute:"2-digit"
       }
     );
 
   }catch{
 
-    return value;
+    return String(value);
 
   }
 
 }
 
 
-/* =========================================
+/* =================================
+   SECURITY
+================================ */
+
+function escapeHtml(
+  text
+){
+
+  return String(text)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+function safeUrl(
+  url
+){
+
+  const value =
+    String(url || "");
+
+
+  if(
+    value.startsWith("http://") ||
+    value.startsWith("https://")
+  ){
+
+    return value;
+
+  }
+
+
+  return "";
+
+}
+
+
+/* =================================
    TOAST
-========================================= */
+================================ */
 
 let toastTimer;
-
 
 function showToast(
   message
@@ -3406,18 +2681,20 @@ function showToast(
 }
 
 
-/* =========================================
+/* =================================
    INITIAL
-========================================= */
+================================ */
 
-updateDateUI();
+renderDates();
+
+updateSelectedDateText();
 
 loadMatches();
 
 
-/* =========================================
+/* =================================
    AUTO REFRESH
-========================================= */
+================================ */
 
 setInterval(
   () => {
@@ -3431,5 +2708,4 @@ setInterval(
 </script>
 
 </body>
-
 </html>
