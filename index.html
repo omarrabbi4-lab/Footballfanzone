@@ -132,7 +132,7 @@
       gap: 8px;
     }
 
-    .sofascore-container {
+    .live-tracker-container {
       width: 100%;
       height: 650px;
       border-radius: 8px;
@@ -219,7 +219,6 @@
       color: #000;
     }
 
-    /* Floating Reactions FX */
     .floating-emoji {
       position: fixed;
       bottom: 20px;
@@ -256,11 +255,10 @@
     <!-- LIVE TRACKER TAB -->
     <div id="tracker" class="tab-content active">
       <div class="card">
-        <div class="card-title">📡 Sofascore Real-Time Live Score Tracker</div>
-        <div class="sofascore-container">
+        <div class="card-title">📡 রিয়েল-টাইম ফুটবল লাইভ স্কোর ট্র্যাকার</div>
+        <div class="live-tracker-container">
           <iframe 
-            id="sofascore-embed-widget-match" 
-            src="https://widgets.sofascore.com/embed/football" 
+            src="https://www.scorespro.com/widgets/live-soccer/" 
             style="width: 100%; height: 100%; border: none;" 
             scrolling="yes">
           </iframe>
@@ -309,7 +307,6 @@
   </main>
 
   <script>
-    // Tab Switcher
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
@@ -318,7 +315,6 @@
       event.target.classList.add('active');
     }
 
-    // Chat Logic
     function sendMessage() {
       const input = document.getElementById('chatInput');
       const text = input.value.trim();
@@ -334,7 +330,6 @@
       input.value = '';
     }
 
-    // Web Audio API Effects
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     
     function playSound(type) {
@@ -362,7 +357,6 @@
       }
     }
 
-    // Floating FX Animation
     function triggerFx(emoji) {
       const el = document.createElement('div');
       el.className = 'floating-emoji';
