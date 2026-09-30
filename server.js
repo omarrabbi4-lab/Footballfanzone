@@ -7,6 +7,9 @@ const PORT = process.env.PORT || 10000;
 const API_BASE =
   "https://sportscore.com/api/v1/fixtures/";
 
+const MATCH_API =
+  "https://sportscore.com/api/v1/match/";
+
 
 /* =========================================
    SPORTS API
@@ -21,23 +24,67 @@ async function getMatches(sport, status) {
     "&limit=100";
 
   if (status) {
+
     url +=
       "&status=" +
       encodeURIComponent(status);
+
   }
 
   console.log("Fetching:", url);
 
-  const response = await fetch(url);
+  const response =
+    await fetch(url);
 
   if (!response.ok) {
+
     throw new Error(
       "SportScore API error: " +
       response.status
     );
+
   }
 
   return await response.json();
+
+}
+
+
+/* =========================================
+   SINGLE MATCH DETAILS
+========================================= */
+
+async function getMatchDetails(
+  sport,
+  slug
+) {
+
+  const url =
+    MATCH_API +
+    "?sport=" +
+    encodeURIComponent(sport) +
+    "&slug=" +
+    encodeURIComponent(slug);
+
+  console.log(
+    "Fetching match:",
+    url
+  );
+
+  const response =
+    await fetch(url);
+
+  if (!response.ok) {
+
+    throw new Error(
+      "Match API error: " +
+      response.status
+    );
+
+  }
+
+  return await response.json();
+
 }
 
 
@@ -45,22 +92,32 @@ async function getMatches(sport, status) {
    JSON RESPONSE
 ========================================= */
 
-function sendJSON(res, statusCode, data) {
+function sendJSON(
+  res,
+  statusCode,
+  data
+) {
 
-  res.writeHead(statusCode, {
-    "Content-Type":
-      "application/json; charset=utf-8",
+  res.writeHead(
+    statusCode,
+    {
 
-    "Access-Control-Allow-Origin":
-      "*",
+      "Content-Type":
+        "application/json; charset=utf-8",
 
-    "Cache-Control":
-      "no-store"
-  });
+      "Access-Control-Allow-Origin":
+        "*",
+
+      "Cache-Control":
+        "no-store"
+
+    }
+  );
 
   res.end(
     JSON.stringify(data)
   );
+
 }
 
 
@@ -68,7 +125,10 @@ function sendJSON(res, statusCode, data) {
    STATIC FILE
 ========================================= */
 
-function serveFile(req, res) {
+function serveFile(
+  req,
+  res
+) {
 
   let requestedPath =
     req.url.split("?")[0];
@@ -77,7 +137,10 @@ function serveFile(req, res) {
     requestedPath === "/" ||
     requestedPath === ""
   ) {
-    requestedPath = "/index.html";
+
+    requestedPath =
+      "/index.html";
+
   }
 
   const filePath =
@@ -86,15 +149,21 @@ function serveFile(req, res) {
       requestedPath
     );
 
+
   if (
-    !filePath.startsWith(__dirname)
+    !filePath.startsWith(
+      __dirname
+    )
   ) {
 
     res.writeHead(403);
 
-    res.end("Forbidden");
+    res.end(
+      "Forbidden"
+    );
 
     return;
+
   }
 
 
@@ -104,16 +173,20 @@ function serveFile(req, res) {
 
       if (error) {
 
-        res.writeHead(404, {
-          "Content-Type":
-            "text/plain; charset=utf-8"
-        });
+        res.writeHead(
+          404,
+          {
+            "Content-Type":
+              "text/plain; charset=utf-8"
+          }
+        );
 
         res.end(
           "404 - File Not Found"
         );
 
         return;
+
       }
 
 
@@ -151,14 +224,18 @@ function serveFile(req, res) {
       }
 
 
-      res.writeHead(200, {
+      res.writeHead(
+        200,
+        {
 
-        "Content-Type":
-          contentType,
+          "Content-Type":
+            contentType,
 
-        "Cache-Control":
-          "no-cache"
-      });
+          "Cache-Control":
+            "no-cache"
+
+        }
+      );
 
 
       res.end(data);
@@ -178,33 +255,139 @@ const server =
     async (req, res) => {
 
 
-      /* -------------------------------
+      /* ===============================
          HEALTH
-      -------------------------------- */
+      =============================== */
 
       if (
         req.url === "/health"
       ) {
 
-        sendJSON(res, 200, {
+        sendJSON(
+          res,
+          200,
+          {
 
-          status: "ok",
+            status: "ok",
 
-          app: "Live Score",
+            app: "Football Fan Zone",
 
-          football: true,
+            football: true,
 
-          cricket: true
+            cricket: true,
 
-        });
+            match_details: true
+
+          }
+        );
 
         return;
+
       }
 
 
-      /* -------------------------------
+      /* ===============================
+         SINGLE MATCH DETAILS
+      =============================== */
+
+      if (
+        req.url.startsWith(
+          "/api/match"
+        )
+      ) {
+
+        try {
+
+          const url =
+            new URL(
+              req.url,
+              "http://localhost"
+            );
+
+
+          const sport =
+            url.searchParams.get(
+              "sport"
+            );
+
+
+          const slug =
+            url.searchParams.get(
+              "slug"
+            );
+
+
+          if (
+            !sport ||
+            !slug
+          ) {
+
+            sendJSON(
+              res,
+              400,
+              {
+
+                success: false,
+
+                error:
+                  "sport এবং slug প্রয়োজন"
+
+              }
+            );
+
+            return;
+
+          }
+
+
+          const data =
+            await getMatchDetails(
+              sport,
+              slug
+            );
+
+
+          sendJSON(
+            res,
+            200,
+            data
+          );
+
+
+        } catch (error) {
+
+          console.error(
+            "Match details error:",
+            error
+          );
+
+
+          sendJSON(
+            res,
+            500,
+            {
+
+              success: false,
+
+              error:
+                "Match details পাওয়া যাচ্ছে না",
+
+              message:
+                error.message
+
+            }
+          );
+
+        }
+
+        return;
+
+      }
+
+
+      /* ===============================
          FOOTBALL
-      -------------------------------- */
+      =============================== */
 
       if (
         req.url.startsWith(
@@ -227,12 +410,6 @@ const server =
             );
 
 
-          /*
-             পুরোনো index.html
-             filter পাঠালে সেটাও
-             support করবে।
-          */
-
           if (!status) {
 
             const filter =
@@ -240,13 +417,15 @@ const server =
                 "filter"
               );
 
+
             if (
               filter === "live" ||
               filter === "finished" ||
               filter === "upcoming"
             ) {
 
-              status = filter;
+              status =
+                filter;
 
             }
 
@@ -294,12 +473,13 @@ const server =
         }
 
         return;
+
       }
 
 
-      /* -------------------------------
+      /* ===============================
          CRICKET
-      -------------------------------- */
+      =============================== */
 
       if (
         req.url.startsWith(
@@ -329,13 +509,15 @@ const server =
                 "filter"
               );
 
+
             if (
               filter === "live" ||
               filter === "finished" ||
               filter === "upcoming"
             ) {
 
-              status = filter;
+              status =
+                filter;
 
             }
 
@@ -383,12 +565,13 @@ const server =
         }
 
         return;
+
       }
 
 
-      /* -------------------------------
+      /* ===============================
          STATIC WEBSITE
-      -------------------------------- */
+      =============================== */
 
       serveFile(
         req,
@@ -408,7 +591,7 @@ server.listen(
   () => {
 
     console.log(
-      "Live Score server started on port " +
+      "Football Fan Zone server started on port " +
       PORT
     );
 
