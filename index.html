@@ -7,17 +7,31 @@
 
 <meta
   name="viewport"
-  content="width=device-width, initial-scale=1.0"
+  content="width=device-width,initial-scale=1.0"
 >
 
 <meta
   name="theme-color"
-  content="#090d1d"
+  content="#080b18"
+>
+
+<meta
+  name="mobile-web-app-capable"
+  content="yes"
+>
+
+<meta
+  name="apple-mobile-web-app-capable"
+  content="yes"
 >
 
 <title>Football Fan Zone</title>
 
 <style>
+
+/* =====================================================
+   RESET
+===================================================== */
 
 *{
   box-sizing:border-box;
@@ -36,41 +50,142 @@ body{
     "Noto Sans Bengali",
     sans-serif;
 
-  background:
-    radial-gradient(
-      circle at top left,
-      #172b66 0,
-      #090d1d 42%,
-      #070a15 100%
-    );
-
   color:#fff;
 
   min-height:100vh;
 
-  padding-bottom:90px;
-
   overflow-x:hidden;
+
+  padding-bottom:95px;
+
+  background:
+    radial-gradient(
+      circle at 10% 0%,
+      rgba(38,103,255,.35),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 100% 20%,
+      rgba(139,51,255,.30),
+      transparent 30%
+    ),
+    linear-gradient(
+      145deg,
+      #080b18,
+      #0b1025 48%,
+      #070912
+    );
+
+  transition:
+    background .5s ease,
+    color .5s ease;
 }
+
+
+/* =====================================================
+   LIGHT THEME
+===================================================== */
 
 body.light{
 
-  background:
-    linear-gradient(
-      135deg,
-      #eef2ff,
-      #fff
-    );
+  color:#171a2c;
 
-  color:#15182a;
+  background:
+    radial-gradient(
+      circle at 0% 0%,
+      #dce7ff,
+      transparent 38%
+    ),
+    radial-gradient(
+      circle at 100% 20%,
+      #f0ddff,
+      transparent 35%
+    ),
+    linear-gradient(
+      145deg,
+      #f7f9ff,
+      #ffffff
+    );
 }
 
 
-/* HEADER */
+/* =====================================================
+   BACKGROUND LIGHTS
+===================================================== */
+
+body::before{
+
+  content:"";
+
+  position:fixed;
+
+  width:260px;
+  height:260px;
+
+  left:-120px;
+  bottom:120px;
+
+  border-radius:50%;
+
+  background:
+    rgba(45,103,255,.12);
+
+  filter:blur(50px);
+
+  pointer-events:none;
+
+  animation:
+    floatLight 8s ease-in-out infinite;
+}
+
+body::after{
+
+  content:"";
+
+  position:fixed;
+
+  width:240px;
+  height:240px;
+
+  right:-120px;
+  top:240px;
+
+  border-radius:50%;
+
+  background:
+    rgba(142,56,255,.12);
+
+  filter:blur(55px);
+
+  pointer-events:none;
+
+  animation:
+    floatLight 10s ease-in-out infinite reverse;
+}
+
+@keyframes floatLight{
+
+  0%,100%{
+    transform:translate(0,0);
+  }
+
+  50%{
+    transform:translate(30px,-25px);
+  }
+
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
 
 .header{
 
-  padding:20px 18px 12px;
+  padding:
+    20px
+    18px
+    12px;
 
   display:flex;
 
@@ -79,6 +194,10 @@ body.light{
   justify-content:space-between;
 
   gap:12px;
+
+  position:relative;
+
+  z-index:10;
 }
 
 .brand{
@@ -95,189 +214,299 @@ body.light{
   width:58px;
   height:58px;
 
-  border-radius:18px;
-
   display:flex;
 
   align-items:center;
 
   justify-content:center;
 
-  font-size:31px;
+  border-radius:19px;
+
+  font-size:30px;
 
   background:
     linear-gradient(
       135deg,
-      #286cff,
-      #7b36ee
+      #2775ff,
+      #8a35f0
     );
 
   box-shadow:
-    0 8px 25px
-    rgba(56,93,255,.35);
+    0 10px 30px
+    rgba(62,93,255,.35);
+
+  animation:
+    iconFloat 3.5s ease-in-out infinite;
+}
+
+@keyframes iconFloat{
+
+  0%,100%{
+    transform:translateY(0) rotate(0);
+  }
+
+  50%{
+    transform:translateY(-5px) rotate(3deg);
+  }
+
 }
 
 .brand-title{
 
-  font-size:24px;
+  font-size:23px;
 
-  font-weight:800;
+  font-weight:900;
+
+  letter-spacing:.2px;
 }
 
 .brand-sub{
 
   margin-top:5px;
 
-  color:#9da5bd;
+  font-size:13px;
 
-  font-size:14px;
+  color:#8e98b5;
 }
 
 .header-actions{
 
   display:flex;
 
-  gap:9px;
+  gap:8px;
 }
 
 .icon-btn{
 
-  width:50px;
-  height:50px;
+  width:48px;
+  height:48px;
 
   border:0;
 
   border-radius:16px;
 
-  background:#171c30;
+  background:
+    rgba(25,31,56,.88);
 
   color:#fff;
 
-  font-size:23px;
+  font-size:21px;
 
   cursor:pointer;
+
+  transition:
+    transform .2s ease,
+    background .3s ease;
+
+  box-shadow:
+    0 8px 25px
+    rgba(0,0,0,.16);
+}
+
+.icon-btn:active{
+
+  transform:scale(.88);
 }
 
 .light .icon-btn{
 
-  background:#e7eafa;
+  background:#e9edfb;
 
-  color:#161a2c;
+  color:#20243a;
 }
 
 
-/* SEARCH */
+/* =====================================================
+   SEARCH
+===================================================== */
 
 .search-box{
 
-  margin:10px 24px 14px;
+  margin:
+    10px
+    22px
+    14px;
 
-  height:65px;
-
-  border-radius:22px;
-
-  background:
-    rgba(27,31,49,.9);
-
-  border:1px solid
-    rgba(255,255,255,.07);
+  height:60px;
 
   display:flex;
 
   align-items:center;
 
-  padding:0 20px;
+  padding:0 18px;
+
+  border-radius:21px;
+
+  background:
+    rgba(22,28,51,.80);
+
+  border:
+    1px solid
+    rgba(255,255,255,.07);
+
+  backdrop-filter:blur(18px);
+
+  box-shadow:
+    0 15px 40px
+    rgba(0,0,0,.12);
+
+  transition:
+    border .3s,
+    transform .3s;
 }
 
-.light .search-box{
+.search-box:focus-within{
 
-  background:#fff;
+  border-color:
+    rgba(82,128,255,.7);
 
-  border-color:#e2e5ef;
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 15px 35px
+    rgba(53,102,255,.15);
 }
 
-.search-box span{
+.search-icon{
 
-  font-size:24px;
+  font-size:23px;
 
-  margin-right:13px;
+  margin-right:12px;
 }
 
 .search-box input{
 
   width:100%;
 
-  background:none;
-
   border:0;
 
   outline:0;
 
+  background:none;
+
   color:#fff;
 
-  font-size:17px;
+  font-size:16px;
+}
+
+.search-box input::placeholder{
+
+  color:#727b98;
+}
+
+.light .search-box{
+
+  background:
+    rgba(255,255,255,.85);
+
+  border-color:#e1e5f1;
 }
 
 .light .search-box input{
   color:#111;
 }
 
-.search-box input::placeholder{
-  color:#777d92;
-}
 
-
-/* SPORT */
+/* =====================================================
+   SPORT TABS
+===================================================== */
 
 .sport-tabs{
 
   display:grid;
 
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:
+    1fr
+    1fr;
 
-  gap:12px;
+  gap:10px;
 
-  padding:10px 24px 16px;
+  padding:
+    8px
+    22px
+    15px;
 }
 
 .sport-btn{
 
-  height:68px;
+  height:63px;
 
   border:0;
 
-  border-radius:23px;
+  border-radius:21px;
 
-  background:#171b2d;
+  color:#aeb6ce;
 
-  color:#fff;
+  background:
+    rgba(24,30,54,.88);
 
-  font-size:19px;
+  font-size:17px;
 
-  font-weight:700;
+  font-weight:800;
 
   cursor:pointer;
+
+  transition:
+    .3s ease;
+
+  position:relative;
+
+  overflow:hidden;
+}
+
+.sport-btn::after{
+
+  content:"";
+
+  position:absolute;
+
+  top:0;
+  left:-100%;
+
+  width:70%;
+  height:100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.15),
+      transparent
+    );
+
+  transition:.5s;
+}
+
+.sport-btn:hover::after{
+
+  left:130%;
 }
 
 .sport-btn.active{
 
+  color:#fff;
+
   background:
     linear-gradient(
       135deg,
-      #286cff,
-      #8136ec
+      #2876ff,
+      #8138ee
     );
 
   box-shadow:
-    0 10px 30px
-    rgba(79,74,255,.35);
+    0 12px 30px
+    rgba(69,77,255,.28);
+
+  transform:
+    translateY(-2px);
 }
 
 .light .sport-btn{
 
-  background:#e7eafa;
+  color:#6b728b;
 
-  color:#22263a;
+  background:#e9edfa;
 }
 
 .light .sport-btn.active{
@@ -285,13 +514,16 @@ body.light{
 }
 
 
-/* DATE */
+/* =====================================================
+   DATE
+===================================================== */
 
 .date-section{
 
-  margin:2px 0 8px;
-
-  padding:0 20px;
+  padding:
+    0
+    20px
+    4px;
 }
 
 .date-title{
@@ -302,34 +534,37 @@ body.light{
 
   justify-content:space-between;
 
-  margin-bottom:10px;
+  margin-bottom:9px;
 }
 
 .date-title-left{
 
-  font-size:16px;
+  font-size:15px;
 
-  font-weight:700;
+  font-weight:800;
 }
 
 .date-title-right{
 
-  color:#8f98b2;
+  color:#8993ae;
 
-  font-size:13px;
+  font-size:12px;
 }
 
 .date-scroll{
 
   display:flex;
 
-  gap:9px;
+  gap:8px;
 
   overflow-x:auto;
 
-  padding:3px 4px 9px;
-
   scrollbar-width:none;
+
+  padding:
+    3px
+    3px
+    10px;
 }
 
 .date-scroll::-webkit-scrollbar{
@@ -338,76 +573,91 @@ body.light{
 
 .date-chip{
 
+  min-width:66px;
+
   flex:0 0 auto;
-
-  min-width:68px;
-
-  padding:10px 9px;
 
   border:1px solid
     rgba(255,255,255,.07);
 
-  border-radius:18px;
+  border-radius:17px;
+
+  padding:
+    9px
+    8px;
 
   background:
-    rgba(29,35,61,.85);
+    rgba(27,34,59,.78);
 
-  color:#aeb5ca;
+  color:#aeb6cd;
 
   text-align:center;
 
   cursor:pointer;
+
+  transition:
+    transform .2s,
+    .3s;
+}
+
+.date-chip:active{
+  transform:scale(.92);
 }
 
 .date-chip .day{
 
   display:block;
 
-  font-size:12px;
+  font-size:11px;
 
-  margin-bottom:5px;
+  margin-bottom:4px;
 }
 
 .date-chip .number{
 
   display:block;
 
-  font-size:19px;
+  font-size:18px;
 
-  font-weight:800;
+  font-weight:900;
 
   color:#fff;
 }
 
 .date-chip.active{
 
-  background:
-    linear-gradient(
-      135deg,
-      #316dff,
-      #7d39ee
-    );
+  color:#fff;
 
   border-color:transparent;
 
-  color:#fff;
+  background:
+    linear-gradient(
+      135deg,
+      #3375ff,
+      #8038ee
+    );
 
   box-shadow:
     0 8px 20px
-    rgba(65,75,255,.3);
+    rgba(66,83,255,.28);
+
+  transform:
+    translateY(-2px);
 }
 
 .date-chip.today{
-  border-color:#536cff;
+
+  border-color:
+    rgba(75,111,255,.8);
 }
 
 .light .date-chip{
 
   background:#fff;
 
-  color:#73798d;
+  border-color:#e1e5ef;
 
-  border-color:#e2e5ef;
+  color:#737a90;
 }
 
 .light .date-chip .number{
@@ -419,19 +669,24 @@ body.light{
 }
 
 
-/* FILTER */
+/* =====================================================
+   FILTERS
+===================================================== */
 
 .filters{
 
   display:flex;
 
-  gap:9px;
-
-  padding:8px 24px 12px;
+  gap:8px;
 
   overflow-x:auto;
 
   scrollbar-width:none;
+
+  padding:
+    7px
+    22px
+    10px;
 }
 
 .filters::-webkit-scrollbar{
@@ -444,37 +699,49 @@ body.light{
 
   border:0;
 
-  padding:12px 17px;
+  padding:
+    10px
+    15px;
 
-  border-radius:22px;
+  border-radius:20px;
 
-  background:#1a2035;
+  color:#aeb6cd;
 
-  color:#d6d9e5;
+  background:
+    rgba(24,31,55,.86);
 
-  font-size:15px;
+  font-size:13px;
+
+  font-weight:700;
 
   cursor:pointer;
+
+  transition:
+    .25s;
 }
 
 .filter-btn.active{
 
+  color:#fff;
+
   background:
     linear-gradient(
       135deg,
-      #376cff,
-      #7c39ed
+      #3277ff,
+      #8038ed
     );
 
-  color:#fff;
+  box-shadow:
+    0 7px 18px
+    rgba(59,83,255,.23);
 }
 
 
-/* LIVE INFO */
+/* =====================================================
+   INFO BAR
+===================================================== */
 
 .info-bar{
-
-  padding:8px 24px 12px;
 
   display:flex;
 
@@ -482,9 +749,14 @@ body.light{
 
   justify-content:space-between;
 
-  color:#9fa7bd;
+  padding:
+    7px
+    24px
+    12px;
 
-  font-size:13px;
+  color:#8d97b2;
+
+  font-size:11px;
 }
 
 .live-status{
@@ -493,83 +765,218 @@ body.light{
 
   align-items:center;
 
-  gap:6px;
+  gap:7px;
 }
 
 .live-dot{
 
-  width:10px;
-  height:10px;
-
-  background:#20c875;
+  width:9px;
+  height:9px;
 
   border-radius:50%;
 
+  background:#18d27c;
+
   box-shadow:
     0 0 12px
-    rgba(32,200,117,.7);
+    rgba(24,210,124,.8);
 
   animation:
-    liveDot 1.4s infinite;
+    livePulse 1.4s infinite;
 }
 
-@keyframes liveDot{
+@keyframes livePulse{
+
+  0%{
+    transform:scale(1);
+    opacity:1;
+  }
 
   50%{
-    opacity:.35;
+    transform:scale(1.35);
+    opacity:.5;
+  }
+
+  100%{
+    transform:scale(1);
+    opacity:1;
   }
 
 }
 
 .updating{
-  color:#6f9cff;
+
+  color:#6392ff;
+
+  animation:
+    blinkText .8s infinite;
+}
+
+@keyframes blinkText{
+
+  50%{
+    opacity:.45;
+  }
+
 }
 
 
-/* MATCH */
+/* =====================================================
+   MATCH LIST
+===================================================== */
 
 .matches{
-  padding:0 24px;
+
+  padding:
+    0
+    20px;
 }
+
+
+/* =====================================================
+   MATCH CARD
+===================================================== */
 
 .match-card{
 
   position:relative;
 
-  margin-bottom:18px;
+  margin-bottom:15px;
 
-  padding:18px 15px;
+  padding:
+    17px
+    14px;
 
-  border-radius:28px;
+  border-radius:27px;
 
   background:
     linear-gradient(
       145deg,
-      rgba(38,47,80,.97),
-      rgba(19,25,48,.98)
+      rgba(29,39,72,.96),
+      rgba(13,19,39,.98)
     );
 
-  border:1px solid
-    rgba(255,255,255,.07);
+  border:
+    1px solid
+    rgba(255,255,255,.065);
 
   box-shadow:
-    0 15px 40px
-    rgba(0,0,0,.18);
+    0 16px 42px
+    rgba(0,0,0,.20);
+
+  overflow:hidden;
 
   cursor:pointer;
 
-  overflow:hidden;
+  animation:
+    cardIn .45s ease both;
+
+  transition:
+    transform .25s,
+    box-shadow .25s,
+    border .25s;
+}
+
+.match-card::before{
+
+  content:"";
+
+  position:absolute;
+
+  width:180px;
+  height:180px;
+
+  right:-90px;
+  top:-100px;
+
+  border-radius:50%;
+
+  background:
+    rgba(69,104,255,.10);
+
+  filter:blur(10px);
+
+  pointer-events:none;
+}
+
+.match-card::after{
+
+  content:"";
+
+  position:absolute;
+
+  left:-120%;
+
+  top:0;
+
+  width:80%;
+
+  height:100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.035),
+      transparent
+    );
+
+  transform:skewX(-20deg);
+
+  animation:
+    cardShine 5s infinite;
+}
+
+@keyframes cardIn{
+
+  from{
+    opacity:0;
+    transform:
+      translateY(18px)
+      scale(.98);
+  }
+
+  to{
+    opacity:1;
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+}
+
+@keyframes cardShine{
+
+  0%,65%{
+    left:-120%;
+  }
+
+  85%{
+    left:130%;
+  }
+
+  100%{
+    left:130%;
+  }
+
+}
+
+.match-card:active{
+
+  transform:
+    scale(.985);
 }
 
 .light .match-card{
 
-  background:#fff;
+  background:
+    rgba(255,255,255,.94);
 
-  border-color:#e2e5ef;
+  border-color:#e3e7f0;
 
   box-shadow:
-    0 10px 30px
-    rgba(40,50,90,.08);
+    0 12px 35px
+    rgba(40,50,90,.09);
 }
 
 .competition{
@@ -578,21 +985,25 @@ body.light{
 
   align-items:center;
 
-  gap:9px;
+  gap:8px;
 
-  color:#aab1c6;
+  color:#a4aec8;
 
-  font-size:14px;
+  font-size:12px;
 
-  margin-bottom:19px;
+  margin-bottom:17px;
 
   padding-right:55px;
+
+  position:relative;
+
+  z-index:2;
 }
 
 .competition img{
 
-  width:27px;
-  height:27px;
+  width:25px;
+  height:25px;
 
   object-fit:contain;
 
@@ -603,35 +1014,65 @@ body.light{
 
   position:absolute;
 
-  top:15px;
-  right:15px;
+  right:13px;
+  top:13px;
 
-  width:45px;
-  height:45px;
+  width:43px;
+  height:43px;
 
   border:0;
 
-  border-radius:15px;
+  border-radius:14px;
 
   background:
-    rgba(255,255,255,.08);
+    rgba(255,255,255,.07);
 
   color:#fff;
 
-  font-size:23px;
+  font-size:22px;
 
   cursor:pointer;
 
   z-index:5;
+
+  transition:
+    transform .2s,
+    .2s;
+}
+
+.favorite:active{
+
+  transform:
+    scale(.82);
 }
 
 .favorite.active{
 
-  color:#ffd52e;
+  color:#ffd42e;
 
   background:
-    rgba(255,213,46,.10);
+    rgba(255,212,46,.10);
+
+  animation:
+    favoritePop .35s ease;
 }
+
+@keyframes favoritePop{
+
+  50%{
+    transform:scale(1.25);
+  }
+
+  100%{
+    transform:scale(1);
+  }
+
+}
+
+
+/* =====================================================
+   TEAMS
+===================================================== */
 
 .teams{
 
@@ -639,14 +1080,18 @@ body.light{
 
   grid-template-columns:
     1fr
-    125px
+    120px
     1fr;
+
+  gap:4px;
 
   align-items:center;
 
   text-align:center;
 
-  gap:5px;
+  position:relative;
+
+  z-index:2;
 }
 
 .team{
@@ -655,20 +1100,35 @@ body.light{
 
 .team-logo{
 
-  width:72px;
-  height:72px;
+  display:block;
 
-  margin:0 auto;
+  width:64px;
+  height:64px;
+
+  margin:auto;
 
   object-fit:contain;
 
-  display:block;
+  filter:
+    drop-shadow(
+      0 5px 10px
+      rgba(0,0,0,.25)
+    );
+
+  transition:
+    transform .3s;
+}
+
+.match-card:hover .team-logo{
+
+  transform:
+    scale(1.06);
 }
 
 .team-placeholder{
 
-  width:72px;
-  height:72px;
+  width:64px;
+  height:64px;
 
   margin:auto;
 
@@ -678,21 +1138,35 @@ body.light{
 
   justify-content:center;
 
-  font-size:48px;
+  border-radius:20px;
+
+  background:
+    rgba(255,255,255,.05);
+
+  font-size:38px;
 }
 
 .team-name{
 
-  margin-top:10px;
+  margin-top:9px;
 
-  font-size:16px;
+  font-size:14px;
 
-  font-weight:750;
+  font-weight:800;
 
   line-height:1.25;
 
   word-break:break-word;
 }
+
+.light .team-name{
+  color:#20243a;
+}
+
+
+/* =====================================================
+   SCORE
+===================================================== */
 
 .score-area{
 
@@ -707,69 +1181,90 @@ body.light{
 
 .score{
 
-  font-size:29px;
+  font-size:27px;
 
-  font-weight:900;
+  font-weight:950;
 
   letter-spacing:1px;
 
   white-space:nowrap;
-}
-
-.live-score{
 
   text-shadow:
-    0 0 16px
-    rgba(255,255,255,.18);
+    0 4px 20px
+    rgba(90,120,255,.16);
+
+  animation:
+    scoreAppear .4s ease;
 }
 
+@keyframes scoreAppear{
 
-/* CRICKET SCORE */
+  from{
+    transform:scale(.85);
+    opacity:.5;
+  }
+
+  to{
+    transform:scale(1);
+    opacity:1;
+  }
+
+}
 
 .cricket-summary{
 
-  margin-top:8px;
+  margin-top:6px;
 
   display:flex;
 
   flex-direction:column;
 
-  gap:4px;
+  align-items:center;
 
-  font-size:12px;
+  gap:2px;
 
-  color:#9fa8bf;
+  color:#9ca7c0;
 
-  max-width:125px;
+  font-size:10px;
 }
 
 .cricket-summary strong{
 
   color:#fff;
 
-  font-size:14px;
+  font-size:12px;
 }
 
 .cricket-overs{
-  color:#8da2df;
+  color:#8199e0;
 }
-
-
-/* FOOTBALL */
 
 .football-minute{
 
-  margin-top:7px;
+  margin-top:5px;
 
-  color:#ff6373;
+  color:#ff6476;
 
-  font-size:12px;
+  font-size:11px;
 
-  font-weight:700;
+  font-weight:900;
+
+  animation:
+    minutePulse 1.5s infinite;
+}
+
+@keyframes minutePulse{
+
+  50%{
+    opacity:.55;
+  }
+
 }
 
 
-/* STATUS */
+/* =====================================================
+   STATUS
+===================================================== */
 
 .status-badge{
 
@@ -781,69 +1276,78 @@ body.light{
 
   gap:5px;
 
-  margin-top:9px;
+  min-height:25px;
 
-  min-height:27px;
+  margin-top:8px;
 
-  padding:5px 10px;
+  padding:
+    4px
+    9px;
 
-  border-radius:20px;
+  border-radius:18px;
 
   background:
-    rgba(255,255,255,.07);
+    rgba(255,255,255,.06);
 
-  color:#aeb5c9;
+  color:#aab3c9;
 
-  font-size:11px;
+  font-size:9px;
 
-  font-weight:600;
+  font-weight:800;
 }
 
 .status-badge.live{
 
-  background:
-    rgba(255,55,75,.13);
+  color:#ff6678;
 
-  color:#ff6070;
+  background:
+    rgba(255,54,77,.11);
 }
 
 .status-pulse{
 
-  width:7px;
-  height:7px;
+  width:6px;
+  height:6px;
 
   border-radius:50%;
 
-  background:#ff3f55;
+  background:#ff3e57;
 
   animation:
-    pulse 1.3s infinite;
+    statusPulse 1s infinite;
 }
 
-@keyframes pulse{
+@keyframes statusPulse{
 
-  70%{
+  50%{
+    transform:scale(1.5);
+
     box-shadow:
-      0 0 0 7px
-      rgba(255,63,85,0);
+      0 0 10px
+      rgba(255,62,87,.7);
   }
 
 }
 
 .match-time{
 
-  margin-top:20px;
+  margin-top:16px;
 
-  padding-top:13px;
+  padding-top:11px;
 
-  border-top:1px solid
-    rgba(255,255,255,.06);
+  border-top:
+    1px solid
+    rgba(255,255,255,.055);
 
   text-align:center;
 
-  color:#9fa8bf;
+  color:#8e98b2;
 
-  font-size:13px;
+  font-size:11px;
+
+  position:relative;
+
+  z-index:2;
 }
 
 .light .match-time{
@@ -851,34 +1355,44 @@ body.light{
 }
 
 
-/* LOADING */
+/* =====================================================
+   LOADING
+===================================================== */
 
 .loading{
 
+  padding:
+    60px
+    10px;
+
   text-align:center;
 
-  padding:45px 10px;
-
-  color:#9ea6bd;
+  color:#8f99b3;
 }
 
 .spinner{
 
-  width:40px;
-  height:40px;
+  width:42px;
+  height:42px;
 
-  border:4px solid
-    rgba(255,255,255,.12);
+  margin:
+    0 auto
+    16px;
 
-  border-top-color:#5571ff;
+  border:
+    4px solid
+    rgba(255,255,255,.10);
+
+  border-top-color:
+    #5a7cff;
+
+  border-right-color:
+    #9a45ff;
 
   border-radius:50%;
 
   animation:
-    spin .8s linear infinite;
-
-  margin:
-    0 auto 15px;
+    spin .75s linear infinite;
 }
 
 @keyframes spin{
@@ -891,15 +1405,22 @@ body.light{
 
 .empty{
 
+  padding:
+    60px
+    15px;
+
   text-align:center;
 
-  padding:50px 15px;
+  color:#8993ad;
 
-  color:#9da5ba;
+  animation:
+    cardIn .4s ease;
 }
 
 
-/* MODAL */
+/* =====================================================
+   MODAL
+===================================================== */
 
 .modal{
 
@@ -907,45 +1428,96 @@ body.light{
 
   inset:0;
 
-  background:
-    rgba(2,4,12,.82);
-
-  backdrop-filter:blur(10px);
-
   display:none;
 
   align-items:flex-end;
 
   justify-content:center;
 
+  background:
+    rgba(2,4,12,.84);
+
+  backdrop-filter:
+    blur(12px);
+
   z-index:1000;
+
+  animation:
+    modalBg .25s ease;
 }
 
 .modal.show{
   display:flex;
 }
 
+@keyframes modalBg{
+
+  from{
+    opacity:0;
+  }
+
+  to{
+    opacity:1;
+  }
+
+}
+
 .modal-box{
 
   width:100%;
 
-  max-width:600px;
+  max-width:650px;
 
-  max-height:90vh;
+  max-height:92vh;
 
-  overflow:auto;
+  overflow-y:auto;
+
+  padding:
+    20px;
+
+  border-radius:
+    30px
+    30px
+    0
+    0;
 
   background:
     linear-gradient(
       145deg,
-      #171d35,
-      #0d1224
+      #151c35,
+      #090e1e
     );
 
-  border-radius:
-    30px 30px 0 0;
+  box-shadow:
+    0 -20px 70px
+    rgba(0,0,0,.45);
 
-  padding:22px;
+  animation:
+    modalUp .35s ease;
+}
+
+@keyframes modalUp{
+
+  from{
+    transform:translateY(100%);
+  }
+
+  to{
+    transform:translateY(0);
+  }
+
+}
+
+.light .modal-box{
+
+  background:
+    linear-gradient(
+      145deg,
+      #fff,
+      #f3f5fb
+    );
+
+  color:#171a2c;
 }
 
 .modal-head{
@@ -956,11 +1528,14 @@ body.light{
 
   justify-content:space-between;
 
-  margin-bottom:20px;
+  margin-bottom:18px;
 }
 
 .modal-head h2{
-  font-size:20px;
+
+  font-size:19px;
+
+  font-weight:900;
 }
 
 .close-btn{
@@ -972,80 +1547,388 @@ body.light{
 
   border-radius:14px;
 
-  background:#262d47;
+  background:#252d47;
 
   color:#fff;
 
-  font-size:20px;
+  font-size:19px;
+
+  cursor:pointer;
 }
 
 .detail-content{
-  color:#dce0ec;
+  color:#dce2f1;
 }
 
-.detail-score{
+.light .detail-content{
+  color:#24283b;
+}
+
+
+/* =====================================================
+   DETAIL HERO
+===================================================== */
+
+.detail-hero{
+
+  padding:
+    18px 10px;
 
   text-align:center;
 
-  font-size:32px;
+  border-radius:23px;
 
-  font-weight:800;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(46,105,255,.12),
+      rgba(132,53,238,.12)
+    );
 
-  margin:20px 0;
+  border:
+    1px solid
+    rgba(255,255,255,.06);
+
+  margin-bottom:15px;
 }
 
-.detail-team-grid{
+.detail-competition{
+
+  color:#929db8;
+
+  font-size:12px;
+
+  margin-bottom:8px;
+}
+
+.detail-status{
+
+  font-size:11px;
+
+  font-weight:900;
+
+  margin-bottom:10px;
+}
+
+.detail-status.live{
+  color:#ff6173;
+}
+
+.detail-main-score{
+
+  font-size:38px;
+
+  font-weight:950;
+
+  letter-spacing:2px;
+
+  margin:8px 0;
+}
+
+.detail-teams{
 
   display:grid;
 
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:
+    1fr
+    1fr;
 
-  gap:12px;
+  gap:10px;
 
-  text-align:center;
-
-  margin:20px 0;
+  margin-top:15px;
 }
 
 .detail-team{
 
-  padding:15px;
+  padding:
+    14px 8px;
 
   border-radius:18px;
 
   background:
-    rgba(255,255,255,.05);
+    rgba(255,255,255,.045);
+}
+
+.detail-team-name{
+
+  font-size:13px;
+
+  font-weight:800;
+
+  line-height:1.3;
 }
 
 .detail-team-score{
 
-  font-size:25px;
+  margin-top:6px;
 
-  font-weight:800;
+  font-size:22px;
 
-  margin-top:8px;
+  font-weight:950;
 }
+
+
+/* =====================================================
+   DETAIL SECTIONS
+===================================================== */
 
 .detail-section{
 
-  margin-top:18px;
+  margin-top:13px;
 
-  padding:15px;
+  padding:
+    15px;
 
-  border-radius:18px;
+  border-radius:20px;
 
   background:
-    rgba(255,255,255,.04);
+    rgba(255,255,255,.035);
+
+  border:
+    1px solid
+    rgba(255,255,255,.045);
 }
 
 .detail-section h3{
 
-  margin-bottom:10px;
+  margin-bottom:11px;
+
+  font-size:15px;
+
+  font-weight:900;
+}
+
+.detail-row{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:12px;
+
+  padding:
+    8px
+    0;
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.045);
+
+  font-size:12px;
+}
+
+.detail-row:last-child{
+  border-bottom:0;
+}
+
+.detail-row strong{
+  text-align:right;
+}
+
+
+/* =====================================================
+   INCIDENTS
+===================================================== */
+
+.incident{
+
+  display:grid;
+
+  grid-template-columns:
+    45px
+    35px
+    1fr;
+
+  align-items:center;
+
+  gap:8px;
+
+  padding:
+    10px
+    0;
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.045);
+
+  animation:
+    cardIn .35s ease;
+}
+
+.incident:last-child{
+  border-bottom:0;
+}
+
+.incident-time{
+
+  color:#8d98b5;
+
+  font-size:11px;
+
+  font-weight:800;
+
+  text-align:center;
+}
+
+.incident-icon{
+
+  width:30px;
+  height:30px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  border-radius:10px;
+
+  background:
+    rgba(255,255,255,.06);
 
   font-size:16px;
 }
 
-.detail-row{
+.incident-text{
+
+  font-size:12px;
+
+  line-height:1.4;
+}
+
+.incident-side{
+
+  display:block;
+
+  color:#7e89a4;
+
+  font-size:10px;
+
+  margin-top:2px;
+}
+
+
+/* =====================================================
+   LINEUPS
+===================================================== */
+
+.lineup-tabs{
+
+  display:grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  gap:7px;
+
+  margin-bottom:10px;
+}
+
+.lineup-tab{
+
+  border:0;
+
+  padding:
+    9px;
+
+  border-radius:13px;
+
+  background:
+    rgba(255,255,255,.05);
+
+  color:#929db8;
+
+  font-weight:800;
+
+  cursor:pointer;
+}
+
+.lineup-tab.active{
+
+  color:#fff;
+
+  background:
+    linear-gradient(
+      135deg,
+      #3275ff,
+      #8039ef
+    );
+}
+
+.lineup-list{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:6px;
+}
+
+.player{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:9px;
+
+  padding:
+    8px 9px;
+
+  border-radius:12px;
+
+  background:
+    rgba(255,255,255,.035);
+
+  font-size:11px;
+}
+
+.player-number{
+
+  width:27px;
+  height:27px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  border-radius:9px;
+
+  background:
+    rgba(78,116,255,.15);
+
+  color:#9cb3ff;
+
+  font-weight:900;
+}
+
+.player-name{
+  flex:1;
+}
+
+.player-position{
+
+  color:#7f8aa6;
+
+  font-size:9px;
+}
+
+
+/* =====================================================
+   STATS
+===================================================== */
+
+.stat-row{
+
+  margin-bottom:13px;
+}
+
+.stat-head{
 
   display:flex;
 
@@ -1053,18 +1936,42 @@ body.light{
 
   gap:10px;
 
-  padding:7px 0;
+  margin-bottom:5px;
 
-  border-bottom:
-    1px solid
-    rgba(255,255,255,.05);
-
-  font-size:13px;
+  font-size:11px;
 }
 
-.detail-row:last-child{
-  border-bottom:0;
+.stat-bars{
+
+  display:grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  gap:3px;
+
+  height:5px;
 }
+
+.stat-home{
+
+  border-radius:5px 0 0 5px;
+
+  background:#4d83ff;
+}
+
+.stat-away{
+
+  border-radius:0 5px 5px 0;
+
+  background:#a04fff;
+}
+
+
+/* =====================================================
+   RAW
+===================================================== */
 
 .raw-scorecard{
 
@@ -1072,15 +1979,17 @@ body.light{
 
   word-break:break-word;
 
-  font-size:12px;
+  font-size:11px;
 
   line-height:1.6;
 
-  color:#bfc7dc;
+  color:#aab4cc;
 }
 
 
-/* BOTTOM */
+/* =====================================================
+   BOTTOM NAV
+===================================================== */
 
 .bottom-nav{
 
@@ -1090,7 +1999,7 @@ body.light{
   right:0;
   bottom:0;
 
-  height:82px;
+  height:80px;
 
   display:grid;
 
@@ -1098,12 +2007,14 @@ body.light{
     repeat(4,1fr);
 
   background:
-    rgba(9,13,29,.97);
+    rgba(7,10,22,.94);
 
-  border-top:1px solid
+  border-top:
+    1px solid
     rgba(255,255,255,.06);
 
-  backdrop-filter:blur(15px);
+  backdrop-filter:
+    blur(20px);
 
   z-index:900;
 }
@@ -1114,28 +2025,58 @@ body.light{
 
   background:none;
 
-  color:#838aa0;
+  color:#727c98;
 
-  font-size:13px;
+  font-size:11px;
 
   cursor:pointer;
+
+  transition:.25s;
 }
 
 .nav-btn span{
 
   display:block;
 
-  font-size:25px;
+  font-size:23px;
 
   margin-bottom:4px;
+
+  transition:.25s;
 }
 
 .nav-btn.active{
+
   color:#fff;
 }
 
+.nav-btn.active span{
 
-/* TOAST */
+  transform:
+    translateY(-2px)
+    scale(1.08);
+}
+
+.light .bottom-nav{
+
+  background:
+    rgba(255,255,255,.92);
+
+  border-color:#e5e8f1;
+}
+
+.light .nav-btn{
+  color:#858ba0;
+}
+
+.light .nav-btn.active{
+  color:#405fff;
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
 
 .toast{
 
@@ -1143,29 +2084,39 @@ body.light{
 
   left:50%;
 
-  bottom:100px;
+  bottom:95px;
 
   transform:
-    translateX(-50%)
-    translateY(20px);
+    translate(-50%,20px);
 
-  background:#20263c;
+  max-width:
+    calc(100% - 30px);
+
+  padding:
+    12px
+    17px;
+
+  border-radius:16px;
+
+  background:
+    rgba(28,34,57,.96);
 
   color:#fff;
 
-  padding:12px 18px;
-
-  border-radius:15px;
+  font-size:12px;
 
   opacity:0;
 
   pointer-events:none;
 
-  transition:.25s;
-
   z-index:2000;
 
-  white-space:nowrap;
+  transition:
+    .3s ease;
+
+  box-shadow:
+    0 15px 40px
+    rgba(0,0,0,.3);
 }
 
 .toast.show{
@@ -1173,19 +2124,39 @@ body.light{
   opacity:1;
 
   transform:
-    translateX(-50%)
-    translateY(0);
+    translate(-50%,0);
 }
 
 
-/* DESKTOP */
+/* =====================================================
+   SOUND BUTTON
+===================================================== */
+
+.sound-on{
+
+  animation:
+    soundPulse 1.8s infinite;
+}
+
+@keyframes soundPulse{
+
+  50%{
+    box-shadow:
+      0 0 0 5px
+      rgba(73,111,255,.08);
+  }
+
+}
+
+
+/* =====================================================
+   DESKTOP
+===================================================== */
 
 @media(min-width:700px){
 
   body{
-
     max-width:850px;
-
     margin:auto;
   }
 
@@ -1203,7 +2174,7 @@ body.light{
 
     border-radius:30px;
 
-    margin-bottom:30px;
+    margin-bottom:25px;
   }
 
 }
@@ -1212,8 +2183,13 @@ body.light{
 
 </head>
 
+
 <body>
 
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
 <header class="header">
 
@@ -1237,14 +2213,23 @@ body.light{
 
   </div>
 
+
   <div class="header-actions">
 
     <button
       class="icon-btn"
-      onclick="toggleTheme()"
       id="themeBtn"
+      onclick="toggleTheme()"
     >
       🌙
+    </button>
+
+    <button
+      class="icon-btn sound-on"
+      id="soundBtn"
+      onclick="toggleSound()"
+    >
+      🔊
     </button>
 
     <button
@@ -1259,23 +2244,33 @@ body.light{
 </header>
 
 
+<!-- =====================================================
+     SEARCH
+===================================================== -->
+
 <div class="search-box">
 
-  <span>🔎</span>
+  <span class="search-icon">
+    🔎
+  </span>
 
   <input
-    type="text"
     id="searchInput"
+    type="text"
     placeholder="দল বা লীগ খুঁজুন..."
   >
 
 </div>
 
 
+<!-- =====================================================
+     SPORT
+===================================================== -->
+
 <div class="sport-tabs">
 
   <button
-    class="sport-btn"
+    class="sport-btn active"
     id="footballBtn"
     onclick="changeSport('football')"
   >
@@ -1283,7 +2278,7 @@ body.light{
   </button>
 
   <button
-    class="sport-btn active"
+    class="sport-btn"
     id="cricketBtn"
     onclick="changeSport('cricket')"
   >
@@ -1292,6 +2287,10 @@ body.light{
 
 </div>
 
+
+<!-- =====================================================
+     DATE
+===================================================== -->
 
 <section class="date-section">
 
@@ -1317,6 +2316,10 @@ body.light{
 
 </section>
 
+
+<!-- =====================================================
+     FILTER
+===================================================== -->
 
 <div class="filters">
 
@@ -1363,6 +2366,10 @@ body.light{
 </div>
 
 
+<!-- =====================================================
+     INFO
+===================================================== -->
+
 <div class="info-bar">
 
   <div class="live-status">
@@ -1382,6 +2389,10 @@ body.light{
 </div>
 
 
+<!-- =====================================================
+     MATCHES
+===================================================== -->
+
 <main
   class="matches"
   id="matches"
@@ -1398,6 +2409,10 @@ body.light{
 </main>
 
 
+<!-- =====================================================
+     MODAL
+===================================================== -->
+
 <div
   class="modal"
   id="matchModal"
@@ -1409,7 +2424,7 @@ body.light{
     <div class="modal-head">
 
       <h2>
-        ম্যাচ বিস্তারিত
+        📊 ম্যাচ বিস্তারিত
       </h2>
 
       <button
@@ -1422,8 +2437,8 @@ body.light{
     </div>
 
     <div
-      class="detail-content"
       id="detailContent"
+      class="detail-content"
     ></div>
 
   </div>
@@ -1431,42 +2446,65 @@ body.light{
 </div>
 
 
+<!-- =====================================================
+     BOTTOM NAV
+===================================================== -->
+
 <nav class="bottom-nav">
 
   <button
     class="nav-btn active"
     onclick="goHome()"
   >
+
     <span>🏠</span>
+
     Home
+
   </button>
+
 
   <button
     class="nav-btn"
     onclick="showLive()"
   >
+
     <span>🔴</span>
+
     Live
+
   </button>
+
 
   <button
     class="nav-btn"
     onclick="showFavorites()"
   >
+
     <span>⭐</span>
+
     Favorites
+
   </button>
+
 
   <button
     class="nav-btn"
     onclick="manualRefresh()"
   >
+
     <span>🔄</span>
+
     Refresh
+
   </button>
 
 </nav>
 
+
+<!-- =====================================================
+     TOAST
+===================================================== -->
 
 <div
   class="toast"
@@ -1476,13 +2514,13 @@ body.light{
 
 <script>
 
-/* =========================================
+/* =====================================================
    SETTINGS
-========================================= */
+===================================================== */
 
 const API_BASE = "";
 
-let sport = "cricket";
+let sport = "football";
 
 let currentFilter = "all";
 
@@ -1495,7 +2533,10 @@ let loading = false;
 
 let firstLoad = true;
 
-let previousLiveState = {};
+let soundEnabled =
+  localStorage.getItem(
+    "fanZoneSound"
+  ) !== "off";
 
 let favorites =
   JSON.parse(
@@ -1504,10 +2545,12 @@ let favorites =
     ) || "[]"
   );
 
+let audioContext = null;
 
-/* =========================================
+
+/* =====================================================
    DATE
-========================================= */
+===================================================== */
 
 function getDateString(date){
 
@@ -1515,7 +2558,7 @@ function getDateString(date){
     date.getFullYear() +
     "-" +
     String(
-      date.getMonth() + 1
+      date.getMonth()+1
     ).padStart(2,"0") +
     "-" +
     String(
@@ -1525,18 +2568,20 @@ function getDateString(date){
 
 }
 
+
 function getDateObject(value){
 
   const parts =
-    value.split("-");
+    String(value).split("-");
 
   return new Date(
     Number(parts[0]),
-    Number(parts[1]) - 1,
+    Number(parts[1])-1,
     Number(parts[2])
   );
 
 }
+
 
 function getDayName(date){
 
@@ -1549,6 +2594,7 @@ function getDayName(date){
 
 }
 
+
 function formatShortDate(date){
 
   return date.toLocaleDateString(
@@ -1560,6 +2606,7 @@ function formatShortDate(date){
   );
 
 }
+
 
 function renderDates(){
 
@@ -1576,8 +2623,8 @@ function renderDates(){
     );
 
   for(
-    let i = -3;
-    i <= 3;
+    let i=-3;
+    i<=3;
     i++
   ){
 
@@ -1585,7 +2632,7 @@ function renderDates(){
       new Date(center);
 
     date.setDate(
-      center.getDate() + i
+      center.getDate()+i
     );
 
     const value =
@@ -1602,22 +2649,14 @@ function renderDates(){
     if(
       value === selectedDate
     ){
-
-      btn.classList.add(
-        "active"
-      );
-
+      btn.classList.add("active");
     }
 
     if(
       value ===
       getDateString(new Date())
     ){
-
-      btn.classList.add(
-        "today"
-      );
-
+      btn.classList.add("today");
     }
 
     btn.innerHTML = `
@@ -1632,7 +2671,7 @@ function renderDates(){
 
     `;
 
-    btn.onclick = function(){
+    btn.onclick = () => {
 
       selectedDate =
         value;
@@ -1650,6 +2689,7 @@ function renderDates(){
   }
 
 }
+
 
 function updateSelectedDateText(){
 
@@ -1674,39 +2714,40 @@ function updateSelectedDateText(){
 }
 
 
-/* =========================================
+/* =====================================================
    SPORT
-========================================= */
+===================================================== */
 
 function changeSport(value){
 
-  sport =
-    value;
+  sport = value;
 
-  document.getElementById(
-    "footballBtn"
-  ).classList.toggle(
-    "active",
-    sport === "football"
-  );
+  document
+    .getElementById("footballBtn")
+    .classList.toggle(
+      "active",
+      sport === "football"
+    );
 
-  document.getElementById(
-    "cricketBtn"
-  ).classList.toggle(
-    "active",
-    sport === "cricket"
-  );
+  document
+    .getElementById("cricketBtn")
+    .classList.toggle(
+      "active",
+      sport === "cricket"
+    );
 
   loadMatches(true);
 
 }
 
 
-/* =========================================
-   LOAD MATCHES
-========================================= */
+/* =====================================================
+   LOAD
+===================================================== */
 
-async function loadMatches(showLoading = false){
+async function loadMatches(
+  showLoading=false
+){
 
   if(loading){
     return;
@@ -1785,8 +2826,7 @@ async function loadMatches(showLoading = false){
       Array.isArray(data)
     ){
 
-      newMatches =
-        data;
+      newMatches = data;
 
     }
     else if(
@@ -1824,12 +2864,11 @@ async function loadMatches(showLoading = false){
   catch(error){
 
     console.error(
+      "LOAD ERROR:",
       error
     );
 
-    if(
-      firstLoad
-    ){
+    if(firstLoad){
 
       box.innerHTML = `
 
@@ -1864,13 +2903,17 @@ async function loadMatches(showLoading = false){
 }
 
 
-/* =========================================
-   MANUAL
-========================================= */
+/* =====================================================
+   MANUAL REFRESH
+===================================================== */
 
 function manualRefresh(){
 
+  initAudio();
+
   loadMatches(true);
+
+  playClickSound();
 
   showToast(
     "🔄 Live score আপডেট হচ্ছে..."
@@ -1879,9 +2922,9 @@ function manualRefresh(){
 }
 
 
-/* =========================================
+/* =====================================================
    UPDATE TIME
-========================================= */
+===================================================== */
 
 function updateTime(){
 
@@ -1906,11 +2949,13 @@ function updateTime(){
 }
 
 
-/* =========================================
+/* =====================================================
    FILTER
-========================================= */
+===================================================== */
 
 function changeFilter(value){
+
+  initAudio();
 
   currentFilter =
     value;
@@ -1932,12 +2977,14 @@ function changeFilter(value){
 
   renderMatches();
 
+  playClickSound();
+
 }
 
 
-/* =========================================
+/* =====================================================
    SEARCH
-========================================= */
+===================================================== */
 
 document
   .getElementById(
@@ -1949,9 +2996,9 @@ document
   );
 
 
-/* =========================================
-   FILTERED
-========================================= */
+/* =====================================================
+   FILTER MATCHES
+===================================================== */
 
 function getFilteredMatches(){
 
@@ -1980,8 +3027,7 @@ function getFilteredMatches(){
 
     matches =
       matches.filter(
-        match =>
-          isLive(match)
+        isLive
       );
 
   }
@@ -1993,8 +3039,7 @@ function getFilteredMatches(){
 
     matches =
       matches.filter(
-        match =>
-          isFinished(match)
+        isFinished
       );
 
   }
@@ -2039,9 +3084,9 @@ function getFilteredMatches(){
 }
 
 
-/* =========================================
+/* =====================================================
    STATUS
-========================================= */
+===================================================== */
 
 function getStatusText(match){
 
@@ -2054,6 +3099,7 @@ function getStatusText(match){
   ).toLowerCase();
 
 }
+
 
 function isLive(match){
 
@@ -2076,11 +3122,16 @@ function isLive(match){
 
     text.includes("half") ||
 
-    text.includes("quarter")
+    text.includes("quarter") ||
+
+    text === "1" ||
+
+    text === "2"
 
   );
 
 }
+
 
 function isFinished(match){
 
@@ -2097,20 +3148,20 @@ function isFinished(match){
 
     text.includes("complete") ||
 
-    text.includes("ft") ||
-
     text.includes("full time") ||
 
-    text.includes("result")
+    text.includes("result") ||
+
+    text === "ft"
 
   );
 
 }
 
 
-/* =========================================
-   MATCH ID
-========================================= */
+/* =====================================================
+   MATCH ID / SLUG
+===================================================== */
 
 function getMatchId(match){
 
@@ -2121,6 +3172,12 @@ function getMatchId(match){
     match.match_id ||
 
     match.fixture_id ||
+
+    match.tracker?.id ||
+
+    extractSlug(
+      match.url
+    ) ||
 
     match.slug ||
 
@@ -2137,84 +3194,52 @@ function getMatchId(match){
 }
 
 
-/* =========================================
-   SCORE CHANGE
-========================================= */
+function extractSlug(url){
 
-function getScoreKey(match){
-
-  return [
-
-    getMatchId(match),
-
-    getScore(match,"home"),
-
-    getScore(match,"away"),
-
-    getOvers(match)
-
-  ].join("|");
-
-}
-
-function detectScoreChanges(
-  oldMatches,
-  newMatches
-){
-
-  if(
-    !oldMatches ||
-    !oldMatches.length
-  ){
-    return;
+  if(!url){
+    return "";
   }
 
-  const oldMap = {};
+  const clean =
+    String(url)
+      .split("?")[0]
+      .replace(/\/+$/,"");
 
-  oldMatches.forEach(
-    match => {
+  const parts =
+    clean.split("/");
 
-      oldMap[
-        getMatchId(match)
-      ] =
-        getScoreKey(match);
-
-    }
-  );
-
-  newMatches.forEach(
-    match => {
-
-      const id =
-        getMatchId(match);
-
-      const newKey =
-        getScoreKey(match);
-
-      const oldKey =
-        oldMap[id];
-
-      if(
-        oldKey &&
-        oldKey !== newKey &&
-        isLive(match)
-      ){
-
-        notifyScoreChange(
-          match
-        );
-
-      }
-
-    }
+  return (
+    parts[parts.length-1] ||
+    ""
   );
 
 }
 
 
-/* =========================================
-   GENERIC SCORE
-========================================= */
+function getMatchSlug(match){
+
+  return String(
+
+    match.slug ||
+
+    match.match_slug ||
+
+    match.tracker?.id ||
+
+    extractSlug(
+      match.url
+    ) ||
+
+    getMatchId(match)
+
+  );
+
+}
+
+
+/* =====================================================
+   SCORE
+===================================================== */
 
 function findNestedValue(
   obj,
@@ -2286,16 +3311,12 @@ function getScore(
     direct !== null
   ){
 
-    return String(
-      direct
-    );
+    return String(direct);
 
   }
 
   const team =
-    match[
-      side
-    ];
+    match[side];
 
   if(
     team &&
@@ -2317,9 +3338,7 @@ function getScore(
       nested !== null
     ){
 
-      return String(
-        nested
-      );
+      return String(nested);
 
     }
 
@@ -2330,39 +3349,9 @@ function getScore(
 }
 
 
-/* =========================================
-   CRICKET OVERS
-========================================= */
-
-function getOvers(match){
-
-  const value =
-    findNestedValue(
-      match,
-      [
-        "overs",
-        "over",
-        "current_over",
-        "current_overs",
-        "home_overs",
-        "away_overs"
-      ]
-    );
-
-  if(
-    value !== null
-  ){
-
-    return String(
-      value
-    );
-
-  }
-
-  return "";
-
-}
-
+/* =====================================================
+   WICKETS
+===================================================== */
 
 function getWickets(
   match,
@@ -2401,9 +3390,118 @@ function getWickets(
 }
 
 
-/* =========================================
+/* =====================================================
+   OVERS
+===================================================== */
+
+function getOvers(match){
+
+  const value =
+    findNestedValue(
+      match,
+      [
+        "overs",
+        "over",
+        "current_over",
+        "current_overs",
+        "home_overs",
+        "away_overs"
+      ]
+    );
+
+  return value === null
+    ? ""
+    : String(value);
+
+}
+
+
+/* =====================================================
+   SCORE CHANGE
+===================================================== */
+
+function getScoreKey(match){
+
+  return [
+
+    getMatchId(match),
+
+    getScore(
+      match,
+      "home"
+    ),
+
+    getScore(
+      match,
+      "away"
+    ),
+
+    getOvers(match),
+
+    match.live_minute || "",
+
+  ].join("|");
+
+}
+
+
+function detectScoreChanges(
+  oldMatches,
+  newMatches
+){
+
+  if(
+    !oldMatches.length
+  ){
+    return;
+  }
+
+  const oldMap = {};
+
+  oldMatches.forEach(
+    match => {
+
+      oldMap[
+        getMatchId(match)
+      ] =
+        getScoreKey(match);
+
+    }
+  );
+
+  newMatches.forEach(
+    match => {
+
+      const id =
+        getMatchId(match);
+
+      const oldKey =
+        oldMap[id];
+
+      const newKey =
+        getScoreKey(match);
+
+      if(
+        oldKey &&
+        oldKey !== newKey &&
+        isLive(match)
+      ){
+
+        notifyScoreChange(
+          match
+        );
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =====================================================
    RENDER
-========================================= */
+===================================================== */
 
 function renderMatches(){
 
@@ -2452,9 +3550,9 @@ function renderMatches(){
 }
 
 
-/* =========================================
-   CARD
-========================================= */
+/* =====================================================
+   MATCH CARD
+===================================================== */
 
 function createMatchCard(
   match,
@@ -2496,17 +3594,32 @@ function createMatchCard(
     match.league_logo ||
     "";
 
-  const homeScore =
+  let homeScore =
     getScore(
       match,
       "home"
     );
 
-  const awayScore =
+  let awayScore =
     getScore(
       match,
       "away"
     );
+
+  const homeWickets =
+    getWickets(
+      match,
+      "home"
+    );
+
+  const awayWickets =
+    getWickets(
+      match,
+      "away"
+    );
+
+  const overs =
+    getOvers(match);
 
   const live =
     isLive(match);
@@ -2541,42 +3654,21 @@ function createMatchCard(
   const cricket =
     sport === "cricket";
 
-  const homeWickets =
-    getWickets(
-      match,
-      "home"
-    );
-
-  const awayWickets =
-    getWickets(
-      match,
-      "away"
-    );
-
-  const overs =
-    getOvers(match);
-
   const footballMinute =
-    match.minute ||
-    match.minutes ||
-    match.elapsed ||
-    match.match_minute ||
+    match.live_minute ??
+    match.minute ??
+    match.minutes ??
+    match.elapsed ??
+    match.match_minute ??
     "";
-
-  let homeScoreDisplay =
-    homeScore;
-
-  let awayScoreDisplay =
-    awayScore;
 
   if(
     cricket &&
     homeWickets !== null &&
-    !String(homeScore)
-      .includes("/")
+    !String(homeScore).includes("/")
   ){
 
-    homeScoreDisplay =
+    homeScore =
       `${homeScore}/${homeWickets}`;
 
   }
@@ -2584,11 +3676,10 @@ function createMatchCard(
   if(
     cricket &&
     awayWickets !== null &&
-    !String(awayScore)
-      .includes("/")
+    !String(awayScore).includes("/")
   ){
 
-    awayScoreDisplay =
+    awayScore =
       `${awayScore}/${awayWickets}`;
 
   }
@@ -2644,9 +3735,7 @@ function createMatchCard(
           )
         "
       >
-
         ${fav ? "★" : "☆"}
-
       </button>
 
 
@@ -2676,11 +3765,7 @@ function createMatchCard(
 
             `
               <div class="team-placeholder">
-                ${
-                  cricket
-                    ? "🏏"
-                    : "⚽"
-                }
+                ${cricket ? "🏏" : "⚽"}
               </div>
             `
           }
@@ -2697,17 +3782,13 @@ function createMatchCard(
           <div class="score">
 
             ${escapeHtml(
-              String(
-                homeScoreDisplay
-              )
+              String(homeScore)
             )}
 
             :
 
             ${escapeHtml(
-              String(
-                awayScoreDisplay
-              )
+              String(awayScore)
             )}
 
           </div>
@@ -2722,9 +3803,7 @@ function createMatchCard(
               <div class="cricket-summary">
 
                 <strong>
-                  ${escapeHtml(
-                    String(overs)
-                  )}
+                  ${escapeHtml(overs)}
                 </strong>
 
                 <span class="cricket-overs">
@@ -2743,17 +3822,19 @@ function createMatchCard(
           ${
             !cricket &&
             live &&
-            footballMinute
+            footballMinute !== ""
 
             ?
 
             `
               <div class="football-minute">
+
                 ${escapeHtml(
                   String(
                     footballMinute
                   )
                 )}'
+
               </div>
             `
 
@@ -2786,6 +3867,7 @@ function createMatchCard(
               escapeHtml(
                 String(status)
               )
+
             }
 
           </div>
@@ -2816,11 +3898,7 @@ function createMatchCard(
 
             `
               <div class="team-placeholder">
-                ${
-                  cricket
-                    ? "🏏"
-                    : "⚽"
-                }
+                ${cricket ? "🏏" : "⚽"}
               </div>
             `
           }
@@ -2849,9 +3927,9 @@ function createMatchCard(
 }
 
 
-/* =========================================
-   OPEN
-========================================= */
+/* =====================================================
+   OPEN MATCH
+===================================================== */
 
 function openMatchByIndex(index){
 
@@ -2862,6 +3940,10 @@ function openMatchByIndex(index){
     matches[index];
 
   if(match){
+
+    initAudio();
+
+    playClickSound();
 
     openMatch(match);
 
@@ -2904,21 +3986,6 @@ async function openMatch(match){
       "away"
     );
 
-  const homeWickets =
-    getWickets(
-      match,
-      "home"
-    );
-
-  const awayWickets =
-    getWickets(
-      match,
-      "away"
-    );
-
-  const overs =
-    getOvers(match);
-
   const live =
     isLive(match);
 
@@ -2930,16 +3997,19 @@ async function openMatch(match){
     match.status ||
     "Not started";
 
+  const homeHT =
+    match.home_ht_score ??
+    "-";
+
+  const awayHT =
+    match.away_ht_score ??
+    "-";
+
   content.innerHTML = `
 
-    <div style="
-      text-align:center;
-    ">
+    <div class="detail-hero">
 
-      <div style="
-        color:#9ea6bd;
-        margin-bottom:8px;
-      ">
+      <div class="detail-competition">
 
         ${escapeHtml(
           match.competition ||
@@ -2951,14 +4021,9 @@ async function openMatch(match){
       </div>
 
 
-      <div style="
-        color:${
-          live
-            ? "#ff6070"
-            : "#9ea6bd"
-        };
-        font-size:13px;
-        font-weight:700;
+      <div class="
+        detail-status
+        ${live ? "live" : ""}
       ">
 
         ${
@@ -2972,13 +4037,13 @@ async function openMatch(match){
       </div>
 
 
-      <div class="detail-score">
+      <div class="detail-main-score">
 
         ${escapeHtml(
           String(homeScore)
         )}
 
-        &nbsp;:&nbsp;
+        :
 
         ${escapeHtml(
           String(awayScore)
@@ -2987,12 +4052,14 @@ async function openMatch(match){
       </div>
 
 
-      <div class="detail-team-grid">
+      <div class="detail-teams">
 
         <div class="detail-team">
 
-          <div>
+          <div class="detail-team-name">
+
             ${escapeHtml(home)}
+
           </div>
 
           <div class="detail-team-score">
@@ -3001,17 +4068,6 @@ async function openMatch(match){
               String(homeScore)
             )}
 
-            ${
-              homeWickets !== null
-                ? "/" +
-                  escapeHtml(
-                    String(
-                      homeWickets
-                    )
-                  )
-                : ""
-            }
-
           </div>
 
         </div>
@@ -3019,8 +4075,10 @@ async function openMatch(match){
 
         <div class="detail-team">
 
-          <div>
+          <div class="detail-team-name">
+
             ${escapeHtml(away)}
+
           </div>
 
           <div class="detail-team-score">
@@ -3029,111 +4087,121 @@ async function openMatch(match){
               String(awayScore)
             )}
 
-            ${
-              awayWickets !== null
-                ? "/" +
-                  escapeHtml(
-                    String(
-                      awayWickets
-                    )
-                  )
-                : ""
-            }
-
           </div>
 
         </div>
 
       </div>
 
+    </div>
 
-      ${
-        overs
 
-        ?
+    ${
+      sport === "football"
 
-        `
-          <div class="detail-section">
+      ?
 
-            <h3>
-              🏏 Cricket Information
-            </h3>
+      `
 
-            <div class="detail-row">
+        <div class="detail-section">
 
-              <span>
-                Overs
-              </span>
+          <h3>
+            ⚽ Football Scoreboard
+          </h3>
 
-              <strong>
-                ${escapeHtml(
-                  String(overs)
-                )}
-              </strong>
+          <div class="detail-row">
 
-            </div>
+            <span>
+              Half Time
+            </span>
+
+            <strong>
+              ${escapeHtml(
+                String(homeHT)
+              )}
+              :
+              ${escapeHtml(
+                String(awayHT)
+              )}
+            </strong>
 
           </div>
-        `
 
-        :
 
-        ""
-      }
+          <div class="detail-row">
 
+            <span>
+              Full Time
+            </span>
+
+            <strong>
+              ${escapeHtml(
+                String(homeScore)
+              )}
+              :
+              ${escapeHtml(
+                String(awayScore)
+              )}
+            </strong>
+
+          </div>
+
+
+          ${
+            match.live_minute !== null &&
+            match.live_minute !== undefined
+
+            ?
+
+            `
+              <div class="detail-row">
+
+                <span>
+                  Match Minute
+                </span>
+
+                <strong>
+                  ${escapeHtml(
+                    String(
+                      match.live_minute
+                    )
+                  )}'
+                </strong>
+
+              </div>
+            `
+
+            :
+
+            ""
+          }
+
+        </div>
+
+      `
+
+      :
+
+      ""
+    }
+
+
+    <div
+      id="apiScorecard"
+    >
 
       <div class="detail-section">
 
         <h3>
-          📋 Match Information
+          📊 বিস্তারিত Scoreboard
         </h3>
 
-        <div class="detail-row">
+        <div class="loading">
 
-          <span>
-            Status
-          </span>
+          <div class="spinner"></div>
 
-          <strong>
-            ${escapeHtml(
-              String(status)
-            )}
-          </strong>
+          বিস্তারিত তথ্য লোড হচ্ছে...
 
-        </div>
-
-
-        <div class="detail-row">
-
-          <span>
-            Time
-          </span>
-
-          <strong>
-            ${formatDate(
-              match.time ||
-              match.date_time ||
-              match.start_time ||
-              ""
-            )}
-          </strong>
-
-        </div>
-
-      </div>
-
-
-      <div
-        id="apiScorecard"
-        class="detail-section"
-      >
-
-        <h3>
-          📊 বিস্তারিত Scorecard
-        </h3>
-
-        <div>
-          তথ্য লোড হচ্ছে...
         </div>
 
       </div>
@@ -3142,30 +4210,15 @@ async function openMatch(match){
 
   `;
 
-  modal.classList.add(
-    "show"
-  );
+  modal.classList.add("show");
 
 
   const slug =
-    match.slug ||
-    match.match_slug ||
-    match.url ||
-    "";
+    getMatchSlug(match);
 
   if(!slug){
 
-    document.getElementById(
-      "apiScorecard"
-    ).innerHTML += `
-
-      <div class="raw-scorecard">
-
-        এই ম্যাচের বিস্তারিত API তথ্য পাওয়া যায়নি।
-
-      </div>
-
-    `;
+    renderNoDetails();
 
     return;
 
@@ -3177,9 +4230,13 @@ async function openMatch(match){
     const response =
       await fetch(
         `/api/match?sport=${
-          encodeURIComponent(sport)
+          encodeURIComponent(
+            sport
+          )
         }&slug=${
-          encodeURIComponent(slug)
+          encodeURIComponent(
+            slug
+          )
         }&_=${
           Date.now()
         }`,
@@ -3189,15 +4246,18 @@ async function openMatch(match){
       );
 
     if(!response.ok){
+
       throw new Error(
-        "Details API error"
+        "Details API " +
+        response.status
       );
+
     }
 
     const details =
       await response.json();
 
-    renderScorecard(
+    renderDetailedScoreboard(
       details
     );
 
@@ -3205,35 +4265,22 @@ async function openMatch(match){
   catch(error){
 
     console.error(
+      "DETAIL ERROR:",
       error
     );
 
-    document.getElementById(
-      "apiScorecard"
-    ).innerHTML = `
-
-      <h3>
-        📊 বিস্তারিত Scorecard
-      </h3>
-
-      <div class="raw-scorecard">
-
-        বিস্তারিত scorecard বর্তমানে পাওয়া যাচ্ছে না।
-
-      </div>
-
-    `;
+    renderNoDetails();
 
   }
 
 }
 
 
-/* =========================================
-   SCORECARD
-========================================= */
+/* =====================================================
+   NO DETAILS
+===================================================== */
 
-function renderScorecard(data){
+function renderNoDetails(){
 
   const box =
     document.getElementById(
@@ -3244,198 +4291,1006 @@ function renderScorecard(data){
     return;
   }
 
-  let rows = [];
+  box.innerHTML = `
 
-  collectInterestingFields(
-    data,
-    rows,
-    "",
-    0
-  );
-
-  if(!rows.length){
-
-    box.innerHTML = `
+    <div class="detail-section">
 
       <h3>
-        📊 বিস্তারিত Scorecard
+        📊 বিস্তারিত Scoreboard
       </h3>
 
       <div class="raw-scorecard">
 
-        API থেকে অতিরিক্ত scorecard পাওয়া যায়নি।
+        এই ম্যাচের বিস্তারিত API তথ্য
+        বর্তমানে পাওয়া যাচ্ছে না।
 
       </div>
 
-    `;
-
-    return;
-
-  }
-
-  const unique =
-    [];
-
-  const seen =
-    new Set();
-
-  rows.forEach(
-    row => {
-
-      const key =
-        row[0] +
-        "|" +
-        row[1];
-
-      if(
-        !seen.has(key)
-      ){
-
-        seen.add(key);
-
-        unique.push(row);
-
-      }
-
-    }
-  );
-
-  box.innerHTML = `
-
-    <h3>
-      📊 বিস্তারিত Scorecard
-    </h3>
-
-    ${unique
-      .slice(0,40)
-      .map(
-        row => `
-
-          <div class="detail-row">
-
-            <span>
-              ${escapeHtml(
-                row[0]
-              )}
-            </span>
-
-            <strong>
-              ${escapeHtml(
-                row[1]
-              )}
-            </strong>
-
-          </div>
-
-        `
-      )
-      .join("")
-    }
+    </div>
 
   `;
 
 }
 
 
-function collectInterestingFields(
-  obj,
-  rows,
-  prefix,
-  depth
+/* =====================================================
+   DETAILED SCOREBOARD
+===================================================== */
+
+function renderDetailedScoreboard(
+  response
 ){
 
-  if(
-    !obj ||
-    depth > 5
-  ){
+  const box =
+    document.getElementById(
+      "apiScorecard"
+    );
+
+  if(!box){
     return;
   }
 
-  if(
-    typeof obj !== "object"
-  ){
+  const data =
+    response.match ||
+    response.data ||
+    response;
+
+  if(!data){
+
+    renderNoDetails();
+
     return;
+
   }
 
-  Object.keys(obj)
-    .forEach(
-      key => {
+  let html = "";
 
-        const value =
-          obj[key];
 
-        const label =
-          (
-            prefix
-              ? prefix + " / "
-              : ""
-          ) +
-          key;
+  /* =============================================
+     BASIC SCORE
+  ============================================= */
 
-        if(
-          value === null ||
-          value === undefined
-        ){
-          return;
+  const home =
+    data.home ||
+    data.home_team ||
+    "Home";
+
+  const away =
+    data.away ||
+    data.away_team ||
+    "Away";
+
+  const homeScore =
+    data.home_score ??
+    getScore(
+      data,
+      "home"
+    );
+
+  const awayScore =
+    data.away_score ??
+    getScore(
+      data,
+      "away"
+    );
+
+
+  html += `
+
+    <div class="detail-section">
+
+      <h3>
+        🏆 বর্তমান Scoreboard
+      </h3>
+
+      <div class="detail-row">
+
+        <span>
+          ${escapeHtml(home)}
+        </span>
+
+        <strong>
+          ${escapeHtml(
+            String(homeScore)
+          )}
+        </strong>
+
+      </div>
+
+
+      <div class="detail-row">
+
+        <span>
+          ${escapeHtml(away)}
+        </span>
+
+        <strong>
+          ${escapeHtml(
+            String(awayScore)
+          )}
+        </strong>
+
+      </div>
+
+
+      ${
+        data.status_text ||
+        data.status
+
+        ?
+
+        `
+          <div class="detail-row">
+
+            <span>
+              Status
+            </span>
+
+            <strong>
+              ${escapeHtml(
+                String(
+                  data.status_text ||
+                  data.status
+                )
+              )}
+            </strong>
+
+          </div>
+        `
+
+        :
+
+        ""
+      }
+
+    </div>
+
+  `;
+
+
+  /* =============================================
+     HALF TIME
+  ============================================= */
+
+  if(
+    data.home_ht_score !== undefined ||
+    data.away_ht_score !== undefined
+  ){
+
+    html += `
+
+      <div class="detail-section">
+
+        <h3>
+          ⏱️ Half Time Score
+        </h3>
+
+        <div class="detail-row">
+
+          <span>
+            HT Score
+          </span>
+
+          <strong>
+
+            ${escapeHtml(
+              String(
+                data.home_ht_score ??
+                "-"
+              )
+            )}
+
+            :
+
+            ${escapeHtml(
+              String(
+                data.away_ht_score ??
+                "-"
+              )
+            )}
+
+          </strong>
+
+        </div>
+
+      </div>
+
+    `;
+
+  }
+
+
+  /* =============================================
+     FOOTBALL INCIDENTS
+  ============================================= */
+
+  if(
+    Array.isArray(
+      data.incidents
+    ) &&
+    data.incidents.length
+  ){
+
+    html += `
+
+      <div class="detail-section">
+
+        <h3>
+          ⚡ ম্যাচের ঘটনা
+        </h3>
+
+        ${
+          data.incidents
+            .slice()
+            .reverse()
+            .map(
+              incident =>
+                renderIncident(
+                  incident,
+                  home,
+                  away
+                )
+            )
+            .join("")
         }
 
-        if(
-          typeof value !== "object"
-        ){
+      </div>
+
+    `;
+
+  }
+
+
+  /* =============================================
+     STATS
+  ============================================= */
+
+  if(
+    data.stats &&
+    (
+      Array.isArray(data.stats)
+      ||
+      typeof data.stats === "object"
+    )
+  ){
+
+    const statsHtml =
+      renderStats(
+        data.stats
+      );
+
+    if(statsHtml){
+
+      html += `
+
+        <div class="detail-section">
+
+          <h3>
+            📈 Match Statistics
+          </h3>
+
+          ${statsHtml}
+
+        </div>
+
+      `;
+
+    }
+
+  }
+
+
+  /* =============================================
+     LINEUPS
+  ============================================= */
+
+  if(
+    data.lineups
+  ){
+
+    html +=
+      renderLineups(
+        data.lineups
+      );
+
+  }
+
+
+  /* =============================================
+     TRACKER
+  ============================================= */
+
+  if(
+    data.tracker
+  ){
+
+    html += `
+
+      <div class="detail-section">
+
+        <h3>
+          🆔 Match Information
+        </h3>
+
+        ${
+          data.tracker.id
+
+          ?
+
+          `
+            <div class="detail-row">
+
+              <span>
+                Match ID
+              </span>
+
+              <strong>
+                ${escapeHtml(
+                  String(
+                    data.tracker.id
+                  )
+                )}
+              </strong>
+
+            </div>
+          `
+
+          :
+
+          ""
+        }
+
+
+        ${
+          data.tracker.sport
+
+          ?
+
+          `
+            <div class="detail-row">
+
+              <span>
+                Sport
+              </span>
+
+              <strong>
+                ${escapeHtml(
+                  String(
+                    data.tracker.sport
+                  )
+                )}
+              </strong>
+
+            </div>
+          `
+
+          :
+
+          ""
+        }
+
+      </div>
+
+    `;
+
+  }
+
+
+  /* =============================================
+     IF NOTHING
+  ============================================= */
+
+  if(
+    !html.trim()
+  ){
+
+    renderNoDetails();
+
+    return;
+
+  }
+
+  box.innerHTML =
+    html;
+
+}
+
+
+/* =====================================================
+   INCIDENT RENDER
+===================================================== */
+
+function renderIncident(
+  incident,
+  home,
+  away
+){
+
+  const type =
+    String(
+      incident.type ||
+      ""
+    ).toLowerCase();
+
+  let icon =
+    "⚡";
+
+  if(
+    incident.is_goal ||
+    type.includes("goal")
+  ){
+
+    icon = "⚽";
+
+  }
+  else if(
+    incident.is_card ||
+    type.includes("yellow")
+  ){
+
+    icon = "🟨";
+
+  }
+  else if(
+    type.includes("red")
+  ){
+
+    icon = "🟥";
+
+  }
+  else if(
+    incident.is_sub ||
+    type.includes("substitution")
+  ){
+
+    icon = "🔄";
+
+  }
+
+
+  let playerText =
+    incident.player ||
+    "";
+
+  if(
+    incident.is_sub
+  ){
+
+    playerText =
+
+      `${incident.player_in || ""}` +
+      (
+        incident.player_out
+          ? ` ← ${incident.player_out}`
+          : ""
+      );
+
+  }
+
+
+  let sideText =
+    "";
+
+  if(
+    incident.side === "home"
+  ){
+
+    sideText = home;
+
+  }
+  else if(
+    incident.side === "away"
+  ){
+
+    sideText = away;
+
+  }
+
+
+  return `
+
+    <div class="incident">
+
+      <div class="incident-time">
+
+        ${escapeHtml(
+          String(
+            incident.time ??
+            "-"
+          )
+        )}'
+
+      </div>
+
+
+      <div class="incident-icon">
+
+        ${icon}
+
+      </div>
+
+
+      <div class="incident-text">
+
+        <strong>
+
+          ${escapeHtml(
+            playerText ||
+            incident.type ||
+            "Event"
+          )}
+
+        </strong>
+
+
+        <span class="incident-side">
+
+          ${
+            escapeHtml(
+              sideText
+            )
+          }
+
+          ${
+            incident.type
+              ? " • " +
+                escapeHtml(
+                  String(
+                    incident.type
+                  )
+                )
+              : ""
+          }
+
+        </span>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   LINEUPS
+===================================================== */
+
+function renderLineups(
+  lineups
+){
+
+  const homeXI =
+    Array.isArray(
+      lineups.home_xi
+    )
+      ? lineups.home_xi
+      : [];
+
+  const awayXI =
+    Array.isArray(
+      lineups.away_xi
+    )
+      ? lineups.away_xi
+      : [];
+
+  const homeSubs =
+    Array.isArray(
+      lineups.home_subs
+    )
+      ? lineups.home_subs
+      : [];
+
+  const awaySubs =
+    Array.isArray(
+      lineups.away_subs
+    )
+      ? lineups.away_subs
+      : [];
+
+
+  if(
+    !homeXI.length &&
+    !awayXI.length &&
+    !homeSubs.length &&
+    !awaySubs.length
+  ){
+
+    return "";
+
+  }
+
+
+  return `
+
+    <div class="detail-section">
+
+      <h3>
+        👥 Team Lineups
+      </h3>
+
+
+      <div class="lineup-tabs">
+
+        <button
+          class="lineup-tab active"
+          onclick="
+            showLineupTab(
+              this,
+              'home'
+            )
+          "
+        >
+          🏠 Home XI
+        </button>
+
+
+        <button
+          class="lineup-tab"
+          onclick="
+            showLineupTab(
+              this,
+              'away'
+            )
+          "
+        >
+          ✈️ Away XI
+        </button>
+
+      </div>
+
+
+      <div
+        id="homeLineup"
+        class="lineup-list"
+      >
+
+        ${
+          renderPlayers(
+            homeXI
+          )
+        }
+
+
+        ${
+          homeSubs.length
+
+          ?
+
+          `
+            <div
+              style="
+                margin-top:12px;
+                color:#8792ae;
+                font-size:11px;
+                font-weight:800;
+              "
+            >
+              🔄 Substitutes
+            </div>
+
+            ${renderPlayers(homeSubs)}
+          `
+
+          :
+
+          ""
+        }
+
+      </div>
+
+
+      <div
+        id="awayLineup"
+        class="lineup-list"
+        style="display:none"
+      >
+
+        ${
+          renderPlayers(
+            awayXI
+          )
+        }
+
+
+        ${
+          awaySubs.length
+
+          ?
+
+          `
+            <div
+              style="
+                margin-top:12px;
+                color:#8792ae;
+                font-size:11px;
+                font-weight:800;
+              "
+            >
+              🔄 Substitutes
+            </div>
+
+            ${renderPlayers(awaySubs)}
+          `
+
+          :
+
+          ""
+        }
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+function renderPlayers(
+  players
+){
+
+  if(!players.length){
+
+    return `
+
+      <div class="raw-scorecard">
+        কোনো player data পাওয়া যায়নি।
+      </div>
+
+    `;
+
+  }
+
+  return players
+    .map(
+      player => `
+
+        <div class="player">
+
+          <div class="player-number">
+
+            ${escapeHtml(
+              String(
+                player.number ??
+                "-"
+              )
+            )}
+
+          </div>
+
+
+          <div class="player-name">
+
+            ${escapeHtml(
+              String(
+                player.name ||
+                "Unknown"
+              )
+            )}
+
+            ${
+              player.captain
+                ? " 👑"
+                : ""
+            }
+
+          </div>
+
+
+          <div class="player-position">
+
+            ${escapeHtml(
+              String(
+                player.position ||
+                ""
+              )
+            )}
+
+          </div>
+
+        </div>
+
+      `
+    )
+    .join("");
+
+}
+
+
+function showLineupTab(
+  button,
+  side
+){
+
+  document
+    .querySelectorAll(
+      ".lineup-tab"
+    )
+    .forEach(
+      tab =>
+        tab.classList.remove(
+          "active"
+        )
+    );
+
+  button.classList.add(
+    "active"
+  );
+
+  const home =
+    document.getElementById(
+      "homeLineup"
+    );
+
+  const away =
+    document.getElementById(
+      "awayLineup"
+    );
+
+  if(side === "home"){
+
+    home.style.display =
+      "flex";
+
+    away.style.display =
+      "none";
+
+  }
+  else{
+
+    home.style.display =
+      "none";
+
+    away.style.display =
+      "flex";
+
+  }
+
+}
+
+
+/* =====================================================
+   STATS
+===================================================== */
+
+function renderStats(
+  stats
+){
+
+  const rows = [];
+
+  function walk(
+    obj,
+    depth=0
+  ){
+
+    if(
+      depth > 4 ||
+      !obj
+    ){
+      return;
+    }
+
+    if(
+      Array.isArray(obj)
+    ){
+
+      obj.forEach(
+        item =>
+          walk(
+            item,
+            depth+1
+          )
+      );
+
+      return;
+
+    }
+
+    if(
+      typeof obj !== "object"
+    ){
+
+      return;
+
+    }
+
+    Object.keys(obj)
+      .forEach(
+        key => {
+
+          const value =
+            obj[key];
+
+          if(
+            value === null ||
+            value === undefined
+          ){
+
+            return;
+
+          }
+
+          if(
+            typeof value === "object"
+          ){
+
+            walk(
+              value,
+              depth+1
+            );
+
+            return;
+
+          }
 
           const lower =
             key.toLowerCase();
 
           if(
-
-            lower.includes("score") ||
-
-            lower.includes("run") ||
-
-            lower.includes("wicket") ||
-
-            lower.includes("over") ||
-
-            lower.includes("goal") ||
-
-            lower.includes("minute") ||
-
-            lower.includes("status") ||
-
-            lower.includes("result") ||
-
-            lower.includes("inning")
-
+            lower.includes("home") ||
+            lower.includes("away") ||
+            lower.includes("stat") ||
+            lower.includes("value")
           ){
 
             rows.push([
-              label,
+              key,
               String(value)
             ]);
 
           }
 
         }
-        else{
+      );
 
-          collectInterestingFields(
-            value,
-            rows,
-            label,
-            depth + 1
-          );
+  }
 
-        }
+  walk(stats);
 
-      }
-    );
+  if(
+    !rows.length
+  ){
+
+    return "";
+
+  }
+
+
+  return rows
+    .slice(0,30)
+    .map(
+      row => `
+
+        <div class="detail-row">
+
+          <span>
+            ${escapeHtml(
+              row[0]
+            )}
+          </span>
+
+          <strong>
+            ${escapeHtml(
+              row[1]
+            )}
+          </strong>
+
+        </div>
+
+      `
+    )
+    .join("");
 
 }
 
 
-/* =========================================
+/* =====================================================
    FAVORITE
-========================================= */
+===================================================== */
 
 function toggleFavoriteByIndex(
   event,
@@ -3443,6 +5298,8 @@ function toggleFavoriteByIndex(
 ){
 
   event.stopPropagation();
+
+  initAudio();
 
   const matches =
     getFilteredMatches();
@@ -3486,6 +5343,8 @@ function toggleFavorite(id){
       "⭐ Favorites এ যোগ হয়েছে"
     );
 
+    playFavoriteSound();
+
   }
 
   localStorage.setItem(
@@ -3500,59 +5359,256 @@ function toggleFavorite(id){
 }
 
 
-/* =========================================
-   NOTIFICATION
-========================================= */
+/* =====================================================
+   SOUND ENGINE
+===================================================== */
 
-async function enableNotifications(){
+function initAudio(){
 
-  if(
-    !("Notification" in window)
-  ){
+  try{
 
-    showToast(
-      "এই browser notification support করে না"
-    );
+    if(!audioContext){
 
-    return false;
+      audioContext =
+        new (
+          window.AudioContext ||
+          window.webkitAudioContext
+        )();
+
+    }
+
+    if(
+      audioContext.state ===
+      "suspended"
+    ){
+
+      audioContext.resume();
+
+    }
 
   }
+  catch(error){
 
-  if(
-    Notification.permission ===
-    "granted"
-  ){
-
-    return true;
-
-  }
-
-  if(
-    Notification.permission !==
-    "denied"
-  ){
-
-    const permission =
-      await Notification.requestPermission();
-
-    return (
-      permission ===
-      "granted"
+    console.log(
+      "Audio unavailable"
     );
 
   }
-
-  return false;
 
 }
 
 
+function playTone(
+  frequency,
+  duration,
+  type="sine",
+  volume=.05
+){
+
+  if(
+    !soundEnabled
+  ){
+    return;
+  }
+
+  try{
+
+    initAudio();
+
+    if(!audioContext){
+      return;
+    }
+
+    const oscillator =
+      audioContext.createOscillator();
+
+    const gain =
+      audioContext.createGain();
+
+    oscillator.type =
+      type;
+
+    oscillator.frequency.value =
+      frequency;
+
+    gain.gain.setValueAtTime(
+      0.0001,
+      audioContext.currentTime
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+      volume,
+      audioContext.currentTime+.02
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+      0.0001,
+      audioContext.currentTime+duration
+    );
+
+    oscillator.connect(gain);
+
+    gain.connect(
+      audioContext.destination
+    );
+
+    oscillator.start();
+
+    oscillator.stop(
+      audioContext.currentTime+
+      duration
+    );
+
+  }
+  catch(error){
+
+    console.log(
+      "Sound error:",
+      error
+    );
+
+  }
+
+}
+
+
+function playClickSound(){
+
+  if(!soundEnabled){
+    return;
+  }
+
+  playTone(
+    520,
+    .07,
+    "sine",
+    .025
+  );
+
+}
+
+
+function playGoalSound(){
+
+  if(!soundEnabled){
+    return;
+  }
+
+  playTone(
+    523,
+    .12,
+    "sine",
+    .06
+  );
+
+  setTimeout(
+    () =>
+      playTone(
+        659,
+        .12,
+        "sine",
+        .06
+      ),
+    110
+  );
+
+  setTimeout(
+    () =>
+      playTone(
+        784,
+        .20,
+        "sine",
+        .07
+      ),
+    220
+  );
+
+}
+
+
+function playFavoriteSound(){
+
+  if(!soundEnabled){
+    return;
+  }
+
+  playTone(
+    700,
+    .08,
+    "triangle",
+    .035
+  );
+
+  setTimeout(
+    () =>
+      playTone(
+        900,
+        .12,
+        "triangle",
+        .035
+      ),
+    90
+  );
+
+}
+
+
+function toggleSound(){
+
+  initAudio();
+
+  soundEnabled =
+    !soundEnabled;
+
+  localStorage.setItem(
+    "fanZoneSound",
+    soundEnabled
+      ? "on"
+      : "off"
+  );
+
+  const btn =
+    document.getElementById(
+      "soundBtn"
+    );
+
+  btn.textContent =
+    soundEnabled
+      ? "🔊"
+      : "🔇";
+
+  btn.classList.toggle(
+    "sound-on",
+    soundEnabled
+  );
+
+  if(soundEnabled){
+
+    playClickSound();
+
+    showToast(
+      "🔊 Sound চালু হয়েছে"
+    );
+
+  }
+  else{
+
+    showToast(
+      "🔇 Sound বন্ধ হয়েছে"
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   SCORE NOTIFICATION
+===================================================== */
+
 async function notifyScoreChange(
   match
 ){
-
-  const allowed =
-    await enableNotifications();
 
   const home =
     match.home ||
@@ -3576,22 +5632,49 @@ async function notifyScoreChange(
       "away"
     );
 
-  if(allowed){
+
+  playGoalSound();
+
+
+  showToast(
+    `⚽ ${home} ${homeScore} - ${awayScore} ${away}`
+  );
+
+
+  if(
+    "Notification" in window
+  ){
 
     try{
 
-      new Notification(
-        "🔴 Live Score Update",
-        {
-          body:
-            `${home} ${homeScore} - ` +
-            `${awayScore} ${away}`,
+      if(
+        Notification.permission ===
+        "default"
+      ){
 
-          icon:
-            match.home_logo ||
-            undefined
-        }
-      );
+        await Notification.requestPermission();
+
+      }
+
+      if(
+        Notification.permission ===
+        "granted"
+      ){
+
+        new Notification(
+          "⚽ Football Fan Zone",
+          {
+            body:
+              `${home} ${homeScore} - ` +
+              `${awayScore} ${away}`,
+
+            icon:
+              match.home_logo ||
+              undefined
+          }
+        );
+
+      }
 
     }
     catch(error){
@@ -3605,18 +5688,16 @@ async function notifyScoreChange(
 
   }
 
-  showToast(
-    `🔴 ${home} ${homeScore} - ${awayScore} ${away}`
-  );
-
 }
 
 
-/* =========================================
+/* =====================================================
    THEME
-========================================= */
+===================================================== */
 
 function toggleTheme(){
+
+  initAudio();
 
   document.body.classList.toggle(
     "light"
@@ -3641,7 +5722,10 @@ function toggleTheme(){
       : "dark"
   );
 
+  playClickSound();
+
 }
+
 
 if(
   localStorage.getItem(
@@ -3661,14 +5745,54 @@ if(
 }
 
 
-/* =========================================
+if(!soundEnabled){
+
+  document.getElementById(
+    "soundBtn"
+  ).textContent =
+    "🔇";
+
+  document.getElementById(
+    "soundBtn"
+  ).classList.remove(
+    "sound-on"
+  );
+
+}
+
+
+/* =====================================================
    NAV
-========================================= */
+===================================================== */
+
+function setNavActive(
+  index
+){
+
+  document
+    .querySelectorAll(
+      ".nav-btn"
+    )
+    .forEach(
+      (btn,i) => {
+
+        btn.classList.toggle(
+          "active",
+          i === index
+        );
+
+      }
+    );
+
+}
+
 
 function goHome(){
 
   currentFilter =
     "all";
+
+  setNavActive(0);
 
   document
     .querySelectorAll(
@@ -3694,7 +5818,10 @@ function goHome(){
 
 }
 
+
 function showLive(){
+
+  setNavActive(1);
 
   changeFilter(
     "live"
@@ -3707,7 +5834,10 @@ function showLive(){
 
 }
 
+
 function showFavorites(){
+
+  setNavActive(2);
 
   changeFilter(
     "favorites"
@@ -3721,9 +5851,9 @@ function showFavorites(){
 }
 
 
-/* =========================================
+/* =====================================================
    MODAL
-========================================= */
+===================================================== */
 
 function closeModal(){
 
@@ -3736,6 +5866,7 @@ function closeModal(){
     );
 
 }
+
 
 function closeModalOutside(
   event
@@ -3753,9 +5884,29 @@ function closeModalOutside(
 }
 
 
-/* =========================================
+/* =====================================================
+   ESC KEY
+===================================================== */
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if(
+      event.key === "Escape"
+    ){
+
+      closeModal();
+
+    }
+
+  }
+);
+
+
+/* =====================================================
    DATE FORMAT
-========================================= */
+===================================================== */
 
 function formatDate(value){
 
@@ -3786,7 +5937,7 @@ function formatDate(value){
       "bn-BD",
       {
         day:"numeric",
-        month:"long",
+        month:"short",
         year:"numeric",
         hour:"numeric",
         minute:"2-digit"
@@ -3805,9 +5956,9 @@ function formatDate(value){
 }
 
 
-/* =========================================
+/* =====================================================
    SECURITY
-========================================= */
+===================================================== */
 
 function escapeHtml(text){
 
@@ -3864,9 +6015,9 @@ function safeUrl(url){
 }
 
 
-/* =========================================
+/* =====================================================
    TOAST
-========================================= */
+===================================================== */
 
 let toastTimer;
 
@@ -3897,15 +6048,15 @@ function showToast(message){
         );
 
       },
-      2500
+      2800
     );
 
 }
 
 
-/* =========================================
+/* =====================================================
    START
-========================================= */
+===================================================== */
 
 renderDates();
 
@@ -3914,14 +6065,9 @@ updateSelectedDateText();
 loadMatches(true);
 
 
-/* =========================================
-   REAL-TIME REFRESH
-========================================= */
-
-/*
-  10 seconds পরপর API থেকে
-  নতুন score নেওয়া হবে।
-*/
+/* =====================================================
+   AUTO REFRESH
+===================================================== */
 
 setInterval(
   () => {
@@ -3933,16 +6079,14 @@ setInterval(
 );
 
 
-/*
-  Live filter চালু থাকলে
-  7 seconds পরপর চেষ্টা করবে।
-*/
+/* Live হলে আরও দ্রুত */
 
 setInterval(
   () => {
 
     if(
-      currentFilter === "live"
+      currentFilter ===
+      "live"
     ){
 
       loadMatches(false);
@@ -3954,10 +6098,7 @@ setInterval(
 );
 
 
-/*
-  Page আবার সামনে এলে
-  সঙ্গে সঙ্গে refresh
-*/
+/* Page আবার সামনে এলে */
 
 document.addEventListener(
   "visibilitychange",
@@ -3975,30 +6116,15 @@ document.addEventListener(
 );
 
 
-/*
-  Notification permission
-  ব্যবহারকারী নিজে চাইলে
-  প্রথম Live update-এর সময়
-  permission চাইবে।
-*/
+/* =====================================================
+   FIRST USER INTERACTION
+===================================================== */
 
 document.addEventListener(
   "click",
   () => {
 
-    if(
-      Notification &&
-      Notification.permission ===
-      "default"
-    ){
-
-      /*
-        এখানে সরাসরি popup না দিয়ে
-        browser-এর click interaction
-        ব্যবহার করা হচ্ছে।
-      */
-
-    }
+    initAudio();
 
   },
   {
