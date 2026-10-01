@@ -1,12 +1,9 @@
 {
-  "name": "live-score-app",
+  "name": "football-fan-zone",
   "version": "1.0.0",
-  "description": "Football and Cricket Live Score App",
+  "description": "Live Football and Cricket Score App",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
-  },
-  "dependencies": {
-    "ws": "^8.18.0"
   }
 }
