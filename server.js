@@ -2,18 +2,7 @@ const http = require("http");
 const fs = require("fs");
 const path = require("path");
 
-
-/* =========================================
-   SERVER CONFIG
-========================================= */
-
-const PORT =
-  process.env.PORT || 10000;
-
-
-/* =========================================
-   SPORT API
-========================================= */
+const PORT = process.env.PORT || 10000;
 
 const API_BASE =
   "https://sportscore.com/api/v1/fixtures/";
@@ -21,171 +10,87 @@ const API_BASE =
 const MATCH_API =
   "https://sportscore.com/api/v1/match/";
 
-
-/* =========================================
-   FETCH JSON
-========================================= */
-
-async function fetchJSON(url){
-
+async function fetchJSON(url) {
   console.log("Fetching API:");
-
   console.log(url);
 
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Accept": "application/json",
+      "User-Agent": "Mozilla/5.0 Football-Fan-Zone"
+    },
+    cache: "no-store"
+  });
 
-  const response =
-    await fetch(
-      url,
-      {
-        method:"GET",
+  const text = await response.text();
 
-        headers:{
-          "Accept":
-            "application/json",
+  console.log("API STATUS:", response.status);
+  console.log("API RESPONSE:", text.substring(0, 500));
 
-          "User-Agent":
-            "Football-Fan-Zone/2.0"
-        },
-
-        cache:"no-store"
-      }
-    );
-
-
-  if(!response.ok){
-
+  if (!response.ok) {
     throw new Error(
-      "Upstream API error: HTTP " +
-      response.status
+      "Upstream API error: HTTP " + response.status
     );
-
   }
 
-
-  return await response.json();
-
+  try {
+    return JSON.parse(text);
+  } catch {
+    throw new Error("API JSON পাওয়া যায়নি");
+  }
 }
 
 
-/* =========================================
-   GET MATCH LIST
-========================================= */
+/* ================================
+   MATCH LIST
+================================ */
 
-async function getMatches(
-  sport,
-  status,
-  date
-){
+async function getMatches(sport, date) {
 
   let url =
     API_BASE +
     "?sport=" +
-    encodeURIComponent(
-      sport
-    );
+    encodeURIComponent(sport);
 
-
-  if(date){
-
+  if (date) {
     url +=
       "&date=" +
-      encodeURIComponent(
-        date
-      );
-
+      encodeURIComponent(date);
   }
 
+  url += "&limit=200";
+  url += "&_=" + Date.now();
 
-  if(status){
-
-    url +=
-      "&status=" +
-      encodeURIComponent(
-        status
-      );
-
-  }
-
-
-  /*
-    বেশি ম্যাচ পাওয়ার জন্য
-  */
-
-  url +=
-    "&limit=200";
-
-
-  /*
-    API/browser cache এড়ানো
-  */
-
-  url +=
-    "&_=" +
-    Date.now();
-
-
-  return await fetchJSON(
-    url
-  );
-
+  return await fetchJSON(url);
 }
 
 
-/* =========================================
-   GET SINGLE MATCH
-========================================= */
+/* ================================
+   MATCH DETAILS
+================================ */
 
-async function getMatchDetails(
-  sport,
-  slug
-){
+async function getMatchDetails(sport, slug) {
 
-  /*
-    index.html থেকে সাধারণত:
-
-    dn1m1ghlp9e2moe
-
-    আসবে।
-
-    যদি ভুল করে URL আসে,
-    server সেটাও ঠিক করার চেষ্টা করবে।
-  */
-
-  let matchId =
-    String(
-      slug || ""
-    ).trim();
-
+  let matchId = String(slug || "").trim();
 
   /*
-    যদি পুরো URL পাঠানো হয়
+     যদি ভুল করে পুরো URL আসে,
+     তাহলে শুধু শেষ ID নেওয়া হবে
   */
 
-  if(
-    matchId.includes("/")
-  ){
+  if (matchId.includes("/")) {
 
     const parts =
       matchId
         .split("/")
         .filter(Boolean);
 
-
-    if(parts.length){
-
+    if (parts.length) {
       matchId =
-        parts[
-          parts.length - 1
-        ];
-
+        parts[parts.length - 1];
     }
-
   }
-
-
-  /*
-    শেষের slash থাকলে বাদ
-  */
 
   matchId =
     matchId.replace(
@@ -193,110 +98,71 @@ async function getMatchDetails(
       ""
     );
 
-
-  if(!matchId){
-
+  if (!matchId) {
     throw new Error(
       "Match ID পাওয়া যায়নি"
     );
-
   }
-
 
   const url =
     MATCH_API +
     "?sport=" +
-    encodeURIComponent(
-      sport
-    ) +
+    encodeURIComponent(sport) +
     "&slug=" +
-    encodeURIComponent(
-      matchId
-    ) +
+    encodeURIComponent(matchId) +
     "&_=" +
     Date.now();
 
+  console.log("==============================");
+  console.log("DETAIL MATCH ID:", matchId);
+  console.log("DETAIL API:", url);
+  console.log("==============================");
 
-  console.log(
-    "DETAIL MATCH ID:",
-    matchId
-  );
-
-
-  console.log(
-    "DETAIL API:",
-    url
-  );
-
-
-  return await fetchJSON(
-    url
-  );
-
+  return await fetchJSON(url);
 }
 
 
-/* =========================================
-   SEND JSON
-========================================= */
+/* ================================
+   JSON RESPONSE
+================================ */
 
-function sendJSON(
-  res,
-  statusCode,
-  data
-){
+function sendJSON(res, statusCode, data) {
 
-  res.writeHead(
-    statusCode,
-    {
+  res.writeHead(statusCode, {
+    "Content-Type":
+      "application/json; charset=utf-8",
 
-      "Content-Type":
-        "application/json; charset=utf-8",
+    "Access-Control-Allow-Origin": "*",
 
-      "Access-Control-Allow-Origin":
-        "*",
+    "Access-Control-Allow-Methods":
+      "GET, OPTIONS",
 
-      "Access-Control-Allow-Methods":
-        "GET, OPTIONS",
+    "Access-Control-Allow-Headers":
+      "Content-Type",
 
-      "Access-Control-Allow-Headers":
-        "Content-Type",
+    "Cache-Control":
+      "no-store, no-cache, must-revalidate",
 
-      "Cache-Control":
-        "no-store, no-cache, must-revalidate, proxy-revalidate",
+    "Pragma": "no-cache",
 
-      "Pragma":
-        "no-cache",
-
-      "Expires":
-        "0"
-
-    }
-  );
-
+    "Expires": "0"
+  });
 
   res.end(
-    JSON.stringify(
-      data
-    )
+    JSON.stringify(data)
   );
-
 }
 
 
-/* =========================================
-   MIME TYPE
-========================================= */
+/* ================================
+   CONTENT TYPE
+================================ */
 
-function getContentType(
-  filePath
-){
+function getContentType(filePath) {
 
   const ext =
-    path.extname(
-      filePath
-    ).toLowerCase();
-
+    path.extname(filePath)
+      .toLowerCase();
 
   const types = {
 
@@ -331,145 +197,86 @@ function getContentType(
       "image/webp",
 
     ".ico":
-      "image/x-icon",
-
-    ".txt":
-      "text/plain; charset=utf-8",
-
-    ".xml":
-      "application/xml"
-
+      "image/x-icon"
   };
-
 
   return (
     types[ext] ||
     "application/octet-stream"
   );
-
 }
 
 
-/* =========================================
-   STATIC FILE SERVER
-========================================= */
+/* ================================
+   STATIC FILE
+================================ */
 
-function serveFile(
-  req,
-  res
-){
+function serveFile(req, res) {
 
   let requestedPath =
     req.url.split("?")[0];
 
-
-  if(
+  if (
     requestedPath === "/" ||
     requestedPath === ""
-  ){
-
+  ) {
     requestedPath =
       "/index.html";
-
   }
 
-
-  /*
-    URL decode
-  */
-
-  try{
+  try {
 
     requestedPath =
       decodeURIComponent(
         requestedPath
       );
 
-  }catch{
+  } catch {
 
-    res.writeHead(
-      400,
-      {
-        "Content-Type":
-          "text/plain; charset=utf-8"
-      }
-    );
-
-    res.end(
-      "Bad Request"
-    );
+    res.writeHead(400);
+    res.end("Bad Request");
 
     return;
-
   }
 
 
-  /*
-    Windows/Linux path নিরাপদ রাখা
-  */
-
   const cleanPath =
-    requestedPath
-      .replace(
-        /^\/+/,
-        ""
-      );
-
-
-  const filePath =
-    path.join(
-      __dirname,
-      cleanPath
+    requestedPath.replace(
+      /^\/+/,
+      ""
     );
 
-
-  /*
-    Directory traversal protection
-  */
 
   const root =
+    path.resolve(__dirname);
+
+  const filePath =
     path.resolve(
-      __dirname
+      path.join(
+        __dirname,
+        cleanPath
+      )
     );
 
-  const resolved =
-    path.resolve(
-      filePath
-    );
 
-
-  if(
-    !resolved.startsWith(
+  if (
+    !filePath.startsWith(
       root + path.sep
-    ) &&
-    resolved !== root
-  ){
+    )
+  ) {
 
-    res.writeHead(
-      403,
-      {
-        "Content-Type":
-          "text/plain; charset=utf-8"
-      }
-    );
-
-    res.end(
-      "Forbidden"
-    );
+    res.writeHead(403);
+    res.end("Forbidden");
 
     return;
-
   }
 
 
   fs.readFile(
-    resolved,
-    (
-      error,
-      data
-    ) => {
+    filePath,
+    (error, data) => {
 
-      if(error){
+      if (error) {
 
         res.writeHead(
           404,
@@ -484,63 +291,43 @@ function serveFile(
         );
 
         return;
-
       }
 
 
       res.writeHead(
         200,
         {
-
           "Content-Type":
             getContentType(
-              resolved
+              filePath
             ),
 
           "Cache-Control":
-            "no-cache, no-store, must-revalidate",
-
-          "Pragma":
-            "no-cache",
-
-          "Expires":
-            "0"
-
+            "no-cache, no-store, must-revalidate"
         }
       );
 
 
-      res.end(
-        data
-      );
-
+      res.end(data);
     }
   );
-
 }
 
 
-/* =========================================
+/* ================================
    SERVER
-========================================= */
+================================ */
 
 const server =
   http.createServer(
-    async (
-      req,
-      res
-    ) => {
+    async (req, res) => {
 
-      try{
+      try {
 
-        /*
-          OPTIONS
-        */
-
-        if(
+        if (
           req.method ===
           "OPTIONS"
-        ){
+        ) {
 
           res.writeHead(
             204,
@@ -559,13 +346,8 @@ const server =
           res.end();
 
           return;
-
         }
 
-
-        /*
-          URL
-        */
 
         const url =
           new URL(
@@ -583,115 +365,67 @@ const server =
         );
 
 
-        /* =====================================
+        /* =========================
            HEALTH
-        ===================================== */
+        ========================= */
 
-        if(
+        if (
           pathname ===
           "/health"
-        ){
+        ) {
 
           sendJSON(
             res,
             200,
             {
-
-              status:"ok",
+              status: "ok",
 
               app:
                 "Football Fan Zone",
 
-              version:
-                "2.0",
+              football: true,
 
-              football:true,
+              cricket: true,
 
-              cricket:true,
+              live_score: true,
 
-              live_score:true,
+              match_details: true,
 
-              scorecard:true,
+              scorecard: true,
 
-              match_details:true,
+              incidents: true,
 
-              football_incidents:true,
-
-              football_lineups:true,
-
-              football_stats:true,
-
-              notifications:true,
-
-              auto_refresh:true,
+              lineups: true,
 
               timestamp:
                 new Date()
-                .toISOString()
-
+                  .toISOString()
             }
           );
 
           return;
-
         }
 
 
-        /* =====================================
+        /* =========================
            FOOTBALL
-        ===================================== */
+        ========================= */
 
-        if(
+        if (
           pathname ===
           "/api/football"
-        ){
-
-          let status =
-            url.searchParams.get(
-              "status"
-            );
-
-
-          const filter =
-            url.searchParams.get(
-              "filter"
-            );
-
+        ) {
 
           const date =
             url.searchParams.get(
               "date"
             );
-
-
-          /*
-            filter এবং status দুটোই
-            support করবে
-          */
-
-          if(!status){
-
-            if(
-              filter === "live" ||
-              filter === "finished" ||
-              filter === "upcoming"
-            ){
-
-              status =
-                filter;
-
-            }
-
-          }
-
 
           const data =
             await getMatches(
               "football",
-              status,
               date
             );
-
 
           sendJSON(
             res,
@@ -700,60 +434,28 @@ const server =
           );
 
           return;
-
         }
 
 
-        /* =====================================
+        /* =========================
            CRICKET
-        ===================================== */
+        ========================= */
 
-        if(
+        if (
           pathname ===
           "/api/cricket"
-        ){
-
-          let status =
-            url.searchParams.get(
-              "status"
-            );
-
-
-          const filter =
-            url.searchParams.get(
-              "filter"
-            );
-
+        ) {
 
           const date =
             url.searchParams.get(
               "date"
             );
 
-
-          if(!status){
-
-            if(
-              filter === "live" ||
-              filter === "finished" ||
-              filter === "upcoming"
-            ){
-
-              status =
-                filter;
-
-            }
-
-          }
-
-
           const data =
             await getMatches(
               "cricket",
-              status,
               date
             );
-
 
           sendJSON(
             res,
@@ -762,24 +464,22 @@ const server =
           );
 
           return;
-
         }
 
 
-        /* =====================================
-           SINGLE MATCH DETAILS
-        ===================================== */
+        /* =========================
+           MATCH DETAILS
+        ========================= */
 
-        if(
+        if (
           pathname ===
           "/api/match"
-        ){
+        ) {
 
           const sport =
             url.searchParams.get(
               "sport"
             );
-
 
           let slug =
             url.searchParams.get(
@@ -787,68 +487,52 @@ const server =
             );
 
 
-          /*
-            কিছু frontend code-এ
-            id পাঠালে সেটাও support করবে
-          */
-
-          if(!slug){
+          if (!slug) {
 
             slug =
               url.searchParams.get(
                 "id"
               );
-
           }
 
 
-          if(
+          if (
             !sport ||
             !slug
-          ){
+          ) {
 
             sendJSON(
               res,
               400,
               {
-
-                success:false,
+                success: false,
 
                 error:
                   "sport এবং slug প্রয়োজন"
-
               }
             );
 
             return;
-
           }
 
 
-          /*
-            Sport validation
-          */
-
-          if(
+          if (
             sport !== "football" &&
             sport !== "cricket"
-          ){
+          ) {
 
             sendJSON(
               res,
               400,
               {
-
-                success:false,
+                success: false,
 
                 error:
                   "sport অবশ্যই football অথবা cricket হতে হবে"
-
               }
             );
 
             return;
-
           }
 
 
@@ -866,92 +550,35 @@ const server =
           );
 
           return;
-
         }
 
 
-        /* =====================================
+        /* =========================
            FAVICON
-        ===================================== */
+        ========================= */
 
-        if(
+        if (
           pathname ===
           "/favicon.ico"
-        ){
+        ) {
 
-          const favicon =
-            path.join(
-              __dirname,
-              "favicon.ico"
-            );
-
-
-          if(
-            fs.existsSync(
-              favicon
-            )
-          ){
-
-            fs.readFile(
-              favicon,
-              (
-                error,
-                data
-              ) => {
-
-                if(error){
-
-                  res.writeHead(
-                    404
-                  );
-
-                  res.end();
-
-                  return;
-
-                }
-
-
-                res.writeHead(
-                  200,
-                  {
-                    "Content-Type":
-                      "image/x-icon"
-                  }
-                );
-
-                res.end(
-                  data
-                );
-
-              }
-            );
-
-          }else{
-
-            res.writeHead(
-              204
-            );
-
-            res.end();
-
-          }
+          res.writeHead(204);
+          res.end();
 
           return;
-
         }
 
 
-        /* =====================================
-           STATIC FILE
-        ===================================== */
+        /* =========================
+           STATIC
+        ========================= */
 
         serveFile(
           req,
           res
         );
 
-      }catch(error){
+      } catch (error) {
 
         console.error(
           "SERVER ERROR:",
@@ -963,8 +590,7 @@ const server =
           res,
           500,
           {
-
-            success:false,
+            success: false,
 
             error:
               "Server error",
@@ -974,20 +600,17 @@ const server =
 
             timestamp:
               new Date()
-              .toISOString()
-
+                .toISOString()
           }
         );
-
       }
-
     }
   );
 
 
-/* =========================================
-   SERVER START
-========================================= */
+/* ================================
+   START
+================================ */
 
 server.listen(
   PORT,
@@ -1002,7 +625,7 @@ server.listen(
     );
 
     console.log(
-      "Port:",
+      "PORT:",
       PORT
     );
 
@@ -1025,14 +648,13 @@ server.listen(
     console.log(
       "================================="
     );
-
   }
 );
 
 
-/* =========================================
-   ERROR HANDLING
-========================================= */
+/* ================================
+   ERROR HANDLERS
+================================ */
 
 process.on(
   "uncaughtException",
@@ -1042,7 +664,6 @@ process.on(
       "UNCAUGHT EXCEPTION:",
       error
     );
-
   }
 );
 
@@ -1055,6 +676,5 @@ process.on(
       "UNHANDLED REJECTION:",
       error
     );
-
   }
 );
